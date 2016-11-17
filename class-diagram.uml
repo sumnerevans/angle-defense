@@ -1,0 +1,61 @@
+@startuml
+class Game {
+    - lives : int
+    - board : Board
+    - level : Level
+}
+
+Game ..|> Board
+Game ..|> Level
+Game o-- Tower
+Game o-- Player
+
+class Level {
+
+}
+Level o-- Minion
+
+class Board {
+}
+
+class Minion << abstract >> {
+
+}
+
+Minion <|--- GroundUnit
+Minion <|--- AirUnit
+
+class GroundUnit {
+
+}
+
+class AirUnit {
+
+}
+
+class Tower << abstract >> {
+    - angle : double
+}
+
+Tower <|--- AirTower
+Tower <|--- GroundTower
+Tower <|--- AirGroundTower
+
+class AirTower {
+
+}
+
+class GroundTower {
+
+}
+
+class AirGroundTower {
+
+}
+
+class Player {
+    - gold : int
+    - 
+}
+
+@enduml
