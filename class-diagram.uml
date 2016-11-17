@@ -3,59 +3,114 @@ class Game {
     - lives : int
     - board : Board
     - level : Level
+    - context : DrawContext
+    + loop()
+    - tick()
 }
 
 Game ..|> Board
 Game ..|> Level
+Game ..|> DrawContext
+Game ..|> Hud
 Game o-- Tower
 Game o-- Player
 
-class Level {
-
+class DrawContext {
+    - vboHandles : Map<String, Integer>
+    + loadAssets(File dir)
+    + flush(JPanel panel)
+    + drawTower(String asset, int x, int y)
+    + drawUnit(String asset, float x, float y)
+    + drawTile(String asset, int x, int y)
 }
+
+class Hud {
+    - board : JPanel
+    - buttons: ArrayList<JButton>
+    - textLabels : ArrayList<JLabels
+    - drawContent()
+}
+
+class Level {
+    - levelNum : int
+    + tick(Game game)
+}
+
 Level o-- Minion
 
 class Board {
+    + draw(DrawContext context)
+}
+
+Board o-- Square
+
+class Square {
+    + draw(DrawContext context)
 }
 
 class Minion << abstract >> {
-
+    - x : float
+    - y : float
+    - health : int
+    # moveForward(float distance)
+    + attacked(Tower tower, int amount)
+    + draw(DrawContext context)
+    + tick(Game game)
 }
 
 Minion <|--- GroundUnit
 Minion <|--- AirUnit
 
 class GroundUnit {
-
+    + attacked(Tower tower, int amount)
+    + draw(DrawContext context)
+    + tick(Game game)
 }
 
 class AirUnit {
-
+    + attacked(Tower tower, int amount)
+    + draw(DrawContext context)
+    + tick(Game game)
 }
 
 class Tower << abstract >> {
-    - angle : double
+    - x : int
+    - y : int
+    - angle : float
+    - owner : Player
+    + attack(Minion minion)
+    + draw(DrawContext context)
+    + tick(Game game)
 }
 
+Tower ..|> Player
 Tower <|--- AirTower
 Tower <|--- GroundTower
 Tower <|--- AirGroundTower
 
 class AirTower {
-
+    + attack(Minion minion)
+    + draw(DrawContext context)
+    + tick(Game game)
 }
 
 class GroundTower {
-
+    + attack(Minion minion)
+    + draw(DrawContext context)
+    + tick(Game game)
 }
 
 class AirGroundTower {
-
+    + attack(Minion minion)
+    + draw(DrawContext context)
+    + tick(Game game)
 }
 
 class Player {
     - gold : int
-    - 
+    - name : String
+    - guid : String
+    - color : Color
 }
 
 @enduml
