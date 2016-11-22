@@ -1,0 +1,49 @@
+{
+    "numLives": 30,
+    "levels": [
+        {
+            "waves": [
+                {
+                    "minion": "ground",
+                    "stats": { },
+                    "count": 15,
+                    "start": 15,
+                    "end": 20
+                }
+            ]
+        }
+    ],
+    "board": {
+        "image": "default.jpg",
+        "height": 48,
+        "width": 64,
+        "nodes": {
+            "lstart": [
+                0,
+                23,
+                "merge12r"
+            ],
+            "merge12l": [
+                15,
+                23,
+                "turnr"
+            ],
+            "turnl": [
+                15,
+                39,
+                "mergerl"
+            ],
+            "mergerl": [
+                32,
+                39,
+                "end"
+            ],
+            "end": [
+                32,
+                28
+            ]
+        },
+        "startNodes": ["rstart"],
+        "endNodes": ["end"]
+    }
+}

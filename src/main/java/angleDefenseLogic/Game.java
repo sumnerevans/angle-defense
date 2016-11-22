@@ -4,6 +4,7 @@ import angleDefenseGui.*;
 import com.google.gson.*;
 import com.google.gson.stream.*;
 
+import java.beans.Transient;
 import java.io.*;
 import java.util.*;
 
@@ -13,11 +14,12 @@ public class Game {
     private int numLives;
     private Board board;
     private ArrayList<Level> levels;
-    private Level currentLevel;
-    private DrawContext context;
-    private Hud hud;
 
-    private Game() {}
+    private transient  Level currentLevel;
+    private transient DrawContext context;
+    private transient Hud hud;
+
+    public Game() {}
 
     private static InputStream newFileStream(String path) throws FileNotFoundException {
         ClassLoader cl = Board.class.getClassLoader();
