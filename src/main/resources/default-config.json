@@ -1,0 +1,19 @@
+{
+    "Levels": [
+        {
+            "levelNum": 1,
+            "levelType": "ground"
+        },
+        {
+            "levelNum": 2,
+            "levelType": "ground"
+        }
+    ],
+
+    "Board": {
+        "height": 50,
+        "width": 50,
+        "squares": [
+        ]
+    }
+}

@@ -2,6 +2,7 @@ package angleDefenseLogic.Towers;
 
 import angleDefenseGui.DrawContext;
 import angleDefenseLogic.Game;
+import angleDefenseLogic.Minion;
 import angleDefenseLogic.Tower;
 
 public class AirGroundTower extends Tower {
@@ -16,5 +17,10 @@ public class AirGroundTower extends Tower {
     public void tick(Game game) {
         // TODO Auto-generated method stub
         
+    }
+
+    @Override
+    public void attack(Minion minion) {
+        // TODO Implement
     }
 }

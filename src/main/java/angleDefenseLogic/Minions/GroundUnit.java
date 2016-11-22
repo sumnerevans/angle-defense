@@ -1,8 +1,7 @@
 package angleDefenseLogic.Minions;
 
-import angleDefenseGui.DrawContext;
-import angleDefenseLogic.Game;
-import angleDefenseLogic.Minion;
+import angleDefenseGui.*;
+import angleDefenseLogic.*;
 
 public class GroundUnit extends Minion {
 
@@ -15,7 +14,11 @@ public class GroundUnit extends Minion {
     @Override
     public void tick(Game game) {
         // TODO Auto-generated method stub
-        
+
     }
 
+    @Override
+    public void attacked(Tower tower, int amount) {
+        // TODO Implement
+    }
 }
