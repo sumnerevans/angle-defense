@@ -3,8 +3,9 @@ package angleDefenseLogic;
 import angleDefenseGui.*;
 
 public abstract class Minion implements IDrawable, ITickable {
-    float x, y;
-    int health;
+    protected float x, y;
+    protected int health;
+    protected int goldReward;
 
     public void moveForward(float distance) {
         // TODO: Implement

@@ -1,10 +1,10 @@
 package angleDefenseLogic;
 
 public class Level implements ITickable {
-    int levelNum;
-    
+    private int levelNum;
+
     public Level() {
-        
+
     }
 
     @Override
@@ -13,4 +13,7 @@ public class Level implements ITickable {
 
     }
 
+    public int getLevelNum() {
+        return levelNum;
+    }
 }

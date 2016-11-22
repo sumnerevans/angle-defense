@@ -1,4 +1,5 @@
 {
+    "numLives": 30,
     "Levels": [
         {
             "levelNum": 1,
@@ -9,7 +10,6 @@
             "levelType": "ground"
         }
     ],
-
     "Board": {
         "height": 50,
         "width": 50,

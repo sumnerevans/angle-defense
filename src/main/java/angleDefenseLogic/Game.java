@@ -35,4 +35,12 @@ public class Game  {
     public ArrayList<Level> getLevels() {
         return levels;
     }
+
+    public int getLevel() {
+        return currentLevel.getLevelNum();
+    }
+
+    public int getLives() {
+        return lives;
+    }
 }
