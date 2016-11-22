@@ -18,17 +18,17 @@
         "height": 48,
         "width": 64,
         "nodes": {
-            "rstart": [
+            "lstart": [
                 0,
                 23,
                 "merge12r"
             ],
-            "merge12r": [
+            "merge12l": [
                 12,
                 13,
                 "turnr"
             ],
-            "turnr": [
+            "turnl": [
                 15,
                 39,
                 "mergerl"
