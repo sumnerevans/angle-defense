@@ -4,10 +4,10 @@ import angleDefenseGui.DrawContext;
 
 import java.util.*;
 
-public class Game  {
+public class Game {
 
     private String gameConfigSource;
-    private int lives;
+    private int livesRemaining;
     private Board board;
     private ArrayList<Level> levels;
     private Level currentLevel;
@@ -29,18 +29,18 @@ public class Game  {
     }
 
     public Board getBoard() {
-        return board;
+        return this.board;
     }
 
     public ArrayList<Level> getLevels() {
-        return levels;
+        return this.levels;
     }
 
     public int getLevel() {
-        return currentLevel.getLevelNum();
+        return this.currentLevel.getLevelNum();
     }
 
-    public int getLives() {
-        return lives;
+    public int getLivesRemaining() {
+        return this.livesRemaining;
     }
 }

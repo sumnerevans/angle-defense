@@ -31,13 +31,13 @@ public class GameplayTests {
     // Test that the lives are tracked properly
     @Test
     public void testLivesDecrement() {
-        int originalLives = game.getLives();
-        ArrayList<Minion> minions = new ArrayList<Minion>();
+        int originalLives = game.getLivesRemaining();
+        ArrayList<Minion> minions = new ArrayList<>();
 
         // TODO: add some minions and let them march all the way
 
         // Ensure that the number of lives has been decremented by the proper number
-        assertEquals(originalLives - minions.size(), game.getLives());
+        assertEquals(originalLives - minions.size(), game.getLivesRemaining());
     }
 
     // Test Minion advance
