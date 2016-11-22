@@ -2,6 +2,7 @@ package angleDefenseLogic;
 
 public class Level implements ITickable {
     private int levelNum;
+    private String levelType;
 
     public Level() {
 

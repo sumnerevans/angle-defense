@@ -1,6 +1,7 @@
 import angleDefenseLogic.*;
 import org.junit.*;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import static junit.framework.TestCase.*;
@@ -8,14 +9,9 @@ import static junit.framework.TestCase.*;
 public class GameplayTests {
     static private Game game;
 
-    @BeforeClass
-    public static void setUp() {
-        game = new Game();
-    }
-
     @Before
-    public void before() {
-        game.init("default-config.json");
+    public void before() throws FileNotFoundException {
+        game = Game.NewGame("default-config.json");
     }
 
     // Test that the level increments when the player beats a level
@@ -31,13 +27,13 @@ public class GameplayTests {
     // Test that the lives are tracked properly
     @Test
     public void testLivesDecrement() {
-        int originalLives = game.getLivesRemaining();
+        int originalLives = game.getNumLives();
         ArrayList<Minion> minions = new ArrayList<>();
 
         // TODO: add some minions and let them march all the way
 
         // Ensure that the number of lives has been decremented by the proper number
-        assertEquals(originalLives - minions.size(), game.getLivesRemaining());
+        assertEquals(originalLives - minions.size(), game.getNumLives());
     }
 
     // Test Minion advance

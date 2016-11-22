@@ -1,18 +1,44 @@
 package angleDefenseLogic;
 
-import angleDefenseGui.DrawContext;
+import angleDefenseGui.*;
+import com.google.gson.*;
+import com.google.gson.stream.*;
 
+import java.io.*;
 import java.util.*;
 
 public class Game {
 
     private String gameConfigSource;
-    private int livesRemaining;
+    private int numLives;
     private Board board;
     private ArrayList<Level> levels;
     private Level currentLevel;
     private DrawContext context;
     private Hud hud;
+
+    private Game() {}
+
+    private static InputStream newFileStream(String path) throws FileNotFoundException {
+        ClassLoader cl = Board.class.getClassLoader();
+        InputStream stream = cl.getResourceAsStream(path);
+
+        if (stream == null) {
+            try {
+                stream = new FileInputStream(new File(new File("data/"), path));
+            } catch (FileNotFoundException ex) {
+                throw new FileNotFoundException(String.format("Could not find file %s in jar or data/", path));
+            }
+        }
+
+        return stream;
+    }
+
+    public static Game NewGame(String configFile) throws FileNotFoundException {
+        Gson gson = new Gson();
+        BufferedReader r = new BufferedReader(new InputStreamReader(newFileStream(configFile)));
+        return gson.fromJson(r, Game.class);
+    }
 
     public void init(String gameConfigSource) {
         // TODO: This function needs to clear out all old configuration and reinitialize everything
@@ -43,7 +69,7 @@ public class Game {
         return this.currentLevel.getLevelNum();
     }
 
-    public int getLivesRemaining() {
-        return this.livesRemaining;
+    public int getNumLives() {
+        return this.numLives;
     }
 }

@@ -7,7 +7,7 @@ import java.util.*;
 public class Square implements IDrawable {
 
     public enum SquareType {
-        FLAT_GROUND,
+        GROUND,
         TRENCH
     }
 
@@ -37,7 +37,7 @@ public class Square implements IDrawable {
     }
 
     public List<CliffSide> getCliffSides() {
-        return cliffSides;
+        return this.cliffSides;
     }
 
 }

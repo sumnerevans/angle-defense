@@ -11,9 +11,7 @@
         }
     ],
     "Board": {
-        "height": 50,
-        "width": 50,
-        "squares": [
-        ]
+        "height": 48,
+        "width": 64,
     }
 }
