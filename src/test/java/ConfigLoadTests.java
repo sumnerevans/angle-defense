@@ -42,7 +42,21 @@ public class ConfigLoadTests {
         assertTrue(board.getSquare(33, 30).getDecorations().contains(Square.Decoration.PILLAR));
         assertTrue(board.getSquare(32, 28).getDecorations().contains(Square.Decoration.PILLAR));
 
-        // TODO: Test some squares and ensure that they have the correct cliff sides
+        // Test some squares and ensure that they have the correct cliff sides
+        assertTrue(board.getSquare(24, 4).getCliffSides().contains(Square.CliffSide.RIGHT));
+        assertTrue(board.getSquare(27, 4).getCliffSides().contains(Square.CliffSide.LEFT));
+        assertTrue(board.getSquare(33, 40).getCliffSides().contains(Square.CliffSide.TOP));
+        assertTrue(board.getSquare(40, 38).getCliffSides().contains(Square.CliffSide.BOTTOM));
+
+        List<Square.CliffSide> cliffSides4616 = board.getSquare(46, 16).getCliffSides();
+        assertTrue(cliffSides4616.contains(Square.CliffSide.TOP));
+        assertTrue(cliffSides4616.contains(Square.CliffSide.LEFT));
+        assertTrue(cliffSides4616.size() == 2);
+
+        List<Square.CliffSide> cliffSides2413 = board.getSquare(24, 13).getCliffSides();
+        assertTrue(cliffSides2413.contains(Square.CliffSide.RIGHT));
+        assertTrue(cliffSides2413.contains(Square.CliffSide.BOTTOM));
+        assertTrue(cliffSides4616.size() == 2);
     }
 
     // Test level configuration load: Ensure that the level configuration was loaded correctly
@@ -51,7 +65,7 @@ public class ConfigLoadTests {
         List<Level> levels = game.getLevels();
 
         // Ensure that the correct number of levels were loaded
-        assertEquals(10, levels.size());
+        assertEquals(1, levels.size());
 
         // TODO: Test a few levels ensuring that their configuration was loaded correctly
     }
