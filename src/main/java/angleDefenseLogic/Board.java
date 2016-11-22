@@ -25,4 +25,8 @@ public class Board implements IDrawable {
     public int getHeight() {
         return height;
     }
+
+    public Square getSquare(int x, int y) {
+        return this.squares[x][y];
+    }
 }

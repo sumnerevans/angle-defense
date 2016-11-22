@@ -17,6 +17,9 @@ public class Game {
     public void init(String gameConfigSource) {
         // TODO: This function needs to clear out all old configuration and reinitialize everything
         this.gameConfigSource = gameConfigSource;
+
+        this.hud = new Hud();
+        this.context = new DrawContext();
     }
 
     public void loop() {

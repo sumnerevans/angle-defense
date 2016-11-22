@@ -1,4 +1,5 @@
 import angleDefenseLogic.Game;
+import angleDefenseLogic.Square;
 import org.junit.*;
 
 import static junit.framework.TestCase.*;
@@ -24,7 +25,13 @@ public class ConfigLoadTests {
         assertEquals(50, game.getBoard().getHeight());
         assertEquals(50, game.getBoard().getWidth());
 
-        // TODO: Test a few of the squares and ensure that they are of the proper type
+        // Test a few of the squares and ensure that they are of the proper type
+        assertEquals(Square.SquareType.FLAT_GROUND, game.getBoard().getSquare(0, 0).getSquareType());
+
+        // TODO: Test a few more squares and ensure that they are of the proper type
+
+
+        // TODO: Test some squares and ensure that they have the correct cliff sides
     }
 
     // Test level configuration load: Ensure that the level configuration was loaded correctly
