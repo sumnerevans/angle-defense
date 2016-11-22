@@ -12,6 +12,7 @@ public class ConfigLoadTests {
 
     @Before
     public void before() throws FileNotFoundException {
+        // Reinitialize the game for every test
         game = Game.NewGame("test-config.json");
     }
 
@@ -21,8 +22,8 @@ public class ConfigLoadTests {
         Board board = game.getBoard();
 
         // Ensure that the width and height of the board are correct
-        assertEquals(50, board.getHeight());
-        assertEquals(50, board.getWidth());
+        assertEquals(48, board.getHeight());
+        assertEquals(64, board.getWidth());
 
         // Test a few of the squares and ensure that they are of the proper type
         assertEquals(Square.SquareType.GROUND, board.getSquare(0, 0).getSquareType());
@@ -69,7 +70,7 @@ public class ConfigLoadTests {
 
         Level firstLevel = levels.get(0);
 
-        // TODO: Test a few levels ensuring that their configuration was loaded correctly
+        // Test a few levels ensuring that their configuration was loaded correctly
         assertEquals(Minion.Type.GROUND, firstLevel.getWave(0).getMinionType());
         assertEquals(15, firstLevel.getWave(0).getCount());
         assertEquals(15, firstLevel.getWave(0).getStart());

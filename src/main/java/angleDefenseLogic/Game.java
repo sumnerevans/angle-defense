@@ -2,9 +2,6 @@ package angleDefenseLogic;
 
 import angleDefenseGui.*;
 import com.google.gson.*;
-import com.google.gson.stream.*;
-
-import java.beans.Transient;
 import java.io.*;
 import java.util.*;
 
