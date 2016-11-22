@@ -1,8 +1,11 @@
 package angleDefenseLogic;
 
+import java.util.*;
+
 public class Level implements ITickable {
     private int levelNum;
     private String levelType;
+    private ArrayList<Wave> waves;
 
     public Level() {
 
@@ -16,5 +19,9 @@ public class Level implements ITickable {
 
     public int getLevelNum() {
         return levelNum;
+    }
+
+    public Wave getWave(int index) {
+        return this.waves.get(index);
     }
 }

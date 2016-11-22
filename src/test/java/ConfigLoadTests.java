@@ -67,7 +67,13 @@ public class ConfigLoadTests {
         // Ensure that the correct number of levels were loaded
         assertEquals(1, levels.size());
 
+        Level firstLevel = levels.get(0);
+
         // TODO: Test a few levels ensuring that their configuration was loaded correctly
+        assertEquals(Minion.Type.GROUND, firstLevel.getWave(0).getMinionType());
+        assertEquals(15, firstLevel.getWave(0).getCount());
+        assertEquals(15, firstLevel.getWave(0).getStart());
+        assertEquals(20, firstLevel.getWave(0).getEnd());
     }
 
 }
