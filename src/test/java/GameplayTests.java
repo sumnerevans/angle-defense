@@ -25,14 +25,14 @@ public class GameplayTests {
     public void testLevelIncrement() {
         Tower boom = new GroundTower();
 
-        // TODO: add a bunch of minions
+        // add a bunch of minions
         Minion one = new GroundUnit();
         Minion two = new GroundUnit();
         Minion three = new GroundUnit();
         Minion four = new GroundUnit();
         Minion five = new GroundUnit();
         Minion six = new GroundUnit();
-        // TODO: kill all the minions
+        // kill all the minions
 
         one.attacked(boom, Integer.MAX_VALUE);
         two.attacked(boom, Integer.MAX_VALUE);
@@ -51,7 +51,7 @@ public class GameplayTests {
         int originalLives = game.getNumLives();
         ArrayList<Minion> minions = new ArrayList<>();
 
-        // TODO: add some minions and let them march all the way
+        // add some minions and let them march all the way
         Minion one = new GroundUnit();
 
         minions.add(one);
@@ -69,10 +69,13 @@ public class GameplayTests {
     // Test Minion advance
     @Test
     public void testMinionAdvance() {
-        Minion one = new GroundUnit();
-        Minion two = new AirUnit();
+        Minion ground = new GroundUnit();
+        Minion air = new AirUnit();
 
+        // level takes in minion, random start
 
+        one._setPostion(13,2);
+        two._setPostion(14,2);
         // TODO: Ensure that the minions advance at the correct speeds
 
         // TODO: Ensure that the minions stay on the paths as they advance.
@@ -84,7 +87,7 @@ public class GameplayTests {
     public void testTowerFileAngle() {
         Board board = new Board(64,48);
         // TODO: DO THESE TESTS FOR ALL TOWER TYPES
-        // TODO: Place a tower and set its angle
+        // Place a tower and set its angle
         Tower bang = new AirGroundTower();
         Tower pew = new AirTower();
         Tower kaboom = new GroundTower();
@@ -99,6 +102,7 @@ public class GameplayTests {
 
         // TODO: Place a minion and place it on a spot where the tower can hit it
         Minion ded = new GroundUnit();
+        ded._setPostion(26,13);
         // TODO: Have the tower attack the minion and ensure that the minion dies
 
         // TODO: Place a tower and set its angle
@@ -136,16 +140,16 @@ public class GameplayTests {
     @Test
     public void testPlayerGoldReward() {
         Player test = new Player("test", Color.BLUE);
-        // TODO: Place a tower
+        // Place a tower
         Tower pew = new AirTower();
 
-        // TODO: Place a minion
+        // Place a minion
         Minion eek = new AirUnit();
 
-        // TODO: Kill a minion
+        // Kill a minion
         eek.attacked(pew, Integer.MAX_VALUE);
 
-        // TODO: Ensure that the player's gold is incremented by the value of the minion
+        // Ensure that the player's gold is incremented by the value of the minion
         assertEquals(test.getGold(), eek.getGoldReward());
     }
 
