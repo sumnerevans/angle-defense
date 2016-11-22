@@ -1,4 +1,6 @@
 import angleDefenseLogic.*;
+import angleDefenseLogic.Minions.GroundUnit;
+import angleDefenseLogic.Towers.GroundTower;
 import org.junit.*;
 
 import java.io.FileNotFoundException;
@@ -17,8 +19,23 @@ public class GameplayTests {
     // Test that the level increments when the player beats a level
     @Test
     public void testLevelIncrement() {
+        Tower boom = new GroundTower();
+
         // TODO: add a bunch of minions
+        Minion one = new GroundUnit();
+        Minion two = new GroundUnit();
+        Minion three = new GroundUnit();
+        Minion four = new GroundUnit();
+        Minion five = new GroundUnit();
+        Minion six = new GroundUnit();
         // TODO: kill all the minions
+
+        one.attacked(boom, Integer.MAX_VALUE);
+        two.attacked(boom, Integer.MAX_VALUE);
+        three.attacked(boom, Integer.MAX_VALUE);
+        four.attacked(boom, Integer.MAX_VALUE);
+        five.attacked(boom, Integer.MAX_VALUE);
+        six.attacked(boom, Integer.MAX_VALUE);
 
         // Ensure that the level was incremented
         assertEquals(2, game.getLevel());
