@@ -21,4 +21,6 @@ public class AirUnit extends Minion {
     public void attacked(Tower tower, int amount) {
         // TODO Implement
     }
+
+
 }

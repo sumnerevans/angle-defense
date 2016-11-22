@@ -117,12 +117,15 @@ public class GameplayTests {
 
         bang.setAngle(0);
         pew.setAngle(0);
-        kaboom.setAngle(0);
+        kaboom.setAngle(-1);
 
         bang.setPosition(24, 13);
-        pew.setPosition(24,12);
-        kaboom.setPosition(24,11);
+        pew.setPosition(13,35);
+        kaboom.setPosition(48,21);
         // TODO: Place a few minions of the correct type in the fire area of the tower.
+        Minion runt = new GroundUnit();
+
+
         // TODO: Ensure that the minions die
 
         // TODO: Place a few minions of the incorrect type in the fire area of the tower.
@@ -135,12 +138,15 @@ public class GameplayTests {
         Player test = new Player("test", Color.BLUE);
         // TODO: Place a tower
         Tower pew = new AirTower();
+
         // TODO: Place a minion
         Minion eek = new AirUnit();
+
         // TODO: Kill a minion
         eek.attacked(pew, Integer.MAX_VALUE);
+
         // TODO: Ensure that the player's gold is incremented by the value of the minion
-        assertEquals(test.getGold(),3); // TODO: change the 3 to whatever gold amount it should be
+        assertEquals(test.getGold(), eek.getGoldReward());
     }
 
 }
