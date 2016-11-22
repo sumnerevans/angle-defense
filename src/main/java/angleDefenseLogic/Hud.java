@@ -11,7 +11,19 @@ public class Hud {
     private ArrayList<JButton> buttons;
     private ArrayList<JLabel> textLabels;
 
+    public Hud() {
+        board = new JPanel();
+        buttons = new ArrayList<>();
+        textLabels = new ArrayList<>();
+
+
+    }
+
     public void drawContent() {
         // TODO: Implement
+    }
+
+    public void createButton() {
+        // TODO: make this take in an image and return a button object
     }
 }
