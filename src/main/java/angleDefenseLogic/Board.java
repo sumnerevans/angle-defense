@@ -1,6 +1,6 @@
 package angleDefenseLogic;
 
-import angleDefenseGui.*;
+import angleDefenseGui.DrawContext;
 
 public class Board implements IDrawable {
 

@@ -1,14 +1,15 @@
-package angleDefenseLogic.Minions;
+package angleDefenseLogic.Towers;
 
-import angleDefenseGui.*;
-import angleDefenseLogic.*;
+import angleDefenseGui.DrawContext;
+import angleDefenseLogic.Game;
+import angleDefenseLogic.Tower;
 
-public class AirUnit extends Minion {
+public class AirGroundTower extends Tower {
 
     @Override
     public void draw(DrawContext drawContext) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -16,5 +17,4 @@ public class AirUnit extends Minion {
         // TODO Auto-generated method stub
         
     }
-
 }

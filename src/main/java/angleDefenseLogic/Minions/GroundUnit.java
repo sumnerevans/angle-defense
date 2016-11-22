@@ -1,7 +1,8 @@
 package angleDefenseLogic.Minions;
 
-import angleDefenseGui.*;
-import angleDefenseLogic.*;
+import angleDefenseGui.DrawContext;
+import angleDefenseLogic.Game;
+import angleDefenseLogic.Minion;
 
 public class GroundUnit extends Minion {
 

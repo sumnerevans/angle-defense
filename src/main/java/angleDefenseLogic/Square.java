@@ -1,6 +1,6 @@
 package angleDefenseLogic;
 
-import angleDefenseGui.*;
+import angleDefenseGui.DrawContext;
 
 public class Square implements IDrawable {
     private int x, y;

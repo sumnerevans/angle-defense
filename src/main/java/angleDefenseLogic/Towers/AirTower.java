@@ -1,9 +1,10 @@
 package angleDefenseLogic.Towers;
 
-import angleDefenseGui.*;
-import angleDefenseLogic.*;
+import angleDefenseGui.DrawContext;
+import angleDefenseLogic.Game;
+import angleDefenseLogic.Tower;
 
-public class AirGroundTower extends Tower {
+public class AirTower extends Tower {
 
     @Override
     public void draw(DrawContext drawContext) {
