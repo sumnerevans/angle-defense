@@ -5,7 +5,7 @@ import java.security.InvalidParameterException;
 import java.util.*;
 
 /**
- * Created by sumner on 11/21/16.
+ * Created by Sumner on 11/21/16.
  */
 public class Player {
     private int gold;
