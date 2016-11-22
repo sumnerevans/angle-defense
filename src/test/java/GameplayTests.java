@@ -48,6 +48,15 @@ public class GameplayTests {
         ArrayList<Minion> minions = new ArrayList<>();
 
         // TODO: add some minions and let them march all the way
+        Minion one = new GroundUnit();
+
+        minions.add(one);
+        minions.add(one);
+        minions.add(one);
+
+        for (Minion m : minions) {
+            m.moveForward(Float.MAX_VALUE);
+        }
 
         // Ensure that the number of lives has been decremented by the proper number
         assertEquals(originalLives - minions.size(), game.getNumLives());
