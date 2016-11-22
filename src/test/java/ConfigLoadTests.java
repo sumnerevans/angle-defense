@@ -12,7 +12,7 @@ public class ConfigLoadTests {
 
     @Before
     public void before() throws FileNotFoundException {
-        game = Game.NewGame("default-config.json");
+        game = Game.NewGame("test-config.json");
     }
 
     // Test board configuration load: Ensure that the board configuration was loaded properly
