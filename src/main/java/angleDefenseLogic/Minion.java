@@ -12,4 +12,6 @@ public abstract class Minion implements IDrawable, ITickable {
     }
 
     abstract public void attacked(Tower tower, int amount);
+
+
 }
