@@ -1,12 +1,16 @@
 package angleDefenseLogic;
 
 import angleDefenseGui.*;
+import com.google.gson.annotations.SerializedName;
 
 import java.awt.*;
 
 public abstract class Minion implements IDrawable, ITickable {
     public enum Type {
-        GROUND, AIR
+		@SerializedName("ground")
+        GROUND,
+		@SerializedName("air")
+		AIR
     }
 
     protected int health;
