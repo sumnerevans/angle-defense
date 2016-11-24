@@ -43,7 +43,7 @@
                 28
             ]
         },
-        "startNodes": ["rstart"],
+        "startNodes": ["lstart"],
         "endNodes": ["end"]
     }
 }
