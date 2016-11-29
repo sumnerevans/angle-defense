@@ -1,9 +1,7 @@
 package angleDefenseLogic.Towers;
 
-import angleDefenseGui.DrawContext;
-import angleDefenseLogic.Game;
-import angleDefenseLogic.Minion;
-import angleDefenseLogic.Tower;
+import angleDefenseGui.*;
+import angleDefenseLogic.*;
 
 public class GroundTower extends Tower {
 
@@ -16,7 +14,7 @@ public class GroundTower extends Tower {
     @Override
     public void tick(Game game) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override

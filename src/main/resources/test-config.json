@@ -5,7 +5,7 @@
             "waves": [
                 {
                     "minion": "ground",
-                    "stats": { },
+                    "stats": {},
                     "count": 15,
                     "start": 15,
                     "end": 20
@@ -43,7 +43,34 @@
                 28
             ]
         },
-        "startNodes": ["lstart"],
-        "endNodes": ["end"]
+        "startNodes": [
+            "lstart"
+        ],
+        "endNodes": [
+            "end"
+        ],
+        "decorations": [
+            {
+                "type": "pillar",
+                "location": {
+                    "x": 30,
+                    "y": 30
+                }
+            },
+            {
+                "type": "pillar",
+                "location": {
+                    "x": 33,
+                    "y": 30
+                }
+            },
+            {
+                "type": "flag",
+                "location": {
+                    "x": 32,
+                    "y": 28
+                }
+            }
+        ]
     }
 }
