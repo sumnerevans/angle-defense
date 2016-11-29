@@ -83,8 +83,6 @@ public class GameplayTests {
     // Test tower fire angle
     @Test
     public void testTowerFileAngle() {
-        Board board = new Board(64, 48);
-
         // Place a tower and set its angle
         Tower airGroundTower = new AirGroundTower();
         Tower airTower = new AirTower();

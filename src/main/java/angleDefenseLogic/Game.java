@@ -38,7 +38,8 @@ public class Game {
 
     public static Game NewGame(String configFile) throws FileNotFoundException {
         // Create a Game object from the config JSON
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Board.class, new Board.Builder())
+                .setPrettyPrinting().create();
         BufferedReader r = new BufferedReader(new InputStreamReader(newFileStream(configFile)));
         return gson.fromJson(r, Game.class);
     }

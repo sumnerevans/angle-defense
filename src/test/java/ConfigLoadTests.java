@@ -38,10 +38,10 @@ public class ConfigLoadTests {
         assertEquals(Square.SquareType.TRENCH, board.getSquare(48, 38).getSquareType());
         assertEquals(Square.SquareType.TRENCH, board.getSquare(31, 38).getSquareType());
 
-        // Ensure that the correct squares have decorations
-        assertTrue(board.getSquare(30, 30).getDecorations().contains(Square.Decoration.PILLAR));
-        assertTrue(board.getSquare(33, 30).getDecorations().contains(Square.Decoration.PILLAR));
-        assertTrue(board.getSquare(32, 28).getDecorations().contains(Square.Decoration.FLAG));
+        // Ensure that one of the squares with a decoration has it.
+        assertTrue(Arrays.stream(board.getDecorations()).anyMatch(d -> {
+            return d.type == Decoration.Type.PILLAR && d.location.equals(30, 30);
+        }));
 
         // Test some squares and ensure that they have the correct cliff sides
         assertTrue(board.getSquare(24, 4).getCliffSides().contains(Square.CliffSide.RIGHT));

@@ -21,12 +21,12 @@
             "lstart": [
                 0,
                 23,
-                "merge12r"
+                "merge12l"
             ],
             "merge12l": [
                 15,
                 23,
-                "turnr"
+                "turnl"
             ],
             "turnl": [
                 15,
