@@ -1,11 +1,13 @@
 package angleDefenseLogic;
 
-import com.google.gson.JsonObject;
+import com.google.gson.*;
+import com.google.gson.annotations.*;
 
 /**
  * Created by sumner on 11/22/16.
  */
 public class Wave {
+    @SerializedName("minion")
     private Minion.Type minionType;
     private int count, start, end;
     private JsonObject stats;

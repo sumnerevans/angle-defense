@@ -9,26 +9,29 @@ import java.util.*;
 
 import static junit.framework.TestCase.*;
 
-public class GameplayTests {
+public class GameplayTests extends TestBase {
     static private Game game;
+    static private Player player;
 
+    // Always reinitialize everything for each test
     @Before
     public void before() throws FileNotFoundException {
+        player = new Player("test", Color.BLUE);
         game = Game.NewGame("test-config.json");
     }
 
     // Test that the level increments when the player beats a level
     @Test
     public void testLevelIncrement() {
-        Tower boom = new GroundTower();
+        Tower boom = new GroundTower(player);
 
         // add a bunch of minions
-        Minion one = new GroundUnit();
-        Minion two = new GroundUnit();
-        Minion three = new GroundUnit();
-        Minion four = new GroundUnit();
-        Minion five = new GroundUnit();
-        Minion six = new GroundUnit();
+        Minion one = new GroundUnit(1, 1);
+        Minion two = new GroundUnit(1, 1);
+        Minion three = new GroundUnit(1, 1);
+        Minion four = new GroundUnit(1, 1);
+        Minion five = new GroundUnit(1, 1);
+        Minion six = new GroundUnit(1, 1);
 
         // kill all the minions
         one.attacked(boom, Integer.MAX_VALUE);
@@ -39,7 +42,7 @@ public class GameplayTests {
         six.attacked(boom, Integer.MAX_VALUE);
 
         // Ensure that the level was incremented
-        assertEquals(2, game.getLevel());
+        assertEquals(2, game.getLevel().getLevelNum());
     }
 
     // Test that the lives are tracked properly
@@ -50,7 +53,7 @@ public class GameplayTests {
 
         // add some minions and let them march all the way
         for (int i = 0; i < 5; i++)
-            minions.add(new GroundUnit());
+            minions.add(new GroundUnit(1, 1));
 
         for (Minion m : minions)
             m.moveForward(Float.MAX_VALUE);
@@ -62,8 +65,8 @@ public class GameplayTests {
     // Test Minion advance
     @Test
     public void testMinionAdvance() {
-        Minion ground = new GroundUnit();
-        Minion air = new AirUnit();
+        Minion ground = new GroundUnit(1, 1);
+        Minion air = new AirUnit(1, 1);
 
         // level takes in minion, random start
 
@@ -83,12 +86,10 @@ public class GameplayTests {
     // Test tower fire angle
     @Test
     public void testTowerFileAngle() {
-        Board board = new Board(64, 48);
-
         // Place a tower and set its angle
-        Tower airGroundTower = new AirGroundTower();
-        Tower airTower = new AirTower();
-        Tower groundTower = new GroundTower();
+        Tower airGroundTower = new AirGroundTower(player);
+        Tower airTower = new AirTower(player);
+        Tower groundTower = new GroundTower(player);
 
         airGroundTower.setAngle(0);
         airTower.setAngle(0);
@@ -99,7 +100,7 @@ public class GameplayTests {
         groundTower.setPosition(24, 11);
 
         // Place a minion and place it on a spot where the tower can hit it
-        Minion groundUnit = new GroundUnit();
+        Minion groundUnit = new GroundUnit(1, 1);
         groundUnit._setLocation(26, 13);
 
         // TODO: PHASE 2: Have the tower attack the minion and ensure that the minion dies
@@ -113,9 +114,9 @@ public class GameplayTests {
     @Test
     public void testTowerAttackMechanisms() {
         // Place one of each type of tower
-        Tower airGroundTower = new AirGroundTower();
-        Tower airTower = new AirTower();
-        Tower groundTower = new GroundTower();
+        Tower airGroundTower = new AirGroundTower(player);
+        Tower airTower = new AirTower(player);
+        Tower groundTower = new GroundTower(player);
 
         airGroundTower.setAngle(0);
         airTower.setAngle(0);
@@ -126,7 +127,7 @@ public class GameplayTests {
         groundTower.setPosition(48, 21);
 
         // TODO: PHASE 2: Place a few minions of the correct type in the fire area of the tower.
-        Minion groundUnit = new GroundUnit();
+        Minion groundUnit = new GroundUnit(1, 1);
         groundUnit._setLocation(45, 21);
 
         // TODO: PHASE 2: Ensure that the minions die
@@ -139,16 +140,16 @@ public class GameplayTests {
     // Test player gold reward
     @Test
     public void testPlayerGoldReward() {
-        Player player = new Player("test", Color.BLUE);
 
         // Place a tower and minion
-        Tower tower = new AirTower();
-        Minion minion = new AirUnit();
+        Tower tower = new AirTower(player);
+        Minion minion = new AirUnit(1, 1);
 
         // Kill the minion
         minion.attacked(tower, Integer.MAX_VALUE);
 
         // Ensure that the player's gold is incremented by the value of the minion
+        // TODO: UPDATE TO THE CORRECT GOLD REWARD
         assertEquals(5, player.getGold());
     }
 

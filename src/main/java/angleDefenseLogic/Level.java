@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Level implements ITickable {
     private int levelNum;
-    private String levelType;
     private ArrayList<Wave> waves;
 
     public Level() {
