@@ -5,6 +5,10 @@ import angleDefenseLogic.*;
 
 public class GroundTower extends Tower {
 
+    public GroundTower(Player owner) {
+        super(owner);
+    }
+
     @Override
     public void draw(DrawContext drawContext) {
         // TODO Auto-generated method stub

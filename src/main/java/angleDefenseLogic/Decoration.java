@@ -27,4 +27,22 @@ public class Decoration implements IDrawable {
     public void draw(DrawContext drawContext) {
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Decoration that = (Decoration) o;
+
+        if (type != that.type) return false;
+        return location.equals(that.location);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type.hashCode();
+        result = 31 * result + location.hashCode();
+        return result;
+    }
 }

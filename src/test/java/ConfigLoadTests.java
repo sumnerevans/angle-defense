@@ -6,7 +6,7 @@ import java.util.*;
 
 import static junit.framework.TestCase.*;
 
-public class ConfigLoadTests {
+public class ConfigLoadTests extends TestBase {
 
     static Game game;
 
@@ -39,25 +39,25 @@ public class ConfigLoadTests {
         assertEquals(Square.SquareType.TRENCH, board.getSquare(31, 38).getSquareType());
 
         // Ensure that one of the squares with a decoration has it.
-        assertTrue(Arrays.stream(board.getDecorations()).anyMatch(d -> {
+        assertContains(board.getDecorations(), d -> {
             return d.type == Decoration.Type.PILLAR && d.location.equals(30, 30);
-        }));
+        });
 
         // Test some squares and ensure that they have the correct cliff sides
-        assertTrue(board.getSquare(24, 4).getCliffSides().contains(Square.CliffSide.RIGHT));
-        assertTrue(board.getSquare(27, 4).getCliffSides().contains(Square.CliffSide.LEFT));
-        assertTrue(board.getSquare(33, 40).getCliffSides().contains(Square.CliffSide.TOP));
-        assertTrue(board.getSquare(40, 38).getCliffSides().contains(Square.CliffSide.BOTTOM));
+        assertContains(board.getSquare(24, 4).getCliffSides(), Square.CliffSide.RIGHT);
+        assertContains(board.getSquare(27, 4).getCliffSides(), Square.CliffSide.LEFT);
+        assertContains(board.getSquare(33, 40).getCliffSides(), Square.CliffSide.TOP);
+        assertContains(board.getSquare(40, 38).getCliffSides(), Square.CliffSide.BOTTOM);
 
-        List<Square.CliffSide> cliffSides4616 = board.getSquare(46, 16).getCliffSides();
-        assertTrue(cliffSides4616.contains(Square.CliffSide.TOP));
-        assertTrue(cliffSides4616.contains(Square.CliffSide.LEFT));
-        assertTrue(cliffSides4616.size() == 2);
+        Square.CliffSide[] cliffSides4616 = board.getSquare(46, 16).getCliffSides();
+        assertContains(cliffSides4616, Square.CliffSide.RIGHT);
+        assertContains(cliffSides4616, Square.CliffSide.LEFT);
+        assertTrue(cliffSides4616.length == 2);
 
-        List<Square.CliffSide> cliffSides2413 = board.getSquare(24, 13).getCliffSides();
-        assertTrue(cliffSides2413.contains(Square.CliffSide.RIGHT));
-        assertTrue(cliffSides2413.contains(Square.CliffSide.BOTTOM));
-        assertTrue(cliffSides4616.size() == 2);
+        Square.CliffSide[] cliffSides2413 = board.getSquare(24, 13).getCliffSides();
+        assertContains(cliffSides2413, Square.CliffSide.RIGHT);
+        assertContains(cliffSides2413, Square.CliffSide.BOTTOM);
+        assertTrue(cliffSides4616.length == 2);
     }
 
     // Test level configuration load: Ensure that the level configuration was loaded correctly
@@ -66,11 +66,10 @@ public class ConfigLoadTests {
         List<Level> levels = game.getLevels();
 
         // Ensure that the correct number of levels were loaded
-        assertEquals(1, levels.size());
+        assertEquals(2, levels.size());
 
+        // Test the first level and ensuring that the configuration was loaded correctly
         Level firstLevel = levels.get(0);
-
-        // Test a few levels ensuring that their configuration was loaded correctly
         assertEquals(Minion.Type.GROUND, firstLevel.getWave(0).getMinionType());
         assertEquals(15, firstLevel.getWave(0).getCount());
         assertEquals(15, firstLevel.getWave(0).getStart());

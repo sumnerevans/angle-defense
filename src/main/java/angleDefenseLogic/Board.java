@@ -65,11 +65,29 @@ public class Board implements IDrawable {
             Decoration[] decorations = gson.fromJson(jobject.get("decorations").getAsJsonArray(),
                     decorationsType);
 
+            // Create the squares array
             Square[][] squares = new Square[width][height];
+
+            Type squaresType = new TypeToken<String[]>() {
+            }.getType();
+
+            String[] squareTypes = gson.fromJson(jobject.get("squareTypes").getAsJsonArray(),
+                    squaresType);
+
             for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
+                    Square.SquareType squareType;
+
+                    // If this is a trench, set that as the squareType
+                    if (squareTypes[j].charAt(i) == 'T')
+                        squareType = Square.SquareType.TRENCH;
+                    else
+                        squareType = Square.SquareType.GROUND;
+
                     // TODO: Make this work
-                    squares[i][j] = new Square(i, j, null, null);
+                    Square.CliffSide[] cliffSides = null;
+
+                    squares[i][j] = new Square(i, j, squareType, cliffSides);
                 }
             }
 
@@ -97,6 +115,9 @@ public class Board implements IDrawable {
             return out;
         }
 
+        private Location buildLocation(JsonArray locationJson) {
+            return new Location(locationJson.get(0).getAsFloat(), locationJson.get(1).getAsFloat());
+        }
     }
 
     @Override

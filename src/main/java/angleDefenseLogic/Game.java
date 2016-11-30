@@ -41,7 +41,10 @@ public class Game {
         Gson gson = new GsonBuilder().registerTypeAdapter(Board.class, new Board.Builder())
                 .setPrettyPrinting().create();
         BufferedReader r = new BufferedReader(new InputStreamReader(newFileStream(configFile)));
-        return gson.fromJson(r, Game.class);
+
+        Game g = gson.fromJson(r, Game.class);
+        g.currentLevel = g.levels.get(0);
+        return g;
     }
 
     public void loop() {
@@ -61,8 +64,8 @@ public class Game {
         return this.levels;
     }
 
-    public int getLevel() {
-        return this.currentLevel.getLevelNum();
+    public Level getLevel() {
+        return this.currentLevel;
     }
 
     public int getNumLives() {

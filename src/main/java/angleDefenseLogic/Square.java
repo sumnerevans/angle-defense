@@ -5,8 +5,6 @@ import angleDefenseGui.DrawContext;
 import java.util.*;
 
 public class Square implements IDrawable {
-
-
     public enum SquareType {
         GROUND, TRENCH
     }
@@ -17,9 +15,9 @@ public class Square implements IDrawable {
 
     private int x, y;
     private SquareType squareType;
-    private List<CliffSide> cliffSides;
+    private CliffSide[] cliffSides;
 
-    public Square(int x, int y, SquareType squareType, List<CliffSide> cliffSides) {
+    public Square(int x, int y, SquareType squareType, CliffSide[] cliffSides) {
         this.x = x;
         this.y = y;
         this.squareType = squareType;
@@ -36,7 +34,7 @@ public class Square implements IDrawable {
         return this.squareType;
     }
 
-    public List<CliffSide> getCliffSides() {
+    public CliffSide[] getCliffSides() {
         return this.cliffSides;
     }
 }
