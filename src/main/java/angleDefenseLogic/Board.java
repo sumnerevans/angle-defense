@@ -65,29 +65,53 @@ public class Board implements IDrawable {
             Decoration[] decorations = gson.fromJson(jobject.get("decorations").getAsJsonArray(),
                     decorationsType);
 
-            // Create the squares array
-            Square[][] squares = new Square[width][height];
-
-            Type squaresType = new TypeToken<String[]>() {
+            // Deserialize the squareTypes
+            Type stringArrayType = new TypeToken<String[]>() {
             }.getType();
 
             String[] squareTypes = gson.fromJson(jobject.get("squareTypes").getAsJsonArray(),
-                    squaresType);
+                    stringArrayType);
+
+            // Create and populate the squares array
+            Square[][] squares = new Square[width][height];
 
             for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
                     Square.SquareType squareType;
 
-                    // If this is a trench, set that as the squareType
                     if (squareTypes[j].charAt(i) == 'T')
                         squareType = Square.SquareType.TRENCH;
                     else
                         squareType = Square.SquareType.GROUND;
 
-                    // TODO: Make this work
-                    Square.CliffSide[] cliffSides = null;
+                    // Create and populate the cliff sides
+                    ArrayList<Square.CliffSide> cliffSides = new ArrayList<>();
 
-                    squares[i][j] = new Square(i, j, squareType, cliffSides);
+                    // Add the appropriate cliffSides
+                    if (squareType == Square.SquareType.GROUND) {
+                        // TOP
+                        if (j - 1 > 0 && squareTypes[j - 1].charAt(i) == 'T') {
+                            cliffSides.add(Square.CliffSide.TOP);
+                        }
+
+                        // RIGHT
+                        if (i + 1 < squareTypes[j].length() && squareTypes[j].charAt(i + 1) == 'T') {
+                            cliffSides.add(Square.CliffSide.RIGHT);
+                        }
+
+                        // BOTTOM
+                        if (j + 1 < squareTypes.length && squareTypes[j + 1].charAt(i) == 'T') {
+                            cliffSides.add(Square.CliffSide.BOTTOM);
+                        }
+
+                        // LEFT
+                        if (i - 1 > 0 && squareTypes[j].charAt(i - 1) == 'T') {
+                            cliffSides.add(Square.CliffSide.LEFT);
+                        }
+                    }
+
+                    squares[i][j] = new Square(i, j, squareType, cliffSides.toArray(new Square
+                            .CliffSide[0]));
                 }
             }
 
