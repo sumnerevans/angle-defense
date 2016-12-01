@@ -7,6 +7,10 @@ public abstract class Tower implements IDrawable, ITickable {
     protected Player owner;
     protected int price;
 
+    public Tower(Player owner) {
+        this.owner = owner;
+    }
+
     public abstract void attack(Minion minion);
 
     public void setAngle(float angle) {
@@ -17,4 +21,7 @@ public abstract class Tower implements IDrawable, ITickable {
         // TODO: moves the tower to the specified x,y coordinates
     }
 
+    public Player getOwner() {
+        return owner;
+    }
 }
