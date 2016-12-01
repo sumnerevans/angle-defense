@@ -2,7 +2,7 @@ package angleDefenseLogic;
 
 import angleDefenseGui.*;
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.reflect.*;
 
 import javax.imageio.*;
 import java.awt.*;
@@ -37,25 +37,24 @@ public class Board implements IDrawable {
         @Override
         public Board deserialize(JsonElement json, Type type, JsonDeserializationContext context)
                 throws JsonParseException {
-            JsonObject jobject = json.getAsJsonObject();
+            JsonObject jsonObject = json.getAsJsonObject();
 
             // Deserialize the primitives
-            int width = jobject.get("width").getAsInt();
-            int height = jobject.get("height").getAsInt();
-            String imageName = jobject.get("image").getAsString();
+            int width = jsonObject.get("width").getAsInt();
+            int height = jsonObject.get("height").getAsInt();
 
             Map<String, Node> created = new HashMap<>();
-            JsonObject nodesJson = jobject.get("nodes").getAsJsonObject();
+            JsonObject nodesJson = jsonObject.get("nodes").getAsJsonObject();
 
             // Deserialize the start nodes
-            JsonArray startNodes = jobject.get("startNodes").getAsJsonArray();
+            JsonArray startNodes = jsonObject.get("startNodes").getAsJsonArray();
             Node[] starts = new Node[startNodes.size()];
             for (int i = 0; i < starts.length; i++) {
                 starts[i] = buildNode(startNodes.get(i).getAsString(), nodesJson, created);
             }
 
             // Deserialize end nodes
-            JsonArray endNodes = jobject.get("endNodes").getAsJsonArray();
+            JsonArray endNodes = jsonObject.get("endNodes").getAsJsonArray();
             Node[] ends = new Node[endNodes.size()];
             for (int i = 0; i < ends.length; i++) {
                 ends[i] = buildNode(endNodes.get(i).getAsString(), nodesJson, created);
@@ -65,14 +64,14 @@ public class Board implements IDrawable {
             Type decorationsType = new TypeToken<Decoration[]>() {
             }.getType();
 
-            Decoration[] decorations = gson.fromJson(jobject.get("decorations").getAsJsonArray(),
+            Decoration[] decorations = gson.fromJson(jsonObject.get("decorations").getAsJsonArray(),
                     decorationsType);
 
             // Deserialize the squareTypes
             Type stringArrayType = new TypeToken<String[]>() {
             }.getType();
 
-            String[] squareTypes = gson.fromJson(jobject.get("squareTypes").getAsJsonArray(),
+            String[] squareTypes = gson.fromJson(jsonObject.get("squareTypes").getAsJsonArray(),
                     stringArrayType);
 
             // Create and populate the squares array
@@ -121,7 +120,7 @@ public class Board implements IDrawable {
             // Load the background image
             BufferedImage background = null;
             try {
-                String backgroundImageFileName = jobject.get("image").getAsString();
+                String backgroundImageFileName = jsonObject.get("image").getAsString();
                 InputStream stream = Util.newFileStream(backgroundImageFileName);
                 background = ImageIO.read(stream);
             } catch (IOException ex) {
@@ -150,10 +149,6 @@ public class Board implements IDrawable {
             created.put(name, out);
 
             return out;
-        }
-
-        private Location buildLocation(JsonArray locationJson) {
-            return new Location(locationJson.get(0).getAsFloat(), locationJson.get(1).getAsFloat());
         }
     }
 
