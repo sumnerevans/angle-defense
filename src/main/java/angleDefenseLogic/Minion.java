@@ -22,10 +22,14 @@ public abstract class Minion implements IDrawable, ITickable {
         // TODO: Implement
     }
 
-    abstract public void attacked(Tower tower, int amount);
+    abstract protected void receiveDamage(Tower tower, int amount);
 
-    public int getGoldReward() {
-        return this.goldReward;
+    public void attacked(Tower tower, int amount) {
+        this.receiveDamage(tower, amount);
+
+        if (this.health <= 0) {
+            tower.getOwner().addGold(this.goldReward);
+        }
     }
 
     public void _setLocation(int x, int y) {

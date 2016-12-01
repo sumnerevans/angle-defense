@@ -24,7 +24,8 @@ public class GroundUnit extends Minion {
     }
 
     @Override
-    public void attacked(Tower tower, int amount) {
-        // TODO Implement
+    protected void receiveDamage(Tower tower, int amount) {
+        // TODO: Implement
     }
+
 }

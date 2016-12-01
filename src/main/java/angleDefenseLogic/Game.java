@@ -21,26 +21,13 @@ public class Game {
         this.context = new DrawContext();
     }
 
-    private static InputStream newFileStream(String path) throws FileNotFoundException {
-        ClassLoader cl = Board.class.getClassLoader();
-        InputStream stream = cl.getResourceAsStream(path);
-
-        if (stream == null) {
-            try {
-                stream = new FileInputStream(new File(new File("data/"), path));
-            } catch (FileNotFoundException ex) {
-                throw new FileNotFoundException(String.format("Could not find file %s in jar or data/", path));
-            }
-        }
-
-        return stream;
-    }
-
     public static Game NewGame(String configFile) throws FileNotFoundException {
         // Create a Game object from the config JSON
         Gson gson = new GsonBuilder().registerTypeAdapter(Board.class, new Board.Builder())
                 .setPrettyPrinting().create();
-        BufferedReader r = new BufferedReader(new InputStreamReader(newFileStream(configFile)));
+
+        InputStreamReader streamReader = new InputStreamReader(Util.newFileStream(configFile));
+        BufferedReader r = new BufferedReader(streamReader);
 
         Game g = gson.fromJson(r, Game.class);
         g.currentLevel = g.levels.get(0);

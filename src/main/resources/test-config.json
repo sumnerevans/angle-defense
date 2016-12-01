@@ -27,7 +27,7 @@
         }
     ],
     "board": {
-        "image": "default.jpg",
+        "image": "TDGameBoard.jpg",
         "height": 48,
         "width": 64,
         "nodes": {

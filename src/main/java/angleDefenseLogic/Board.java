@@ -4,7 +4,10 @@ import angleDefenseGui.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
+import javax.imageio.*;
 import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
@@ -115,8 +118,18 @@ public class Board implements IDrawable {
                 }
             }
 
-            // TODO: Pass the image
-            return new Board(width, height, starts, ends, squares, decorations, null);
+            // Load the background image
+            BufferedImage background = null;
+            try {
+                String backgroundImageFileName = jobject.get("image").getAsString();
+                InputStream stream = Util.newFileStream(backgroundImageFileName);
+                background = ImageIO.read(stream);
+            } catch (IOException ex) {
+                System.out.println("Failed to load board background image");
+                ex.printStackTrace();
+            }
+
+            return new Board(width, height, starts, ends, squares, decorations, background);
         }
 
         private Node buildNode(String name, JsonObject nodesJson, Map<String, Node> created) {

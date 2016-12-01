@@ -24,10 +24,8 @@ public class AirUnit extends Minion {
     }
 
     @Override
-    public void attacked(Tower tower, int amount) {
-        if (true) // TODO: Fix this if statement to only run if the minion is dead
-            tower.getOwner().addGold(5);
+    protected void receiveDamage(Tower tower, int amount) {
+        // TODO Implement
     }
-
 
 }
