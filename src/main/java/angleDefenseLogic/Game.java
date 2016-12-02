@@ -16,12 +16,12 @@ public class Game {
     private transient DrawContext context;
     private transient Hud hud;
 
-    public Game() {
+    private Game() {
         this.hud = new Hud();
         this.context = new DrawContext();
     }
 
-    public static Game NewGame(String configFile) throws FileNotFoundException {
+    public static Game NewGame(String configFile) throws FileNotFoundException, JsonParseException {
         // Create a Game object from the config JSON
         Gson gson = new GsonBuilder().registerTypeAdapter(Board.class, new Board.Builder())
                 .setPrettyPrinting().create();
@@ -30,6 +30,11 @@ public class Game {
         BufferedReader r = new BufferedReader(streamReader);
 
         Game g = gson.fromJson(r, Game.class);
+
+        if (g == null) {
+            throw new JsonParseException("Invalid JSON");
+        }
+
         g.currentLevel = g.levels.get(0);
         return g;
     }
