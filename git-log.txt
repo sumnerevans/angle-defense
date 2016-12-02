@@ -1,0 +1,113 @@
+* b3ae7bf Started working on some tower logic  (HEAD -> master, origin/master, origin/HEAD) [Sumner Evans]
+* d0d9465 Began implementing GUI  [Sumner Evans]
+*   d4c0639 Merged branch sumner.test into master  [Sumner Evans]
+|\  
+| * c5683f1 Removed some unnecessary unit tests  (sumner.test) [Sumner Evans]
+* |   473ae3f Merged sumner.configload into master  [Robinson Merillat]
+|\ \  
+| |/  
+| * 8857c5d Code cleanup  (origin/sumner.test, origin/sumner.configload, sumner.configload) [Sumner Evans]
+| * cc4d1a3 Got the background image to load  [Sumner Evans]
+| *   2bc9631 Merge branch 'sumner.configload'  [Sumner Evans]
+| |\  
+| | * 506f5f0 Made all of the configuration load tests pass  [Sumner Evans]
+| * |   af1dd6d Merge branch 'sumner.configload'  [Sumner Evans]
+| |\ \  
+|/ / /  
+| | _   
+| * 4bcfec5 Made the trenches load in properly  [Sumner Evans]
+| * 81c322d Made a bunch of things not fail anymore (pair programming)  [Sumner Evans]
+| * c860084 Added decorations to the config  [Sumner Evans]
+| * 174121c Made level config load test pass  [Sumner Evans]
+* |   5920d6e Merged origin/master into master  [Robinson Merillat]
+|\ \  
+| |/  
+| * 1e5334a Eclipse friendly  [Sam Sartor]
+| *   3efc879 Merge sam.testconfig into master  (eclipse) [Sumner Evans]
+| |\  
+| | * 7870561 Test config  (origin/sam.testconfig) [Sam Sartor]
+| * | c3d2f07 Ignored orig files  [Sumner Evans]
+| * |   eb39eec Merge rob.tests into master  [Sumner Evans]
+| |\ \  
+| | * | d60f161 Code cleanup; marked some test cases for testing phase 2 (see design/planning.pdf)  (origin/rob.tests, rob.tests) [Sumner Evans]
+| | * | d82c510 Working through tests, trying to figure it out  [Robinson Merillat]
+| | * | 225435f dat file  [Robinson Merillat]
+| |/ /  
+|/| |   
+* | |   f193993 Merged branch rob.tests into master  [Robinson Merillat]
+|\ \ \  
+| * \ \   1c3663d Merged branch master into rob.tests  [Robinson Merillat]
+| |\ \ \  
+| * | | | f379ada continuing with tests  [Robinson Merillat]
+| * | | | 9ec4c51 almost done with a couple more tests  [Robinson Merillat]
+| * | | | c0c8c11 test lives decrement complete  [Robinson Merillat]
+| * | | | 510e3d5 Test Level incrament finished  [Robinson Merillat]
+* | | | |   df9b218 Merged origin/sumner.test into master  [Robinson Merillat]
+|\ \ \ \ \  
+| |_|/ / /  
+|/| | | |   
+| | | * | 0b918eb Code cleanup  [Sumner Evans]
+| | | * | 1620d1a Added level configuration tests  [Sumner Evans]
+| | |/ /  
+| |/| |   
+| * | |   569b08c Merge branch 'master' into sumner.test  [Sumner Evans]
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | | 4f3d626 Sam sucks even more  [Sam Sartor]
+| * | |   a4bd47b Merge branch 'master' into sumner.test  [Sumner Evans]
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | | fa90653 Sam is bad at hands  [Sam Sartor]
+| * | |   a325c34 Merge branch 'master' into sumner.test  [Sumner Evans]
+| |\ \ \  
+| |/ / /  
+|/| | |   
+* | | |   c1256e0 Merged branch master into master  [Sam Sartor]
+|\ \ \ \  
+* | | | | d9f726e Test config  [Sam Sartor]
+| |_|_|/  
+|/| | |   
+| | * | 6fe131e Added clif side tests  [Sumner Evans]
+| |/ /  
+| * |   2f97c61 Merge branch 'master' of github.com:sumnerevans/angle-defense  [Sumner Evans]
+| |\ \  
+| |/ /  
+|/| |   
+* | | 08590df Transient game props  [Sam Sartor]
+| * | 920e518 Added tests for squares  [Sumner Evans]
+|/ /  
+* |   9bb267a Merge branch 'master' of github.com:sumnerevans/angle-defense  [Sumner Evans]
+|\ \  
+| |/  
+| *   84dfcab Merged branch rob.gameboard into master  [Robinson Merillat]
+| |\  
+| | * 225cf88 added function to hud for when we need to make buttons  (origin/rob.gameboard) [Robinson Merillat]
+* | | 5ff6b5e Added numbers to game board image  [Sumner Evans]
+|/ /  
+* | b5c92cd More figuring out how the testing logic will work  [Sumner Evans]
+|/  
+* 7471505 Added 2D game board  [Robinson Merillat]
+* d6647a6 Updates to config load tests  [Sumner Evans]
+* 9a6726a Added stuff to Square  [Sumner Evans]
+* 1b90194 Move improvements to the tests  [Sumner Evans]
+* d185284 Added TODOs  [Sumner Evans]
+* 75c0ba1 Added a bunch more of the framework  [Sumner Evans]
+* c566547 Moved design documents to seprate folder  [Sumner Evans]
+* 0aad9d9 JUnit is a test dependacy  [Sam Sartor]
+* 85f517b New project setup  [Sam Sartor]
+* 2dae736 Added a bunch of unimplemented classes  [Sumner Evans]
+* 0154ad5 Started creating classes  [Sumner Evans]
+* aa7c5ac README update  [Sumner Evans]
+* f424949 Added fp-design submission zip  [Sumner Evans]
+* 907522a Finished planning document  [Sumner Evans]
+* 474fcc4 Updates to planning doc and exported md as PDF  [Sumner Evans]
+* ecf333e Added layout  [Sumner Evans]
+* 0fd0a07 Added planning doc  [Sumner Evans]
+* 6879c9e Finished UML  [Sumner Evans]
+* 874cb93 Started UML  [Sumner Evans]
+* 9399367 Update README.md  [Sumner Evans]
+* eeb9e7d Added final project description  [Sumner Evans]
+* 4007b9c Updated .gitignore  [Sumner Evans]
+* cfaa493 Initial commit  [Sumner Evans]
