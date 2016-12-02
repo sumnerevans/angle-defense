@@ -62,54 +62,6 @@ public class GameplayTests extends TestBase {
         assertEquals(originalLives - minions.size(), game.getNumLives());
     }
 
-    // Test Minion advance
-    @Test
-    public void testMinionAdvance() {
-        Minion ground = new GroundUnit(1, 1);
-        Minion air = new AirUnit(1, 1);
-
-        // level takes in minion, random start
-
-        ground._setLocation(13, 2);
-        air._setLocation(14, 2);
-
-        ground.moveForward(20);
-        air.moveForward(20);
-
-        // TODO: PHASE 2: Ensure that the minions advance at the correct speeds
-
-        // Ensure that the minions stay on the paths as they advance.
-        assertTrue(ground._getLocation().equals(new Location(18, 16)));
-        assertTrue(air._getLocation().equals(new Location(18, 16)));
-    }
-
-    // Test tower fire angle
-    @Test
-    public void testTowerFileAngle() {
-        // Place a tower and set its angle
-        Tower airGroundTower = new AirGroundTower(player);
-        Tower airTower = new AirTower(player);
-        Tower groundTower = new GroundTower(player);
-
-        airGroundTower.setAngle(0);
-        airTower.setAngle(0);
-        groundTower.setAngle(0);
-
-        airGroundTower.setPosition(24, 13);
-        airTower.setPosition(24, 12);
-        groundTower.setPosition(24, 11);
-
-        // Place a minion and place it on a spot where the tower can hit it
-        Minion groundUnit = new GroundUnit(1, 1);
-        groundUnit._setLocation(26, 13);
-
-        // TODO: PHASE 2: Have the tower attack the minion and ensure that the minion dies
-
-        // TODO: PHASE 2: Place a tower and set its angle
-        // TODO: PHASE 2: Place a minion within range of the tower, but at the wrong angle
-        // TODO: PHASE 2: Ensure that the tower does not attack the minion
-    }
-
     // Test Tower attack mechanisms
     @Test
     public void testTowerAttackMechanisms() {
@@ -118,23 +70,35 @@ public class GameplayTests extends TestBase {
         Tower airTower = new AirTower(player);
         Tower groundTower = new GroundTower(player);
 
-        airGroundTower.setAngle(0);
-        airTower.setAngle(0);
-        groundTower.setAngle(-1);
-
-        airGroundTower.setPosition(24, 13);
-        airTower.setPosition(13, 35);
-        groundTower.setPosition(48, 21);
-
-        // TODO: PHASE 2: Place a few minions of the correct type in the fire area of the tower.
+        // Create a few units
         Minion groundUnit = new GroundUnit(1, 1);
-        groundUnit._setLocation(45, 21);
+        Minion airUnit = new AirUnit(1,1);
 
-        // TODO: PHASE 2: Ensure that the minions die
+        // Ensure that the air tower doesn't kill ground units
+        airTower.attack(groundUnit);
+        assertFalse(groundUnit.isDead());
 
+        // Ensure that the ground tower doesn't kill air units
+        groundTower.attack(airUnit);
+        assertFalse(airUnit.isDead());
 
-        // TODO: PHASE 2: Place a few minions of the incorrect type in the fire area of the tower.
-        // TODO: PHASE 2: Ensure that the minions do not die
+        // Ensure that the ground tower kills ground units
+        groundTower.attack(groundUnit);
+        assertTrue(groundUnit.isDead());
+
+        // Ensure that the air tower kills air units
+        airTower.attack(airUnit);
+        assertTrue(airUnit.isDead());
+
+        // Ensure that the air-ground tower kills all units
+        groundUnit = new GroundUnit(1,1);
+        airUnit = new AirUnit(1,1);
+
+        airGroundTower.attack(groundUnit);
+        airGroundTower.attack(airUnit);
+
+        assertTrue(groundUnit.isDead());
+        assertTrue(airUnit.isDead());
     }
 
     // Test player gold reward

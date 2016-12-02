@@ -7,7 +7,7 @@ import java.io.*;
  */
 public class Util {
     public static InputStream newFileStream(String path) throws FileNotFoundException {
-        ClassLoader cl = Board.class.getClassLoader();
+        ClassLoader cl = Util.class.getClassLoader();
         InputStream stream = cl.getResourceAsStream(path);
 
         if (stream == null) {

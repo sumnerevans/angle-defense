@@ -6,10 +6,12 @@ public abstract class Minion implements IDrawable, ITickable {
     public enum Type {
         @SerializedName("ground")
         GROUND,
+
         @SerializedName("air")
         AIR
     }
 
+    protected boolean dead = false;
     protected int health;
     protected int goldReward;
     protected Location location;
@@ -28,8 +30,13 @@ public abstract class Minion implements IDrawable, ITickable {
         this.receiveDamage(tower, amount);
 
         if (this.health <= 0) {
+            this.dead = true;
             tower.getOwner().addGold(this.goldReward);
         }
+    }
+
+    public boolean isDead() {
+        return this.dead;
     }
 
     public void _setLocation(int x, int y) {

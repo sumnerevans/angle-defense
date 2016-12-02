@@ -25,7 +25,7 @@ public class Decoration implements IDrawable {
 
     @Override
     public void draw(DrawContext drawContext) {
-
+        // TODO: Implement
     }
 
     @Override
