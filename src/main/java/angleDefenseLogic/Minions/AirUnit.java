@@ -5,8 +5,8 @@ import angleDefenseLogic.*;
 
 public class AirUnit extends Minion {
 
-    public AirUnit(float x, float y) {
-        super(x, y);
+    public AirUnit(Location l) {
+        super(l);
         this.goldReward = 5;
         this.health = 7;
     }

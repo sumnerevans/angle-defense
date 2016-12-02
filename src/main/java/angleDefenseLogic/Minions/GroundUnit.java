@@ -5,8 +5,8 @@ import angleDefenseLogic.*;
 
 public class GroundUnit extends Minion {
 
-    public GroundUnit(float x, float y) {
-        super(x, y);
+    public GroundUnit(Location l) {
+        super(l);
         this.goldReward = 3;
         this.health = 5;
     }

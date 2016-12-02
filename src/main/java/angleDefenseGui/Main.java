@@ -17,11 +17,14 @@ public class Main extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
+            // Load the game
             Game game = Game.NewGame("default-config.json");
 
-            game.loop();
-
+            // Show the window
             this.setVisible(true);
+
+            // Play the game
+            game.loop();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

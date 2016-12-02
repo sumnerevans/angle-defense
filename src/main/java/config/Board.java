@@ -1,6 +1,7 @@
-package angleDefenseLogic;
+package config;
 
 import angleDefenseGui.*;
+import angleDefenseLogic.*;
 import com.google.gson.*;
 import com.google.gson.reflect.*;
 

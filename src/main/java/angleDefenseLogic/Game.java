@@ -2,6 +2,8 @@ package angleDefenseLogic;
 
 import angleDefenseGui.*;
 import com.google.gson.*;
+import config.Board;
+import config.Level;
 
 import java.io.*;
 import java.util.*;
@@ -12,13 +14,19 @@ public class Game {
     private Board board;
     private ArrayList<Level> levels;
 
+    private ArrayList<Minion> minions;
+    private ArrayList<Tower> towers;
+
     private transient Level currentLevel;
     private transient DrawContext context;
     private transient Hud hud;
+    private boolean gameOver = false;
 
     private Game() {
         this.hud = new Hud();
         this.context = new DrawContext();
+        this.minions = new ArrayList<>();
+        this.towers = new ArrayList<>();
     }
 
     public static Game NewGame(String configFile) throws FileNotFoundException, JsonParseException {
@@ -40,12 +48,24 @@ public class Game {
     }
 
     public void loop() {
-        // TODO: Implement
+        // TODO: Do other stuff
+        while (!this.gameOver) {
+            this.tick();
+        }
     }
 
     public void tick() {
-        // TODO Auto-generated method stub
+        for (Minion m : this.minions) {
+            m.tick(this);
+        }
 
+        for (Tower t : this.towers) {
+            t.tick(this);
+        }
+    }
+
+    public void spawnMinion(Minion m) {
+        this.minions.add(m);
     }
 
     public Board getBoard() {
@@ -63,4 +83,5 @@ public class Game {
     public int getNumLives() {
         return this.numLives;
     }
+
 }

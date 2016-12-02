@@ -1,5 +1,6 @@
-package angleDefenseLogic;
+package config;
 
+import angleDefenseLogic.Minion;
 import com.google.gson.*;
 import com.google.gson.annotations.*;
 
@@ -26,5 +27,9 @@ public class Wave {
 
     public int getEnd() {
         return end;
+    }
+
+    public int getLength() {
+        return this.end - this.start;
     }
 }

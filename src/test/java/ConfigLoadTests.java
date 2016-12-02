@@ -1,4 +1,6 @@
 import angleDefenseLogic.*;
+import config.Board;
+import config.Level;
 import org.junit.*;
 
 import java.io.FileNotFoundException;

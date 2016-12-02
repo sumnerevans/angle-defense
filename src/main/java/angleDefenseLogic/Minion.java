@@ -1,14 +1,27 @@
 package angleDefenseLogic;
 
+import angleDefenseLogic.Minions.*;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.function.*;
 
 public abstract class Minion implements IDrawable, ITickable {
     public enum Type {
         @SerializedName("ground")
-        GROUND,
+        GROUND(GroundUnit::new),
 
         @SerializedName("air")
-        AIR
+        AIR(AirUnit::new);
+
+        private Function<Location, Minion> spawner;
+
+        Type(Function<Location, Minion> s) {
+            this.spawner = s;
+        }
+
+        public Minion create(Location l) {
+            return this.spawner.apply(l);
+        }
     }
 
     protected boolean dead = false;
@@ -16,8 +29,8 @@ public abstract class Minion implements IDrawable, ITickable {
     protected int goldReward;
     protected Location location;
 
-    public Minion(float x, float y) {
-        this.location = new Location(x, y);
+    public Minion(Location location) {
+        this.location = location;
     }
 
     public void moveForward(float distance) {
