@@ -20,7 +20,7 @@ public class Board implements IDrawable {
     private final Image image;
     private final Decoration[] decorations;
 
-    public Board(int width, int height, Node[] startNodes, Node[] endNodes, Square[][] squares,
+    private Board(int width, int height, Node[] startNodes, Node[] endNodes, Square[][] squares,
                  Decoration[] decorations, Image image) {
         this.width = width;
         this.height = height;
