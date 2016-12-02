@@ -1,7 +1,7 @@
 package angleDefenseLogic;
 
 public abstract class Tower implements IDrawable, ITickable {
-    protected int x, y;
+    protected Location location;
     protected float angle;
     protected float range;
     protected Player owner;
@@ -14,11 +14,11 @@ public abstract class Tower implements IDrawable, ITickable {
     public abstract void attack(Minion minion);
 
     public void setAngle(float angle) {
-        // TODO: sets the angle of the tower's shot in radians
+        this.angle = angle;
     }
 
     public void setPosition(int x, int y) {
-        // TODO: moves the tower to the specified x,y coordinates
+        this.location = new Location(x, y);
     }
 
     public Player getOwner() {
