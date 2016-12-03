@@ -9,27 +9,20 @@ import com.google.gson.annotations.*;
  */
 public class Wave {
     @SerializedName("minion")
-    private Minion.Type minionType;
-    private int count, start, end;
-    private JsonObject stats;
+    public final Minion.Type minionType;
+    public final float start, end;
+    public final int count;
+    private final JsonObject stats;
 
-    public Minion.Type getMinionType() {
-        return this.minionType;
+    public Wave(Minion.Type minionType, float start, float end, int count, JsonObject stats) {
+        this.minionType = minionType;
+        this.start = start;
+        this.end = end;
+        this.count = count;
+        this.stats = stats;
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public int getStart() {
-        return start;
-    }
-
-    public int getEnd() {
-        return end;
-    }
-
-    public int getLength() {
-        return this.end - this.start;
+    public float length() {
+        return end - start;
     }
 }

@@ -12,18 +12,18 @@ public class Level {
 
     }
 
-    public void spawnMinions(TimeRange timeRange, Game game) {
+    public void spawnMinions(TimeRange time, Game game) {
         for (Wave w : this.waves) {
-            // Spawn the minions if timeSinceStart corresponds to a wave
-            int start = w.getStart();
-            int end = w.getEnd();
-            int count = w.getCount();
+            if (time.getEnd() < w.start || time.getStart() > w.end) continue;
 
-            int minionsToSpawn = 5;// TODO: Sam figure this out
+            float ma = (time.getStart() - w.start) / w.length() * w.count;
+            float mb = (time.getEnd() - w.start) / w.length() * w.count;
+
+            int minionsToSpawn = (int) mb - (int) ma;
 
             for (int i = 0; i < minionsToSpawn; i++) {
                 Location loc = new Location(1, 1);// Figure this out
-                Minion m = w.getMinionType().create(loc);
+                Minion m = w.minionType.create(loc);
                 game.spawnMinion(m);
             }
         }
