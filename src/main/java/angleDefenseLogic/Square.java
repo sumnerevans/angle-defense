@@ -13,13 +13,12 @@ public class Square implements IDrawable {
         TOP, BOTTOM, LEFT, RIGHT
     }
 
-    private int x, y;
+    private Location location;
     private SquareType squareType;
     private CliffSide[] cliffSides;
 
-    public Square(int x, int y, SquareType squareType, CliffSide[] cliffSides) {
-        this.x = x;
-        this.y = y;
+    public Square(Location location, SquareType squareType, CliffSide[] cliffSides) {
+        this.location = location;
         this.squareType = squareType;
         this.cliffSides = cliffSides;
     }

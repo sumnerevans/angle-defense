@@ -113,8 +113,8 @@ public class Board implements IDrawable {
                         }
                     }
 
-                    squares[i][j] = new Square(i, j, squareType, cliffSides.toArray(new Square
-                            .CliffSide[0]));
+                    squares[i][j] = new Square(new Location(i, j), squareType,
+                            cliffSides.toArray(new Square.CliffSide[0]));
                 }
             }
 
