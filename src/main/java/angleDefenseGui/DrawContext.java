@@ -15,18 +15,7 @@ public class DrawContext {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            if (fbo == -1) return;
-
-            int[] data = new int[width * height];
-
-            GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL12.GL_UNSIGNED_INT_8_8_8_8, data);
-
-            BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB); {
-                DataBufferInt databuf = new DataBufferInt(data, data.length);
-                int[] bitmasks = new int[]{0x000000FF, 0xFF000000, 0x00FF0000, 0x0000FF00};
-                SampleModel model = new SinglePixelPackedSampleModel(DataBuffer.TYPE_INT, width, height, bitmasks);
-                img.setData(Raster.createRaster(model, databuf, null));
-            }
+            if (img == null) return;
 
             g.drawImage(img, 0, 0, null);
         }
@@ -42,6 +31,9 @@ public class DrawContext {
 
     private int width = 512;
     private int height = 512;
+
+    private GLCapabilities capabilities;
+    private  BufferedImage img;
 
     public void loadAssets(File dir) {
         // TODO: Implement
@@ -59,7 +51,7 @@ public class DrawContext {
         window = GLFW.glfwCreateWindow(width, height, "", 0, 0);
         GLFW.glfwMakeContextCurrent(window);
 
-        GLCapabilities cap = GL.createCapabilities();
+        capabilities = GL.createCapabilities();
 
         fbo = GL30.glGenFramebuffers();
         GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, fbo);
@@ -73,6 +65,8 @@ public class DrawContext {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, fbo_depth);
         GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_DEPTH_COMPONENT, width, height, 0, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, new float[width * height]);
         GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_DEPTH_ATTACHMENT, GL11.GL_TEXTURE_2D, fbo_depth, 0);
+
+        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
 
     public void close() {
@@ -81,12 +75,21 @@ public class DrawContext {
 
     public void preDraw() {
         GL11.glClearDepth(1000);
-        GL11.glClearColor(2.0f, 2.0f, 8.0f, 1.0f );
+        GL11.glClearColor(0.2f, 0.8f, 0.8f, 1.0f);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
     }
 
     public void postDraw() {
+        int[] data = new int[width * height];
 
+        GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL12.GL_UNSIGNED_INT_8_8_8_8, data);
+
+        {
+            DataBufferInt databuf = new DataBufferInt(data, data.length);
+            int[] bitmasks = new int[]{0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF};
+            SampleModel model = new SinglePixelPackedSampleModel(DataBuffer.TYPE_INT, width, height, bitmasks);
+            img.setData(Raster.createRaster(model, databuf, null));
+        }
     }
 
     public void drawTower(String asset, int x, int y) {
