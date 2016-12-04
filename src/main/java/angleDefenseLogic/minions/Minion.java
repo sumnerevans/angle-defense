@@ -1,7 +1,7 @@
-package angleDefenseLogic.Minions;
+package angleDefenseLogic.minions;
 
 import angleDefenseLogic.*;
-import angleDefenseLogic.Towers.Tower;
+import angleDefenseLogic.towers.Tower;
 import com.google.gson.annotations.SerializedName;
 import config.*;
 
@@ -38,26 +38,36 @@ public abstract class Minion implements IDrawable, ITickable {
     }
 
     public void moveForward(float distanceToTravel) {
-        // I don't know why this would happen, but just in case
+        // I don't think this should happen, but just in case
         if (this.currentNode == null) return;
+
+        if (this.currentNode.next == null) return;
 
         if (this.currentNode.location.getX() == this.currentNode.next.location.getX()) {
             // The minion should move vertically
             float distToNext = this.currentNode.next.location.getY() - this.location.getY();
 
             if (distanceToTravel > Math.abs(distToNext)) {
-                this.currentNode = this.currentNode.next;
+                // Just go to the next node and recursively call moveForward
+                this.moveToNode(this.currentNode.next);
                 this.moveForward(distanceToTravel - distToNext);
             } else {
                 // Linearly propagate it
-
+                this.location.setY(this.location.getY() + distanceToTravel);
             }
-        } else {
+        } else if (this.currentNode.location.getY() == this.currentNode.next.location.getY()) {
             // The minion should move horizontally
+            float distToNext = this.currentNode.next.location.getX() - this.location.getX();
+
+            if (distanceToTravel > Math.abs(distToNext)) {
+                // Just go to the next node and recursively call moveForward
+                this.moveToNode(this.currentNode.next);
+                this.moveForward(distanceToTravel - distToNext);
+            } else {
+                // Linearly propagate it
+                this.location.setX(this.location.getX() + distanceToTravel);
+            }
         }
-
-        // TODO: Implement
-
     }
 
     abstract protected void receiveDamage(Tower tower, int amount);
@@ -73,6 +83,15 @@ public abstract class Minion implements IDrawable, ITickable {
 
     public boolean isDead() {
         return this.dead;
+    }
+
+    private void moveToNode(Node n) {
+        this.currentNode = n;
+
+        if (n == null)
+            this.location = null;
+        else
+            this.location = n.location;
     }
 
     // Testing Only

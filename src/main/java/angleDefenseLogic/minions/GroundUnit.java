@@ -1,8 +1,8 @@
-package angleDefenseLogic.Minions;
+package angleDefenseLogic.minions;
 
 import angleDefenseGui.*;
 import angleDefenseLogic.*;
-import angleDefenseLogic.Towers.Tower;
+import angleDefenseLogic.towers.Tower;
 import config.*;
 
 public class GroundUnit extends Minion {

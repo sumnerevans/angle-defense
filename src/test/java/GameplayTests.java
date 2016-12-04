@@ -1,6 +1,6 @@
 import angleDefenseLogic.*;
-import angleDefenseLogic.Minions.*;
-import angleDefenseLogic.Towers.*;
+import angleDefenseLogic.minions.*;
+import angleDefenseLogic.towers.*;
 import config.*;
 import org.junit.*;
 
@@ -76,16 +76,16 @@ public class GameplayTests extends TestBase {
 
         // Ensure that the minion moves properly
         minion.moveForward(1);
-        assertEquals(minion._getLocation(), new Location(2, 2));
+        assertEquals(new Location(2, 2), minion._getLocation());
 
         minion.moveForward(3);
-        assertEquals(minion._getLocation(), new Location(3, 4));
+        assertEquals(new Location(3, 4), minion._getLocation());
 
         minion.moveForward(6);
-        assertEquals(minion._getLocation(), new Location(9, 4));
+        assertEquals(new Location(9, 4), minion._getLocation());
 
         minion.moveForward(7);
-        assertEquals(minion._getLocation(), null);
+        assertEquals(new Location(9, 9), minion._getLocation());
     }
 
     // Test Tower attack mechanisms

@@ -1,7 +1,7 @@
 package config;
 
 import angleDefenseLogic.*;
-import angleDefenseLogic.Minions.*;
+import angleDefenseLogic.minions.*;
 
 import java.util.*;
 

@@ -1,5 +1,5 @@
 import angleDefenseLogic.*;
-import angleDefenseLogic.Minions.*;
+import angleDefenseLogic.minions.*;
 import config.*;
 import org.junit.*;
 
