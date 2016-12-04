@@ -2,7 +2,7 @@ package angleDefenseLogic.minions;
 
 import angleDefenseGui.*;
 import angleDefenseLogic.*;
-import angleDefenseLogic.towers.Tower;
+import angleDefenseLogic.towers.*;
 import config.*;
 
 public class AirUnit extends Minion {

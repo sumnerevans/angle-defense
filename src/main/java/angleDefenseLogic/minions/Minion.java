@@ -1,7 +1,7 @@
 package angleDefenseLogic.minions;
 
 import angleDefenseLogic.*;
-import angleDefenseLogic.towers.Tower;
+import angleDefenseLogic.towers.*;
 import com.google.gson.annotations.SerializedName;
 import config.*;
 

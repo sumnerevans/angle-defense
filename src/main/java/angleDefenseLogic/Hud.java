@@ -25,5 +25,6 @@ public class Hud {
 
     public void createButton() {
         // TODO: make this take in an image and return a button object
+        // TODO: use Game.buildTower(Tower t) to build towers
     }
 }
