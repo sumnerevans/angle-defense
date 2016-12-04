@@ -1,6 +1,6 @@
 package config;
 
-import angleDefenseLogic.Minion;
+import angleDefenseLogic.Minions.*;
 import com.google.gson.*;
 import com.google.gson.annotations.*;
 

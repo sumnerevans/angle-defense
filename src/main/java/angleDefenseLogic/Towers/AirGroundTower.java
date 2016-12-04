@@ -1,10 +1,8 @@
 package angleDefenseLogic.Towers;
 
-import angleDefenseGui.DrawContext;
-import angleDefenseLogic.Game;
-import angleDefenseLogic.Minion;
-import angleDefenseLogic.Player;
-import angleDefenseLogic.Tower;
+import angleDefenseGui.*;
+import angleDefenseLogic.*;
+import angleDefenseLogic.Minions.*;
 
 public class AirGroundTower extends Tower {
 

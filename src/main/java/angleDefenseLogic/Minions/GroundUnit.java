@@ -2,11 +2,13 @@ package angleDefenseLogic.Minions;
 
 import angleDefenseGui.*;
 import angleDefenseLogic.*;
+import angleDefenseLogic.Towers.Tower;
+import config.*;
 
 public class GroundUnit extends Minion {
 
-    public GroundUnit(Location l) {
-        super(l);
+    GroundUnit(Node n) {
+        super(n);
         this.goldReward = 3;
         this.health = 5;
     }

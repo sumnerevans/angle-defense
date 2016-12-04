@@ -1,7 +1,9 @@
-package angleDefenseLogic;
+package angleDefenseLogic.Minions;
 
-import angleDefenseLogic.Minions.*;
+import angleDefenseLogic.*;
+import angleDefenseLogic.Towers.Tower;
 import com.google.gson.annotations.SerializedName;
+import config.*;
 
 import java.util.function.*;
 
@@ -13,14 +15,14 @@ public abstract class Minion implements IDrawable, ITickable {
         @SerializedName("air")
         AIR(AirUnit::new);
 
-        private Function<Location, Minion> spawner;
+        private Function<Node, Minion> spawner;
 
-        Type(Function<Location, Minion> s) {
+        Type(Function<Node, Minion> s) {
             this.spawner = s;
         }
 
-        public Minion create(Location l) {
-            return this.spawner.apply(l);
+        public Minion create(Node n) {
+            return this.spawner.apply(n);
         }
     }
 
@@ -28,13 +30,34 @@ public abstract class Minion implements IDrawable, ITickable {
     protected int health;
     protected int goldReward;
     protected Location location;
+    protected Node currentNode;
 
-    public Minion(Location location) {
-        this.location = location;
+    protected Minion(Node node) {
+        this.location = node.location;
+        this.currentNode = node;
     }
 
-    public void moveForward(float distance) {
+    public void moveForward(float distanceToTravel) {
+        // I don't know why this would happen, but just in case
+        if (this.currentNode == null) return;
+
+        if (this.currentNode.location.getX() == this.currentNode.next.location.getX()) {
+            // The minion should move vertically
+            float distToNext = this.currentNode.next.location.getY() - this.location.getY();
+
+            if (distanceToTravel > Math.abs(distToNext)) {
+                this.currentNode = this.currentNode.next;
+                this.moveForward(distanceToTravel - distToNext);
+            } else {
+                // Linearly propagate it
+
+            }
+        } else {
+            // The minion should move horizontally
+        }
+
         // TODO: Implement
+
     }
 
     abstract protected void receiveDamage(Tower tower, int amount);
@@ -52,6 +75,7 @@ public abstract class Minion implements IDrawable, ITickable {
         return this.dead;
     }
 
+    // Testing Only
     public void _setLocation(int x, int y) {
         this.location.setX(x);
         this.location.setY(y);

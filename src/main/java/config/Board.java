@@ -22,7 +22,7 @@ public class Board implements IDrawable {
     private final Decoration[] decorations;
 
     private Board(int width, int height, Node[] startNodes, Node[] endNodes, Square[][] squares,
-                 Decoration[] decorations, Image image) {
+                  Decoration[] decorations, Image image) {
         this.width = width;
         this.height = height;
         this.startNodes = startNodes;
@@ -146,7 +146,7 @@ public class Board implements IDrawable {
                 next = buildNode(node.get(2).getAsString(), nodesJson, created);
             }
 
-            out = new Node(x, y, next);
+            out = new Node(new Location(x, y), next);
             created.put(name, out);
 
             return out;

@@ -1,6 +1,7 @@
 import angleDefenseLogic.*;
 import angleDefenseLogic.Minions.*;
 import angleDefenseLogic.Towers.*;
+import config.*;
 import org.junit.*;
 
 import java.awt.*;
@@ -26,12 +27,12 @@ public class GameplayTests extends TestBase {
         Tower boom = new GroundTower(player);
 
         // add a bunch of minions
-        Minion one = new GroundUnit(1, 1);
-        Minion two = new GroundUnit(1, 1);
-        Minion three = new GroundUnit(1, 1);
-        Minion four = new GroundUnit(1, 1);
-        Minion five = new GroundUnit(1, 1);
-        Minion six = new GroundUnit(1, 1);
+        Minion one = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
+        Minion two = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
+        Minion three = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
+        Minion four = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
+        Minion five = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
+        Minion six = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
 
         // kill all the minions
         one.attacked(boom, Integer.MAX_VALUE);
@@ -53,13 +54,38 @@ public class GameplayTests extends TestBase {
 
         // add some minions and let them march all the way
         for (int i = 0; i < 5; i++)
-            minions.add(new GroundUnit(1, 1));
+            minions.add(Minion.Type.GROUND.create(new Node(new Location(1, 1), null)));
 
         for (Minion m : minions)
             m.moveForward(Float.MAX_VALUE);
 
         // Ensure that the number of lives has been decremented by the proper number
         assertEquals(originalLives - minions.size(), game.getNumLives());
+    }
+
+    // Test minion move
+    @Test
+    public void testMinionMove() {
+        // Create a node chain
+        Node node4 = new Node(new Location(9, 9), null);
+        Node node3 = new Node(new Location(9, 4), node4);
+        Node node2 = new Node(new Location(2, 4), node3);
+        Node node1 = new Node(new Location(2, 1), node2);
+
+        Minion minion = Minion.Type.AIR.create(node1);
+
+        // Ensure that the minion moves properly
+        minion.moveForward(1);
+        assertEquals(minion._getLocation(), new Location(2, 2));
+
+        minion.moveForward(3);
+        assertEquals(minion._getLocation(), new Location(3, 4));
+
+        minion.moveForward(6);
+        assertEquals(minion._getLocation(), new Location(9, 4));
+
+        minion.moveForward(7);
+        assertEquals(minion._getLocation(), null);
     }
 
     // Test Tower attack mechanisms
@@ -71,8 +97,8 @@ public class GameplayTests extends TestBase {
         Tower groundTower = new GroundTower(player);
 
         // Create a few units
-        Minion groundUnit = new GroundUnit(1, 1);
-        Minion airUnit = new AirUnit(1,1);
+        Minion groundUnit = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
+        Minion airUnit = Minion.Type.AIR.create(new Node(new Location(1, 1), null));
 
         // Ensure that the air tower doesn't kill ground units
         airTower.attack(groundUnit);
@@ -91,8 +117,8 @@ public class GameplayTests extends TestBase {
         assertTrue(airUnit.isDead());
 
         // Ensure that the air-ground tower kills all units
-        groundUnit = new GroundUnit(1,1);
-        airUnit = new AirUnit(1,1);
+        groundUnit = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
+        airUnit = Minion.Type.AIR.create(new Node(new Location(1, 1), null));
 
         airGroundTower.attack(groundUnit);
         airGroundTower.attack(airUnit);
@@ -107,7 +133,7 @@ public class GameplayTests extends TestBase {
 
         // Place a tower and minion
         Tower tower = new AirTower(player);
-        Minion minion = new AirUnit(1, 1);
+        Minion minion = Minion.Type.AIR.create(new Node(new Location(1, 1), null));
 
         // Kill the minion
         minion.attacked(tower, Integer.MAX_VALUE);

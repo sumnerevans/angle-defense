@@ -1,4 +1,7 @@
-package angleDefenseLogic;
+package angleDefenseLogic.Towers;
+
+import angleDefenseLogic.*;
+import angleDefenseLogic.Minions.*;
 
 public abstract class Tower implements IDrawable, ITickable {
     protected Location location;
