@@ -10,7 +10,6 @@ import java.io.*;
  * Created by sumner on 12/1/16.
  */
 public class Main extends JFrame {
-
     private Main() {
         this.setTitle("Angle Defense");
         this.setSize(800, 500);
@@ -18,7 +17,9 @@ public class Main extends JFrame {
 
         try {
             // Load the game
-            Game game = Game.NewGame("default-config.json");
+            Game game = Game.newGame("default-config.json");
+
+            this.add(game.display);
 
             // Show the window
             this.setVisible(true);

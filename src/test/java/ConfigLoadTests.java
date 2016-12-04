@@ -15,7 +15,7 @@ public class ConfigLoadTests extends TestBase {
     @Before
     public void before() throws FileNotFoundException {
         // Reinitialize the game for every test
-        game = Game.NewGame("test-config.json");
+        game = Game.newGame("test-config.json");
     }
 
     // Test board configuration load: Ensure that the board configuration was loaded properly
@@ -72,10 +72,10 @@ public class ConfigLoadTests extends TestBase {
 
         // Test the first level and ensuring that the configuration was loaded correctly
         Level firstLevel = levels.get(0);
-        assertEquals(Minion.Type.GROUND, firstLevel.getWave(0).getMinionType());
-        assertEquals(15, firstLevel.getWave(0).getCount());
-        assertEquals(15, firstLevel.getWave(0).getStart());
-        assertEquals(20, firstLevel.getWave(0).getEnd());
+        assertEquals(Minion.Type.GROUND, firstLevel.getWave(0).minionType);
+        assertEquals(15, firstLevel.getWave(0).count);
+        assertEquals(15, firstLevel.getWave(0).start, .001);
+        assertEquals(20, firstLevel.getWave(0).end, .001);
     }
 
 }

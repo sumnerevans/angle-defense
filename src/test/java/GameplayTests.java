@@ -17,7 +17,7 @@ public class GameplayTests extends TestBase {
     @Before
     public void before() throws FileNotFoundException {
         player = new Player("test", Color.BLUE);
-        game = Game.NewGame("test-config.json");
+        game = Game.newGame("test-config.json");
     }
 
     // Test that the level increments when the player beats a level
@@ -26,12 +26,12 @@ public class GameplayTests extends TestBase {
         Tower boom = new GroundTower(player);
 
         // add a bunch of minions
-        Minion one = new GroundUnit(1, 1);
-        Minion two = new GroundUnit(1, 1);
-        Minion three = new GroundUnit(1, 1);
-        Minion four = new GroundUnit(1, 1);
-        Minion five = new GroundUnit(1, 1);
-        Minion six = new GroundUnit(1, 1);
+        Minion one = new GroundUnit(new Location(1, 1));
+        Minion two = new GroundUnit(new Location(1, 1));
+        Minion three = new GroundUnit(new Location(1, 1));
+        Minion four = new GroundUnit(new Location(1, 1));
+        Minion five = new GroundUnit(new Location(1, 1));
+        Minion six = new GroundUnit(new Location(1, 1));
 
         // kill all the minions
         one.attacked(boom, Integer.MAX_VALUE);
@@ -53,7 +53,7 @@ public class GameplayTests extends TestBase {
 
         // add some minions and let them march all the way
         for (int i = 0; i < 5; i++)
-            minions.add(new GroundUnit(1, 1));
+            minions.add(new GroundUnit(new Location(1, 1)));
 
         for (Minion m : minions)
             m.moveForward(Float.MAX_VALUE);
@@ -71,8 +71,8 @@ public class GameplayTests extends TestBase {
         Tower groundTower = new GroundTower(player);
 
         // Create a few units
-        Minion groundUnit = new GroundUnit(1, 1);
-        Minion airUnit = new AirUnit(1,1);
+        Minion groundUnit = new GroundUnit(new Location(1, 1));
+        Minion airUnit = new AirUnit(new Location(1,1));
 
         // Ensure that the air tower doesn't kill ground units
         airTower.attack(groundUnit);
@@ -91,8 +91,8 @@ public class GameplayTests extends TestBase {
         assertTrue(airUnit.isDead());
 
         // Ensure that the air-ground tower kills all units
-        groundUnit = new GroundUnit(1,1);
-        airUnit = new AirUnit(1,1);
+        groundUnit = new GroundUnit(new Location(1,1));
+        airUnit = new AirUnit(new Location(1,1));
 
         airGroundTower.attack(groundUnit);
         airGroundTower.attack(airUnit);
@@ -107,7 +107,7 @@ public class GameplayTests extends TestBase {
 
         // Place a tower and minion
         Tower tower = new AirTower(player);
-        Minion minion = new AirUnit(1, 1);
+        Minion minion = new AirUnit(new Location(1, 1));
 
         // Kill the minion
         minion.attacked(tower, Integer.MAX_VALUE);

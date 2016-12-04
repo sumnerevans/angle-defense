@@ -5,31 +5,33 @@ import com.google.gson.*;
 import config.Board;
 import config.Level;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
 public class Game {
-
     private int numLives;
     private Board board;
     private ArrayList<Level> levels;
 
-    private ArrayList<Minion> minions;
-    private ArrayList<Tower> towers;
+    public transient final ArrayList<Minion> minions;
+    public transient final ArrayList<Tower> towers;
 
     private transient Level currentLevel;
-    private transient DrawContext context;
-    private transient Hud hud;
-    private boolean gameOver = false;
+    public transient final DrawContext draw;
+    public transient final Hud hud;
+    public transient final JPanel display;
+    private transient boolean gameOver = false;
 
     private Game() {
         this.hud = new Hud();
-        this.context = new DrawContext();
+        this.draw = new DrawContext();
         this.minions = new ArrayList<>();
         this.towers = new ArrayList<>();
+        this.display = draw.new Panel();
     }
 
-    public static Game NewGame(String configFile) throws FileNotFoundException, JsonParseException {
+    public static Game newGame(String configFile) throws FileNotFoundException, JsonParseException {
         // Create a Game object from the config JSON
         Gson gson = new GsonBuilder().registerTypeAdapter(Board.class, new Board.Builder())
                 .setPrettyPrinting().create();
@@ -49,12 +51,22 @@ public class Game {
 
     public void loop() {
         // TODO: Do other stuff
+        draw.init();
+
         while (!this.gameOver) {
             this.tick();
+            
+            draw.preDraw();
+            this.render();
+            draw.postDraw();
+
+            display.repaint();
         }
+
+        draw.close();
     }
 
-    public void tick() {
+    private void tick() {
         for (Minion m : this.minions) {
             m.tick(this);
         }
@@ -62,6 +74,10 @@ public class Game {
         for (Tower t : this.towers) {
             t.tick(this);
         }
+    }
+
+    private void render() {
+        board.draw(draw);
     }
 
     public void spawnMinion(Minion m) {
