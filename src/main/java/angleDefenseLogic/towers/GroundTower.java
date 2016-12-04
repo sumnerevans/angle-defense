@@ -1,7 +1,8 @@
-package angleDefenseLogic.Towers;
+package angleDefenseLogic.towers;
 
 import angleDefenseGui.*;
 import angleDefenseLogic.*;
+import angleDefenseLogic.minions.*;
 
 public class GroundTower extends Tower {
 

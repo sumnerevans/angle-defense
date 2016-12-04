@@ -12,6 +12,7 @@ public class Location {
         this.y = y;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof Location))
             return false;
@@ -24,11 +25,27 @@ public class Location {
         return Math.abs(this.x - x) < delta && Math.abs(this.y - y) < delta;
     }
 
+    public float getX() {
+        return this.x;
+    }
+
+    public float getY() {
+        return this.y;
+    }
+
     public void setX(float x) {
         this.x = x;
     }
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

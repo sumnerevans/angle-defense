@@ -1,6 +1,7 @@
 package config;
 
 import angleDefenseLogic.*;
+import angleDefenseLogic.minions.*;
 
 import java.util.*;
 
@@ -22,8 +23,9 @@ public class Level {
             int minionsToSpawn = (int) mb - (int) ma;
 
             for (int i = 0; i < minionsToSpawn; i++) {
-                Location loc = new Location(1, 1);// Figure this out
-                Minion m = w.minionType.create(loc);
+                Location loc = new Location(1, 1);// TODO: Figure this out
+                Node n = new Node(loc, null);// TODO: Figure this out
+                Minion m = w.minionType.create(n);
                 game.spawnMinion(m);
             }
         }

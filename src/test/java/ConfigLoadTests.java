@@ -1,9 +1,9 @@
 import angleDefenseLogic.*;
-import config.Board;
-import config.Level;
+import angleDefenseLogic.minions.*;
+import config.*;
 import org.junit.*;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 import static junit.framework.TestCase.*;
@@ -74,8 +74,8 @@ public class ConfigLoadTests extends TestBase {
         Level firstLevel = levels.get(0);
         assertEquals(Minion.Type.GROUND, firstLevel.getWave(0).minionType);
         assertEquals(15, firstLevel.getWave(0).count);
-        assertEquals(15, firstLevel.getWave(0).start, .001);
-        assertEquals(20, firstLevel.getWave(0).end, .001);
+        assertEquals(15.0, firstLevel.getWave(0).start, 0.00001);
+        assertEquals(20.0, firstLevel.getWave(0).end, 0.00001);
     }
 
 }

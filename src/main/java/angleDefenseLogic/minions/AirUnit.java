@@ -1,12 +1,14 @@
-package angleDefenseLogic.Minions;
+package angleDefenseLogic.minions;
 
 import angleDefenseGui.*;
 import angleDefenseLogic.*;
+import angleDefenseLogic.towers.*;
+import config.*;
 
 public class AirUnit extends Minion {
 
-    public AirUnit(Location l) {
-        super(l);
+    protected AirUnit(Node n) {
+        super(n);
         this.goldReward = 5;
         this.health = 7;
     }

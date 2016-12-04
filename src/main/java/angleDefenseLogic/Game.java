@@ -1,9 +1,10 @@
 package angleDefenseLogic;
 
 import angleDefenseGui.*;
+import angleDefenseLogic.minions.*;
+import angleDefenseLogic.towers.*;
 import com.google.gson.*;
-import config.Board;
-import config.Level;
+import config.*;
 
 import javax.swing.*;
 import java.io.*;
@@ -82,6 +83,10 @@ public class Game {
 
     public void spawnMinion(Minion m) {
         this.minions.add(m);
+    }
+
+    public void buildTower(Tower t) {
+        this.towers.add(t);
     }
 
     public Board getBoard() {
