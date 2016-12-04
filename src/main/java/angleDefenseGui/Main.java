@@ -4,6 +4,7 @@ import angleDefenseLogic.*;
 import com.google.gson.JsonParseException;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
 import java.io.*;
 
 /**
@@ -50,6 +51,8 @@ public class Main extends JFrame {
                     "Something went terribly wrong.\n\n" + e.getMessage(),
                     "Unknown Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
     public static void main(String[] args) {
