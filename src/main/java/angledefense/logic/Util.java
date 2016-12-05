@@ -1,4 +1,4 @@
-package angleDefenseLogic;
+package angledefense.logic;
 
 import java.io.*;
 

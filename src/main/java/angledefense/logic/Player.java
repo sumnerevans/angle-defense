@@ -1,4 +1,4 @@
-package angleDefenseLogic;
+package angledefense.logic;
 
 import java.awt.*;
 import java.security.InvalidParameterException;

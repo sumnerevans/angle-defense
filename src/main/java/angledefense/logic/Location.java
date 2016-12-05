@@ -1,4 +1,4 @@
-package angleDefenseLogic;
+package angledefense.logic;
 
 /**
  * Created by Mobius on 11/22/16.

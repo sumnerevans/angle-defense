@@ -1,6 +1,6 @@
-package angleDefenseLogic;
+package angledefense.logic;
 
-import angleDefenseGui.DrawContext;
+import angledefense.gui.DrawContext;
 
 public interface IDrawable {
     void draw(DrawContext drawContext);

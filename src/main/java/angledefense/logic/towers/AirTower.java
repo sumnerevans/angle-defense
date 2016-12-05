@@ -1,8 +1,8 @@
-package angleDefenseLogic.towers;
+package angledefense.logic.towers;
 
-import angleDefenseGui.DrawContext;
-import angleDefenseLogic.*;
-import angleDefenseLogic.minions.*;
+import angledefense.gui.DrawContext;
+import angledefense.logic.*;
+import angledefense.logic.minions.*;
 
 public class AirTower extends Tower {
 

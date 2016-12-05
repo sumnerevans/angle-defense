@@ -1,10 +1,10 @@
-package angleDefenseLogic;
+package angledefense.logic;
 
-import angleDefenseGui.*;
-import angleDefenseLogic.minions.*;
-import angleDefenseLogic.towers.*;
+import angledefense.gui.*;
+import angledefense.logic.minions.*;
+import angledefense.logic.towers.*;
 import com.google.gson.*;
-import config.*;
+import angledefense.config.*;
 
 import java.io.*;
 import java.util.*;

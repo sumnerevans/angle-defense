@@ -1,6 +1,6 @@
-package angleDefenseGui;
+package angledefense.gui;
 
-import angleDefenseLogic.*;
+import angledefense.logic.*;
 import com.google.gson.JsonParseException;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package angleDefenseLogic;
+package angledefense.logic;
 
 /**
  * Created by sumner on 12/2/16.

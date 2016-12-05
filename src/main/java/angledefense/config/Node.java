@@ -1,6 +1,6 @@
-package config;
+package angledefense.config;
 
-import angleDefenseLogic.*;
+import angledefense.logic.*;
 
 /**
  * Created by sumner on 11/29/16.

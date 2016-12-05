@@ -1,6 +1,6 @@
-import angleDefenseLogic.*;
-import angleDefenseLogic.minions.*;
-import config.*;
+import angledefense.logic.*;
+import angledefense.logic.minions.*;
+import angledefense.config.*;
 import org.junit.*;
 
 import java.io.*;

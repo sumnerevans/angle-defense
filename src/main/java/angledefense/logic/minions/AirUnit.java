@@ -1,16 +1,16 @@
-package angleDefenseLogic.minions;
+package angledefense.logic.minions;
 
-import angleDefenseGui.*;
-import angleDefenseLogic.*;
-import angleDefenseLogic.towers.*;
-import config.*;
+import angledefense.gui.*;
+import angledefense.logic.*;
+import angledefense.logic.towers.*;
+import angledefense.config.*;
 
-public class GroundUnit extends Minion {
+public class AirUnit extends Minion {
 
-    GroundUnit(Node n) {
+    protected AirUnit(Node n) {
         super(n);
-        this.goldReward = 3;
-        this.health = 5;
+        this.goldReward = 5;
+        this.health = 7;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class GroundUnit extends Minion {
 
     @Override
     protected void receiveDamage(Tower tower, int amount) {
-        // TODO: Implement
+        // TODO Implement
     }
 
 }

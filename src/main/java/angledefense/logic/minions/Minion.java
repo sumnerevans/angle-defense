@@ -1,9 +1,9 @@
-package angleDefenseLogic.minions;
+package angledefense.logic.minions;
 
-import angleDefenseLogic.*;
-import angleDefenseLogic.towers.*;
+import angledefense.logic.*;
+import angledefense.logic.towers.*;
 import com.google.gson.annotations.SerializedName;
-import config.*;
+import angledefense.config.*;
 
 import java.util.function.*;
 

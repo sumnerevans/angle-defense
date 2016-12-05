@@ -1,6 +1,6 @@
-package angleDefenseLogic;
+package angledefense.logic;
 
-import angleDefenseGui.*;
+import angledefense.gui.*;
 import com.google.gson.annotations.*;
 
 /**

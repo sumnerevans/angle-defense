@@ -1,4 +1,4 @@
-package angleDefenseGui;
+package angledefense.gui;
 
 import javax.swing.*;
 import java.io.*;
