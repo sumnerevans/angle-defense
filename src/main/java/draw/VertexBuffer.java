@@ -18,8 +18,9 @@ public class VertexBuffer {
             data = BufferUtils.createFloatBuffer(verts * 8);
         }
 
-        public void add(float... floats) {
+        public Builder add(float... floats) {
             data.put(floats);
+            return this;
         }
 
         public VertexBuffer build() {
@@ -32,9 +33,9 @@ public class VertexBuffer {
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
             GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data, GL15.GL_STATIC_DRAW);
 
-            GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 8, 0);
-            GL20.glVertexAttribPointer(1, 3, GL11.GL_FLOAT, true, 8, 3);
-            GL20.glVertexAttribPointer(2, 3, GL11.GL_FLOAT, true, 8, 6);
+            GL20.glVertexAttribPointer(0, 3, GL11.GL_FLOAT, false, 8 * 4, 0);
+            GL20.glVertexAttribPointer(1, 3, GL11.GL_FLOAT, true, 8 * 4, 3 * 4);
+            GL20.glVertexAttribPointer(2, 2, GL11.GL_FLOAT, false, 8 * 4, 6 * 4);
 
             GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
             GL30.glBindVertexArray(0);

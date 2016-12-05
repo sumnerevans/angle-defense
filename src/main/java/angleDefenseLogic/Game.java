@@ -6,6 +6,7 @@ import com.google.gson.*;
 import config.*;
 import draw.DrawContext;
 import draw.OBJLoader;
+import draw.ShaderProgram;
 import draw.VertexBuffer;
 import org.omg.CORBA.OBJ_ADAPTER;
 
@@ -28,6 +29,7 @@ public class Game {
     private transient boolean gameOver = false;
 
     VertexBuffer teapot;
+    ShaderProgram shader;
 
     private Game() {
         this.hud = new Hud();
@@ -61,6 +63,11 @@ public class Game {
 
         try {
             teapot = OBJLoader.load(Util.newFileStream("assets/teapot.obj"));
+
+            shader = ShaderProgram.builder()
+                    .setVert(Util.newFileStream("shaders/basic.v.glsl"))
+                    .setFrag(Util.newFileStream("shaders/basic.f.glsl"))
+                    .build();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,7 +76,11 @@ public class Game {
             this.tick();
             
             draw.preDraw();
+
+            shader.bind();
             teapot.draw();
+            shader.unbind();
+
             this.render();
             draw.postDraw();
 
