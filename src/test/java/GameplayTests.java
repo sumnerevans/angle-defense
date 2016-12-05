@@ -8,6 +8,8 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import static junit.framework.TestCase.*;
+
 public class GameplayTests extends TestBase {
     static private Game game;
     static private Player player;

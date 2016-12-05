@@ -130,4 +130,9 @@ public class Game {
         this.gameOver = true;
     }
 
+    // Testing only
+    public ArrayList<Minion> _getMinions() {
+        return this.minions;
+    }
+
 }
