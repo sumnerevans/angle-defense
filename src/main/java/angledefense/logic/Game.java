@@ -60,7 +60,7 @@ public class Game {
 
         while (!this.gameOver) {
             this.tick();
-            
+
             draw.preDraw();
             this.render();
             draw.postDraw();
@@ -70,6 +70,8 @@ public class Game {
     }
 
     private void tick() {
+        ArrayList<Minion> forRemoval = new ArrayList<>();
+
         for (Minion m : this.minions) {
             m.tick(this);
 
@@ -86,6 +88,7 @@ public class Game {
             t.tick(this);
         }
     }
+
     private void render() {
         for (int x = 2; x < board.width; x += 5) {
             for (int y = 0; y < board.height; y += 5) {

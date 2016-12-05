@@ -1,6 +1,5 @@
 package angledefense.logic;
 
-import angledefense.gui.*;
 import com.google.gson.annotations.*;
 import angledefense.draw.DrawContext;
 
