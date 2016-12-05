@@ -8,6 +8,7 @@ import angledefense.config.*;
 import angledefense.draw.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.util.*;
 
@@ -22,14 +23,12 @@ public class Game {
 
     private transient Level currentLevel;
     public transient final DrawContext draw;
-    public transient final Hud hud;
     private transient boolean gameOver = false;
 
     private transient ModelHandle teapot = ModelHandle.create("teapot");
 
     private Game() {
-        this.hud = new Hud();
-        this.player = new Player(hud.getName(), hud.getColor());
+        this.player = new Player("Player", Color.BLUE);
         this.draw = new DrawContext(this);
         this.minions = new ArrayList<>();
         this.towers = new ArrayList<>();
@@ -128,6 +127,10 @@ public class Game {
 
     public void setGameOver() {
         this.gameOver = true;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     // Testing only

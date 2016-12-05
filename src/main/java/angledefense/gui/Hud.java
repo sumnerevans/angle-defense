@@ -1,5 +1,6 @@
 package angledefense.gui;
 
+import angledefense.logic.Game;
 import angledefense.logic.Player;
 
 import javax.swing.*;
@@ -9,26 +10,21 @@ import java.util.*;
 /**
  * Created by Sumner on 11/21/16.
  */
-public class Hud extends JFrame {
+public class Hud extends JPanel {
     private JPanel board;
     private ArrayList<JButton> buttons;
     private ArrayList<JLabel> textLabels;
     private InfoLayout infoLayout;
+    private Game game;
 
-    public Hud() {
+    public Hud(Game game) {
+        this.game = game;
         initializeGUI();
-
     }
 
     private void initializeGUI() {
-
-        setSize(900, 600);
-        setTitle("Angle Defence");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
         // Temporarily making a player until I can get an instance.
-        Player p = new Player("Cash", Color.yellow);
-        infoLayout = new InfoLayout(p);
+        infoLayout = new InfoLayout(game.getPlayer());
         add(infoLayout, "North");
     }
 
@@ -45,12 +41,6 @@ public class Hud extends JFrame {
     public void createButtons() {
         // TODO: make this take in an image and return a button object
         // TODO: use Game.buildTower(Tower t) to build towers
-    }
-
-    // To be used only for viewing while creating the GUI
-    public static void main(String[] args) {
-        Hud hud = new Hud();
-        hud.setVisible(true);
     }
 
     public Color getColor() {

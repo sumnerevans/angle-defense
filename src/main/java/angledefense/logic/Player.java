@@ -10,13 +10,11 @@ import java.util.*;
 public class Player {
     private int gold;
     private String name;
-    private String guid;
     private Color color;
 
     public Player(String name, Color color) {
         this.gold = 0;
         this.name = name;
-        this.guid = UUID.randomUUID().toString();
         this.color = color;
     }
 

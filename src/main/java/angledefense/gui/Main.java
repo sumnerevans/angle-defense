@@ -4,6 +4,7 @@ import angledefense.logic.*;
 import com.google.gson.JsonParseException;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.io.*;
 
@@ -18,8 +19,12 @@ public class Main extends JFrame {
         try {
             // Load the game
             Game game = Game.newGame("default-config.json");
+            Hud hud = new Hud(game);
+
+            this.add(hud, BorderLayout.CENTER);
 
             // Show the window
+            this.pack();
             this.setVisible(true);
 
             // Play the game

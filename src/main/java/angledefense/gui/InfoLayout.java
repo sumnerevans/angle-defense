@@ -15,7 +15,7 @@ public class InfoLayout extends JPanel{
 	public InfoLayout(Player player) {
 		setLayout(new GridLayout(1, 3));
 		setBorder(new EtchedBorder());
-		setSize(900, 25);
+		setPreferredSize(new Dimension(900, 600));
 
 		// Gold
 		JPanel goldPanel = new JPanel();
