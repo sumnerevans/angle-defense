@@ -21,8 +21,9 @@ public class InfoLayout extends JPanel{
 		JPanel goldPanel = new JPanel();
 		goldPanel.setLayout(new GridLayout(1, 0));
 		goldPanel.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
-
+		JTextField field = new JTextField(player.getGold());
+		field.setEditable(false);
+		goldPanel.add(field);
 		add(goldPanel);
-
 	}
 }

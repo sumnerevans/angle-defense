@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.*;
 
 public class Game {
+    private final Player player;
     private int numLives;
     private Board board;
     private ArrayList<Level> levels;
@@ -28,6 +29,7 @@ public class Game {
 
     private Game() {
         this.hud = new Hud();
+        this.player = new Player(hud.getName(), hud.getColor());
         this.draw = new DrawContext(this);
         this.minions = new ArrayList<>();
         this.towers = new ArrayList<>();

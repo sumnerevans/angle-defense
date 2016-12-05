@@ -3,6 +3,7 @@ package angledefense.gui;
 import angledefense.logic.Player;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 
 /**
@@ -25,7 +26,8 @@ public class Hud extends JFrame {
         setTitle("Angle Defence");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        Player p = new Player();
+        // Temporarily making a player until I can get an instance.
+        Player p = new Player("Cash", Color.yellow);
         infoLayout = new InfoLayout(p);
         add(infoLayout, "North");
     }
@@ -49,5 +51,14 @@ public class Hud extends JFrame {
     public static void main(String[] args) {
         Hud hud = new Hud();
         hud.setVisible(true);
+    }
+
+    public Color getColor() {
+        //TODO: Make this
+        return Color.blue;
+    }
+
+    public String getName() {
+        return "Blarg";
     }
 }
