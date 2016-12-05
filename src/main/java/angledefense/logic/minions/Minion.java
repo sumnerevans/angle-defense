@@ -68,8 +68,8 @@ public abstract class Minion implements IDrawable, ITickable {
     }
 
     @Override
-    public void tick(Game game) {
-        moveForward(.1f);
+    public void tick(Game game, float dt) {
+        this.moveForward(this.speed * dt);
     }
 
     @Override

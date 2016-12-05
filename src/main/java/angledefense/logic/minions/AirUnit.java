@@ -21,13 +21,6 @@ public class AirUnit extends Minion {
     }
 
     @Override
-    public void tick(Game game, float dt) {
-        // TODO Auto-generated method stub
-
-        this.moveForward(this.speed * dt);
-    }
-
-    @Override
     protected void receiveDamage(Tower tower, int amount) {
         if (tower instanceof GroundTower) return;
 
