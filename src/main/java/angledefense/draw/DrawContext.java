@@ -149,8 +149,6 @@ public class DrawContext {
         GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_DEPTH_COMPONENT, width, height, 0, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, new float[width * height]);
         GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_DEPTH_ATTACHMENT, GL11.GL_TEXTURE_2D, fbo_depth, 0);
 
-        img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-
         loadAssets();
 
         shader = ShaderProgram.builder()
@@ -160,10 +158,10 @@ public class DrawContext {
 
         shader.bind();
 
-        unMapSize = shader.getUnLoc("map_size");
-        unVertRange = shader.getUnLoc("vert_range");
-        unModelTrans = shader.getUnLoc("model_trans");
-        unTexture = shader.getUnLoc("texture");
+        unMapSize = shader.getUnLoc("u_map_size");
+        unVertRange = shader.getUnLoc("u_vert_range");
+        unModelTrans = shader.getUnLoc("u_model_trans");
+        unTexture = shader.getUnLoc("u_color_tex");
 
         GL11.glClearDepth(1);
         GL11.glClearColor(0f, 0f, 0f, 0f);
@@ -215,7 +213,8 @@ public class DrawContext {
             DataBufferInt databuf = new DataBufferInt(data, data.length);
             int[] bitmasks = new int[]{0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF};
             SampleModel model = new SinglePixelPackedSampleModel(DataBuffer.TYPE_INT, width, height, bitmasks);
-            img.setData(Raster.createRaster(model, databuf, null));
+            WritableRaster raster = Raster.createWritableRaster(model, databuf, null);
+            img = new BufferedImage(new DirectColorModel(32, bitmasks[0], bitmasks[1], bitmasks[2], bitmasks[3]), raster, false, null);
         }
     }
 }
