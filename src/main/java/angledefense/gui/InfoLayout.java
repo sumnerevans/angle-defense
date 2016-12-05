@@ -11,6 +11,7 @@ import java.awt.*;
 /**
  * Created by Mobius on 12/5/16.
  */
+
 public class InfoLayout extends JPanel {
 	public InfoLayout(Player player) {
 		setLayout(new GridLayout(1, 3));

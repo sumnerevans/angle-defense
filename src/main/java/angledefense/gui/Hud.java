@@ -16,6 +16,7 @@ public class Hud extends JPanel {
     private ArrayList<JLabel> textLabels;
     private InfoLayout infoLayout;
     private Game game;
+    private ViewField viewField;
 
     public Hud(Game game) {
         this.game = game;
@@ -23,8 +24,11 @@ public class Hud extends JPanel {
     }
 
     private void initializeGUI() {
+
         infoLayout = new InfoLayout(game.getPlayer());
-        add(infoLayout, "North");
+        viewField = new ViewField(game);
+        this.add(infoLayout, "North");
+        this.add(viewField, "South");
     }
 
     public void drawContent() {
