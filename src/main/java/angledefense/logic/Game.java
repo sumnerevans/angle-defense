@@ -1,5 +1,6 @@
 package angledefense.logic;
 
+import angledefense.gui.Hud;
 import angledefense.logic.minions.*;
 import angledefense.logic.towers.*;
 import com.google.gson.*;

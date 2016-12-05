@@ -1,4 +1,4 @@
-package angledefense.logic;
+package angledefense.gui;
 
 import javax.swing.*;
 import java.util.*;
@@ -26,5 +26,10 @@ public class Hud {
     public void createButton() {
         // TODO: make this take in an image and return a button object
         // TODO: use Game.buildTower(Tower t) to build towers
+    }
+
+    // To be used only for viewing while creating the GUI
+    public static void main(String[] args) {
+        Hud hud = new Hud();
     }
 }
