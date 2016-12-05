@@ -34,6 +34,8 @@ public abstract class Minion implements IDrawable, ITickable {
     protected int goldReward;
     protected Location location;
     protected Node currentNode;
+    protected boolean gotToCastle = false;
+    protected float speed;
 
     private static ModelHandle teapot = ModelHandle.create("teapot");
 
@@ -45,7 +47,11 @@ public abstract class Minion implements IDrawable, ITickable {
     public void moveForward(float distanceToTravel) {
         while (distanceToTravel > 0) {
             Location current = location;
-            if (currentNode.next == null) break;
+            if (currentNode.next == null) {
+                this.gotToCastle = true;
+                this.dead = true;
+                break;
+            }
 
             Location next = currentNode.next.location;
 
@@ -62,8 +68,8 @@ public abstract class Minion implements IDrawable, ITickable {
     }
 
     @Override
-    public void tick(Game game) {
-        moveForward(.1f);
+    public void tick(Game game, float dt) {
+        this.moveForward(this.speed * dt);
     }
 
     @Override
@@ -91,13 +97,8 @@ public abstract class Minion implements IDrawable, ITickable {
         return this.dead;
     }
 
-    private void moveToNode(Node n) {
-        this.currentNode = n;
-
-        if (n == null)
-            this.location = null;
-        else
-            this.location = n.location;
+    public boolean gotToCastle() {
+        return gotToCastle;
     }
 
     // Testing Only

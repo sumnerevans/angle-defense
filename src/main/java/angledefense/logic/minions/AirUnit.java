@@ -11,11 +11,11 @@ public class AirUnit extends Minion {
         super(n);
         this.goldReward = 5;
         this.health = 7;
+        this.speed = 4;
     }
 
     @Override
-    public void tick(Game game) {
-        super.tick(game);
+    public void draw(DrawContext drawContext) {
         // TODO Auto-generated method stub
 
     }
