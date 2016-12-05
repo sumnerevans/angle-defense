@@ -1,6 +1,6 @@
 #version 330
 
-layout(location = 0) out vec4 output;
+layout(location = 0) out vec4 fragcolor;
 
 in vec2 tex_uv;
 in vec3 norm;
@@ -13,5 +13,5 @@ void main() {
     light = light * .8 + .2;
     vec4 color = texture2D(texture, vec2(tex_uv.x, 1 - tex_uv.y)).gbar;
     color.rgb *= light;
-    output = color;
+    fragcolor = color;
 }

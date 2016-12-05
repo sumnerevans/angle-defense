@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
+import org.lwjgl.system.Platform;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -119,14 +120,21 @@ public class DrawContext {
         if (!GLFW.glfwInit())
             throw new IllegalStateException("Unable to initialize GLFW");
 
+        GLFW.glfwDefaultWindowHints();
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GL11.GL_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 0);
+        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 2);
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLFW.GLFW_TRUE);
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
 
         window = GLFW.glfwCreateWindow(width, height, "", 0, 0);
         GLFW.glfwMakeContextCurrent(window);
 
         capabilities = GL.createCapabilities();
+        System.out.printf("[OPENGL VERSION]: %s\n", GL11.glGetString(GL11.GL_VERSION));
+        if (!capabilities.OpenGL30) {
+            throw new IllegalStateException("[ERROR]: OpenGL 3.0 is not supported! You can't run the game, sorry.");
+        }
 
         fbo = GL30.glGenFramebuffers();
         GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, fbo);

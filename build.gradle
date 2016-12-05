@@ -19,7 +19,7 @@ switch ( OperatingSystem.current() ) {
         break
 }
 
-project.ext.lwjglVersion = "3.0.0"
+project.ext.lwjglVersion = "3.1.0"
 
 repositories {
     mavenCentral()
@@ -34,9 +34,9 @@ dependencies {
     compile "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
     compile "org.lwjgl:lwjgl-jawt:${lwjglVersion}"
     compile "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
-    compile "org.lwjgl:lwjgl-platform:${lwjglVersion}:${lwjglNatives}"
     runtime "org.lwjgl:lwjgl:${lwjglVersion}:${lwjglNatives}"
     runtime "org.lwjgl:lwjgl-glfw:${lwjglVersion}:${lwjglNatives}"
+    //runtime "org.lwjgl:lwjgl-opengl:${lwjglVersion}:${lwjglNatives}"
 
     testCompile 'junit:junit:4.12'
 }
