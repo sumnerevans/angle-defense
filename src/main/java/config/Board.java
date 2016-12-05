@@ -174,4 +174,8 @@ public class Board implements IDrawable {
     public Decoration[] getDecorations() {
         return decorations;
     }
+
+    public Node[] getStartNodes() {
+        return startNodes;
+    }
 }

@@ -22,11 +22,11 @@ public class Level {
 
             int minionsToSpawn = (int) mb - (int) ma;
 
+            // Spawn the minions at random start nodes
             for (int i = 0; i < minionsToSpawn; i++) {
-                Location loc = new Location(1, 1);// TODO: Figure this out
-                Node n = new Node(loc, null);// TODO: Figure this out
-                Minion m = w.minionType.create(n);
-                game.spawnMinion(m);
+                Node[] startNodes = game.getBoard().getStartNodes();
+                Node randNode = startNodes[new Random().nextInt(startNodes.length)];
+                game.spawnMinion(w.minionType.create(randNode));
             }
         }
     }

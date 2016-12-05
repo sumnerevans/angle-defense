@@ -24,7 +24,7 @@ public class GameplayTests extends TestBase {
     // Test that the level increments when the player beats a level
     @Test
     public void testLevelIncrement() {
-        Tower boom = new GroundTower(player);
+        Tower boom = new GroundTower(player, new Location(0, 0));
 
         // add a bunch of minions
         Minion one = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
@@ -63,6 +63,13 @@ public class GameplayTests extends TestBase {
         assertEquals(originalLives - minions.size(), game.getNumLives());
     }
 
+    @Test
+    public void testMinionSpawn() {
+        game.getLevel().spawnMinions(new TimeRange(0, 1), game);
+
+        assertEquals(1, game._getMinions().size());
+    }
+
     // Test minion move
     @Test
     public void testMinionMove() {
@@ -92,9 +99,9 @@ public class GameplayTests extends TestBase {
     @Test
     public void testTowerAttackMechanisms() {
         // Place one of each type of tower
-        Tower airGroundTower = new AirGroundTower(player);
-        Tower airTower = new AirTower(player);
-        Tower groundTower = new GroundTower(player);
+        Tower airGroundTower = new AirGroundTower(player, new Location(0, 0));
+        Tower airTower = new AirTower(player, new Location(0, 0));
+        Tower groundTower = new GroundTower(player, new Location(0, 0));
 
         // Create a few units
         Minion groundUnit = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
@@ -132,7 +139,7 @@ public class GameplayTests extends TestBase {
     public void testPlayerGoldReward() {
 
         // Place a tower and minion
-        Tower tower = new AirTower(player);
+        Tower tower = new AirTower(player, new Location(0, 0));
         Minion minion = Minion.Type.AIR.create(new Node(new Location(1, 1), null));
 
         // Kill the minion

@@ -6,8 +6,13 @@ import angleDefenseLogic.minions.*;
 
 public class AirGroundTower extends Tower {
 
-    public AirGroundTower(Player owner) {
-        super(owner);
+    public AirGroundTower(Player owner, Location location) {
+        super(owner, location);
+
+        this.range = 10;
+        this.price = 15;
+        this.level = 1;
+        this.damage = 5;
     }
 
     @Override
@@ -25,5 +30,11 @@ public class AirGroundTower extends Tower {
     @Override
     public void attack(Minion minion) {
         // TODO Implement
+    }
+
+    @Override
+    public void upgrade() {
+        this.price *= 2;
+        this.damage *= 2;
     }
 }

@@ -81,6 +81,10 @@ public abstract class Minion implements IDrawable, ITickable {
         }
     }
 
+    public boolean shouldRemove() {
+        return this.isDead();
+    }
+
     public boolean isDead() {
         return this.dead;
     }
