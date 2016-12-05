@@ -5,6 +5,7 @@ import java.awt.image.*;
 import java.io.*;
 import java.util.*;
 
+import angledefense.logic.Game;
 import angledefense.logic.Util;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -16,43 +17,28 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class DrawContext {
-    public class Panel extends JPanel {
-        public Panel() {
-            super();
-
-            this.setPreferredSize(new Dimension(width, height));
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            if (img == null) return;
-
-            g.drawImage(img, 0, 0, null);
-        }
-    }
-
     private Map<String, Model> models;
     private Map<String, VertexBuffer> vertbufs = new HashMap<>();
     private Map<String, Integer> textures = new HashMap<>();
 
     private long window = -1;
 
-    private int fbo = -1;
-    private int fbo_color;
-    private int fbo_depth;
-
-    private int width = 1024;
-    private int height = 1024;
+    private int width = 512;
+    private int height = 512;
 
     private GLCapabilities capabilities;
-    private BufferedImage img;
 
-    ShaderProgram shader;
+    private ShaderProgram shader;
     private int unMapSize;
     private int unVertRange;
     private int unModelTrans;
     private int unTexture;
+
+    private Game game;
+
+    public DrawContext(Game game) {
+        this.game = game;
+    }
 
     private void loadAssets() throws FileNotFoundException {
         models = new HashMap<>();
@@ -121,13 +107,28 @@ public class DrawContext {
             throw new IllegalStateException("Unable to initialize GLFW");
 
         GLFW.glfwDefaultWindowHints();
-        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GL11.GL_FALSE);
+        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 2);
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLFW.GLFW_TRUE);
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
 
         window = GLFW.glfwCreateWindow(width, height, "", 0, 0);
+        GLFW.glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallback() {
+            @Override
+            public void invoke(long window, int width, int height) {
+                DrawContext.this.width = width;
+                DrawContext.this.height = height;
+                GL11.glViewport(0, 0, width, height);
+                updateSize();
+            }
+        });
+        GLFW.glfwSetWindowCloseCallback(window, new GLFWWindowCloseCallback() {
+            @Override
+            public void invoke(long window) {
+                DrawContext.this.game.setGameOver();
+            }
+        });
         GLFW.glfwMakeContextCurrent(window);
 
         capabilities = GL.createCapabilities();
@@ -135,19 +136,6 @@ public class DrawContext {
         if (!capabilities.OpenGL30) {
             throw new IllegalStateException("[ERROR]: OpenGL 3.0 is not supported! You can't run the game, sorry.");
         }
-
-        fbo = GL30.glGenFramebuffers();
-        GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, fbo);
-
-        fbo_color = GL11.glGenTextures();
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, fbo_color);
-        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL12.GL_UNSIGNED_INT_8_8_8_8, new int[width * height]);
-        GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_COLOR_ATTACHMENT0, GL11.GL_TEXTURE_2D, fbo_color, 0);
-
-        fbo_depth = GL11.glGenTextures();
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, fbo_depth);
-        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_DEPTH_COMPONENT, width, height, 0, GL11.GL_DEPTH_COMPONENT, GL11.GL_FLOAT, new float[width * height]);
-        GL30.glFramebufferTexture2D(GL30.GL_FRAMEBUFFER, GL30.GL_DEPTH_ATTACHMENT, GL11.GL_TEXTURE_2D, fbo_depth, 0);
 
         loadAssets();
 
@@ -163,13 +151,27 @@ public class DrawContext {
         unModelTrans = shader.getUnLoc("u_model_trans");
         unTexture = shader.getUnLoc("u_color_tex");
 
+        updateSize();
+
         GL11.glClearDepth(1);
         GL11.glClearColor(0f, 0f, 0f, 0f);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
-    public void setMapSize(float minx, float miny, float width, float height) {
-        GL20.glUniform4f(unMapSize, minx, miny, width, height);
+    public void updateSize() {
+        int mw = game.getBoard().width;
+        int mh = game.getBoard().height;
+
+        float xscale = (float) width / mw;
+        float yscale = (float) height / mh;
+        float scale = Math.min(xscale, yscale) * 2;
+        xscale = scale / width;
+        yscale = scale / height;
+
+        float tx = .5f * mw * xscale;
+        float ty = .5f * mh * yscale;
+
+        GL20.glUniform4f(unMapSize, tx, ty, xscale, yscale);
     }
 
     public void setVerticalRange(float minalt, float maxalt) {
@@ -185,10 +187,6 @@ public class DrawContext {
     }
 
     public void close() {
-        GL30.glDeleteFramebuffers(fbo);
-        GL11.glDeleteTextures(fbo_color);
-        GL11.glDeleteTextures(fbo_depth);
-
         vertbufs.values().forEach(VertexBuffer::delete);
         vertbufs.clear();
         textures.values().forEach(GL11::glDeleteTextures);
@@ -205,6 +203,10 @@ public class DrawContext {
     }
 
     public void postDraw() {
+        GLFW.glfwSwapBuffers(window);
+        GLFW.glfwPollEvents();
+
+        /*
         int[] data = new int[width * height];
 
         GL11.glReadPixels(0, 0, width, height, GL11.GL_RGBA, GL12.GL_UNSIGNED_INT_8_8_8_8, data);
@@ -216,5 +218,6 @@ public class DrawContext {
             WritableRaster raster = Raster.createWritableRaster(model, databuf, null);
             img = new BufferedImage(new DirectColorModel(32, bitmasks[0], bitmasks[1], bitmasks[2], bitmasks[3]), raster, false, null);
         }
+        */
     }
 }

@@ -19,9 +19,6 @@ public class Main extends JFrame {
             // Load the game
             Game game = Game.newGame("default-config.json");
 
-            this.add(game.display);
-            this.setSize(game.display.getPreferredSize());
-
             // Show the window
             this.setVisible(true);
 
