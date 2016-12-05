@@ -1,4 +1,4 @@
-package angleDefenseGui;
+package draw;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -7,7 +7,6 @@ import java.util.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class DrawContext {
@@ -21,7 +20,7 @@ public class DrawContext {
         }
     }
 
-    private Map<String, Integer> vboHandles;
+    private Map<String, VertexBuffer> vertsMap;
 
     private long window = -1;
 
@@ -33,7 +32,7 @@ public class DrawContext {
     private int height = 512;
 
     private GLCapabilities capabilities;
-    private  BufferedImage img;
+    private BufferedImage img;
 
     public void loadAssets(File dir) {
         // TODO: Implement
@@ -70,7 +69,9 @@ public class DrawContext {
     }
 
     public void close() {
-
+        GL30.glDeleteFramebuffers(fbo);
+        GL11.glDeleteTextures(fbo_color);
+        GL11.glDeleteTextures(fbo_depth);
     }
 
     public void preDraw() {

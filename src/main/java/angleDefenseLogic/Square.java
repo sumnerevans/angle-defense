@@ -1,8 +1,6 @@
 package angleDefenseLogic;
 
-import angleDefenseGui.DrawContext;
-
-import java.util.*;
+import draw.DrawContext;
 
 public class Square implements IDrawable {
     public enum SquareType {

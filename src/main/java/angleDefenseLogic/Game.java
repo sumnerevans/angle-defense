@@ -1,10 +1,13 @@
 package angleDefenseLogic;
 
-import angleDefenseGui.*;
 import angleDefenseLogic.minions.*;
 import angleDefenseLogic.towers.*;
 import com.google.gson.*;
 import config.*;
+import draw.DrawContext;
+import draw.OBJLoader;
+import draw.VertexBuffer;
+import org.omg.CORBA.OBJ_ADAPTER;
 
 import javax.swing.*;
 import java.io.*;
@@ -23,6 +26,8 @@ public class Game {
     public transient final Hud hud;
     public transient final JPanel display;
     private transient boolean gameOver = false;
+
+    VertexBuffer teapot;
 
     private Game() {
         this.hud = new Hud();
@@ -54,10 +59,17 @@ public class Game {
         // TODO: Do other stuff
         draw.init();
 
+        try {
+            teapot = OBJLoader.load(Util.newFileStream("assets/teapot.obj"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         while (!this.gameOver) {
             this.tick();
             
             draw.preDraw();
+            teapot.draw();
             this.render();
             draw.postDraw();
 
