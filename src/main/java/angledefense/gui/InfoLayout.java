@@ -15,15 +15,30 @@ public class InfoLayout extends JPanel{
 	public InfoLayout(Player player) {
 		setLayout(new GridLayout(1, 3));
 		setBorder(new EtchedBorder());
-		setSize(900, 50);
+		setSize(900, 25);
 
 		// Gold
 		JPanel goldPanel = new JPanel();
-		goldPanel.setLayout(new GridLayout(1, 0));
 		goldPanel.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
 		JTextField field = new JTextField(player.getGold());
 		field.setEditable(false);
 		goldPanel.add(field);
 		add(goldPanel);
+
+		// Gold
+		JPanel xPanel = new JPanel();
+		xPanel.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
+		JTextField f = new JTextField(player.getGold());
+		field.setEditable(false);
+		xPanel.add(field);
+		add(xPanel);
+
+		// Gold
+		JPanel yPanel = new JPanel();
+		yPanel.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
+		JTextField fi = new JTextField(player.getGold());
+		field.setEditable(false);
+		yPanel.add(field);
+		add(yPanel);
 	}
 }
