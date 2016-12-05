@@ -1,5 +1,7 @@
 package angledefense.gui;
 
+import angledefense.logic.Player;
+
 import javax.swing.*;
 import java.util.*;
 
@@ -10,6 +12,7 @@ public class Hud extends JFrame {
     private JPanel board;
     private ArrayList<JButton> buttons;
     private ArrayList<JLabel> textLabels;
+    private InfoLayout infoLayout;
 
     public Hud() {
         initializeGUI();
@@ -17,13 +20,19 @@ public class Hud extends JFrame {
     }
 
     private void initializeGUI() {
+
         setSize(900, 600);
         setTitle("Angle Defence");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        Player p = new Player();
+        infoLayout = new InfoLayout(p);
+        add(infoLayout, "North");
     }
 
     public void drawContent() {
-        // TODO: Implement
+        // TODO: I think this is how it is suposed to be?
+        this.setVisible(true);
     }
 
     private JButton createButton(){
