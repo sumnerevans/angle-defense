@@ -36,8 +36,8 @@ public class ModelHandle {
         transform = matrix;
     }
 
-    public void setTransform(Location loc, float altitude, float scale, float rotation) {
-        transform = Matrix.gen(loc, altitude, scale, rotation);
+    public void setTransform(Location loc, float scale, float altitude, float rotation) {
+        transform = Matrix.gen(loc, scale, altitude, rotation);
     }
 
     public static ModelHandle create(String modelAsset) {
