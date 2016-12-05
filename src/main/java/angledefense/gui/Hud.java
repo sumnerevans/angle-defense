@@ -25,7 +25,7 @@ public class Hud extends JPanel {
     }
 
     private void initializeGUI() {
-        this.setPreferredSize(new Dimension(514,50));
+        this.setPreferredSize(new Dimension(514,60));
         infoLayout = new InfoLayout(game.getPlayer());
         infoLayout.setLocation(0,0);
         viewField = new ViewField(game);
