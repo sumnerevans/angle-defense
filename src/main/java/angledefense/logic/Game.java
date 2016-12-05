@@ -1,6 +1,5 @@
 package angledefense.logic;
 
-import angledefense.gui.Hud;
 import angledefense.logic.minions.*;
 import angledefense.logic.towers.*;
 import com.google.gson.*;
@@ -131,6 +130,10 @@ public class Game {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void onBoardClick(Location loc, int button, boolean pressed) {
+        System.out.printf("Pos: %.2f, %.2f Button: %d Pressed: %b\n", loc.getX(), loc.getY(), button, pressed);
     }
 
     // Testing only

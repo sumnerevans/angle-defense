@@ -3,18 +3,23 @@ package angledefense.draw;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
+import java.nio.DoubleBuffer;
 import java.util.*;
 
 import angledefense.logic.Game;
+import angledefense.logic.Location;
 import angledefense.logic.Util;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.Platform;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
 public class DrawContext {
     private Map<String, Model> models;
@@ -113,6 +118,9 @@ public class DrawContext {
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GLFW.GLFW_TRUE);
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
 
+        DoubleBuffer mousebuf1 = BufferUtils.createDoubleBuffer(1);
+        DoubleBuffer mousebuf2 = BufferUtils.createDoubleBuffer(1);
+
         window = GLFW.glfwCreateWindow(width, height, "", 0, 0);
         GLFW.glfwSetWindowSizeCallback(window, new GLFWWindowSizeCallback() {
             @Override
@@ -127,6 +135,15 @@ public class DrawContext {
             @Override
             public void invoke(long window) {
                 DrawContext.this.game.setGameOver();
+            }
+        });
+        GLFW.glfwSetMouseButtonCallback(window, new GLFWMouseButtonCallback() {
+            @Override
+            public void invoke(long window, int button, int action, int mods) {
+                mousebuf1.clear();
+                mousebuf2.clear();
+                GLFW.glfwGetCursorPos(window, mousebuf1, mousebuf2);
+                game.onBoardClick(getLocFromWindow((int) mousebuf1.get(0), (int) mousebuf2.get(0)), button, action == GLFW_PRESS);
             }
         });
         GLFW.glfwMakeContextCurrent(window);
@@ -158,7 +175,7 @@ public class DrawContext {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
     }
 
-    public void updateSize() {
+    private void updateSize() {
         int mw = game.getBoard().width;
         int mh = game.getBoard().height;
 
@@ -172,6 +189,23 @@ public class DrawContext {
         float ty = .5f * mh * yscale;
 
         GL20.glUniform4f(unMapSize, tx, ty, xscale, yscale);
+    }
+
+    private Location getLocFromWindow(int x, int y) {
+        int mw = game.getBoard().width;
+        int mh = game.getBoard().height;
+
+        float xscale = (float) width / mw;
+        float yscale = (float) height / mh;
+        float scale = Math.min(xscale, yscale);
+
+        float bw = width - mw * scale;
+        float bh = height - mh * scale;
+
+        float xx = (x - bw / 2) / scale;
+        float yy = (y - bh / 2) / scale;
+
+        return new Location(xx, yy);
     }
 
     public void setVerticalRange(float minalt, float maxalt) {
