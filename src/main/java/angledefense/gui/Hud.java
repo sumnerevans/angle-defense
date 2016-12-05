@@ -24,11 +24,11 @@ public class Hud extends JPanel {
     }
 
     private void initializeGUI() {
-
+        this.setPreferredSize(new Dimension(900,700));
         infoLayout = new InfoLayout(game.getPlayer());
         viewField = new ViewField(game);
-        this.add(infoLayout, "North");
-        this.add(viewField, "South");
+        this.add(infoLayout);
+        this.add(viewField);
     }
 
     public void drawContent() {

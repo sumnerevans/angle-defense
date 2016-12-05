@@ -3,6 +3,7 @@ package angledefense.gui;
 import angledefense.logic.Game;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
 /**
@@ -10,8 +11,8 @@ import java.awt.*;
  */
 public class ViewField extends JPanel {
 	public ViewField(Game game) {
-		setPreferredSize(new Dimension(600,600));
-
+		setPreferredSize(new Dimension(850,550));
+		setBorder(new EtchedBorder());
 
 	}
 }

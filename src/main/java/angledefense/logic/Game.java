@@ -30,7 +30,7 @@ public class Game {
     public transient final DrawContext draw;
     private transient boolean gameOver = false;
 
-    private transient ModelHandle teapot = ModelHandle.create("teapot");
+    private transient ModelHandle selector = ModelHandle.create("selector");
 
     private Game() {
         this.player = new Player("Player", Color.BLUE);
@@ -61,7 +61,9 @@ public class Game {
     public void loop() throws IOException {
         draw.init();
 
-        draw.setVerticalRange(-1, 0.8f * (board.width + board.height));
+        draw.setVerticalRange(-2, 0.8f * (board.width + board.height));
+
+        currentLevel.spawnMinions(new TimeRange(0, 100), this);
 
         while (!this.gameOver) {
             this.tick();
@@ -123,8 +125,8 @@ public class Game {
 
     private void render() {
         if (selected != null) {
-            teapot.setTransform(selected.floor(), 3, 0, 3.1416f / 4);
-            teapot.draw();
+            selector.setTransform(selected.floor(), 1, -.8f, 0);
+            selector.draw();
         }
 
         board.draw(draw);

@@ -13,9 +13,9 @@ out vec3 f_norm;
 
 void main() {
     vec4 pos = u_model_trans * vec4(v_pos, 1);
-    pos = vec4(pos.x, pos.z, pos.y, 1);
+    pos = vec4(pos.xzy, 1);
+    pos.xy += u_map_size.xy;
     pos.xy *= u_map_size.zw;
-    pos.xy -= u_map_size.xy;
 
     float scale = u_vert_range.y / (u_vert_range.y - u_vert_range.x);
 
@@ -25,7 +25,7 @@ void main() {
     pos.xy *= scale;
 
     f_uv = v_tex;
-    f_norm = (u_model_trans * vec4(v_norm, 0)).xyz;
+    f_norm = (u_model_trans * vec4(v_norm, 0)).xzy;
 
     gl_Position = pos;
 }

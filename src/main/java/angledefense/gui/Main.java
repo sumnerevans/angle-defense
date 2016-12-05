@@ -27,6 +27,7 @@ public class Main extends JFrame {
             // Show the window
             this.pack();
             this.setVisible(true);
+            this.setAlwaysOnTop(true);
 
             // Play the game
             game.loop();
