@@ -1,6 +1,6 @@
 package angleDefenseLogic;
 
-import angleDefenseGui.DrawContext;
+import draw.DrawContext;
 
 import java.util.*;
 
