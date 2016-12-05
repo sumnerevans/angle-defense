@@ -23,7 +23,6 @@ public class Hud extends JPanel {
     }
 
     private void initializeGUI() {
-        // Temporarily making a player until I can get an instance.
         infoLayout = new InfoLayout(game.getPlayer());
         add(infoLayout, "North");
     }

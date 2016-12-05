@@ -11,11 +11,11 @@ import java.awt.*;
 /**
  * Created by Mobius on 12/5/16.
  */
-public class InfoLayout extends JPanel{
+public class InfoLayout extends JPanel {
 	public InfoLayout(Player player) {
 		setLayout(new GridLayout(1, 3));
 		setBorder(new EtchedBorder());
-		setPreferredSize(new Dimension(900, 600));
+		setPreferredSize(new Dimension(900, 50));
 
 		// Gold
 		JPanel goldPanel = new JPanel();
