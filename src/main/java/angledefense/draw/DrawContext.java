@@ -185,10 +185,10 @@ public class DrawContext {
         xscale = scale / width;
         yscale = scale / height;
 
-        float tx = .5f * mw * xscale;
-        float ty = .5f * mh * yscale;
+        float tx = -.5f * mw;
+        float ty = -.5f * mh + 1;
 
-        GL20.glUniform4f(unMapSize, tx, ty, xscale, yscale);
+        GL20.glUniform4f(unMapSize, tx, ty, xscale, -yscale);
     }
 
     private Location getLocFromWindow(int x, int y) {
@@ -201,8 +201,6 @@ public class DrawContext {
 
         float bw = width - mw * scale;
         float bh = height - mh * scale;
-
-        y = height - y;
 
         float xx = (x - bw / 2) / scale;
         float yy = (y - bh / 2) / scale;

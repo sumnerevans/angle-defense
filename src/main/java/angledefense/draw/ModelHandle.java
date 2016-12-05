@@ -43,6 +43,7 @@ public class ModelHandle {
     public static ModelHandle create(String modelAsset) {
         ModelHandle out = new ModelHandle();
         if (globalctx != null) {
+            out.ctx = globalctx;
             out.model = globalctx.getModel(modelAsset);
         } else {
             waiting.add(c -> {
