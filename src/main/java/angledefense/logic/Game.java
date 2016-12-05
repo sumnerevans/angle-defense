@@ -22,17 +22,15 @@ public class Game {
     private transient Level currentLevel;
     public transient final DrawContext draw;
     public transient final Hud hud;
-    public transient final JPanel display;
     private transient boolean gameOver = false;
 
     private transient ModelHandle teapot = ModelHandle.create("teapot");
 
     private Game() {
         this.hud = new Hud();
-        this.draw = new DrawContext();
+        this.draw = new DrawContext(this);
         this.minions = new ArrayList<>();
         this.towers = new ArrayList<>();
-        this.display = draw.new Panel();
     }
 
     public static Game newGame(String configFile) throws FileNotFoundException, JsonParseException {
@@ -56,8 +54,6 @@ public class Game {
     public void loop() throws IOException {
         draw.init();
 
-        int size = Math.max(board.width, board.height);
-        draw.setMapSize((board.width - size) / 2.0f, (board.height - size) / 2.0f, size, size);
         draw.setVerticalRange(-1, 0.8f * (board.width + board.height));
 
         while (!this.gameOver) {
@@ -66,8 +62,6 @@ public class Game {
             draw.preDraw();
             this.render();
             draw.postDraw();
-
-            display.repaint();
         }
 
         draw.close();
@@ -117,6 +111,10 @@ public class Game {
 
     public int getNumLives() {
         return this.numLives;
+    }
+
+    public void setGameOver() {
+        this.gameOver = true;
     }
 
 }
