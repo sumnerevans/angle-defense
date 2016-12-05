@@ -1,5 +1,6 @@
-package angleDefenseLogic;
+package config;
 
+import angleDefenseLogic.IDrawable;
 import draw.DrawContext;
 
 public class Square implements IDrawable {

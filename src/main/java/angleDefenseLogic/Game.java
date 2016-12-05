@@ -62,14 +62,14 @@ public class Game {
         teapot = draw.getModel("teapot");
 
         draw.setMapSize(-2, -2, 4, 4);
-        draw.setVerticalRange(-1, 5);
+        draw.setVerticalRange(-1, 3f);
 
         while (!this.gameOver) {
             this.tick();
             
             draw.preDraw();
 
-            rottest += 0.1;
+            rottest += 0.02;
             draw.setModelTransform(Matrix.gen(0, 0, 0, rottest));
 
             teapot.draw(draw);
