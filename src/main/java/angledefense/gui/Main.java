@@ -1,5 +1,6 @@
 package angledefense.gui;
 
+import angledefense.draw.DrawContext;
 import angledefense.logic.*;
 import com.google.gson.JsonParseException;
 
