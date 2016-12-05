@@ -60,6 +60,8 @@ public class Game {
 
         draw.setVerticalRange(-2, 0.8f * (board.width + board.height));
 
+        currentLevel.spawnMinions(new TimeRange(0, 100), this);
+
         while (!this.gameOver) {
             this.tick();
 

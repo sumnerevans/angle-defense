@@ -1,5 +1,7 @@
 package angledefense.logic.minions;
 
+import angledefense.draw.DrawContext;
+import angledefense.draw.ModelHandle;
 import angledefense.logic.*;
 import angledefense.logic.towers.*;
 import com.google.gson.annotations.SerializedName;
@@ -33,6 +35,8 @@ public abstract class Minion implements IDrawable, ITickable {
     protected Location location;
     protected Node currentNode;
 
+    private static ModelHandle teapot = ModelHandle.create("teapot");
+
     protected Minion(Node node) {
         this.location = node.location;
         this.currentNode = node;
@@ -53,6 +57,17 @@ public abstract class Minion implements IDrawable, ITickable {
                 location = currentNode.location;
             }
         }
+    }
+
+    @Override
+    public void tick(Game game) {
+        moveForward(.1f);
+    }
+
+    @Override
+    public void draw(DrawContext drawContext) {
+        teapot.setTransform(location, 1, 0, 0);
+        teapot.draw();
     }
 
     abstract protected void receiveDamage(Tower tower, int amount);
