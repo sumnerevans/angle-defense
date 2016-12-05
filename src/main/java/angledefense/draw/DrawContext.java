@@ -185,8 +185,8 @@ public class DrawContext {
         xscale = scale / width;
         yscale = scale / height;
 
-        float tx = .5f * mw * xscale;
-        float ty = .5f * mh * yscale;
+        float tx = -.5f * mw;
+        float ty = -.5f * mh + 1;
 
         GL20.glUniform4f(unMapSize, tx, ty, xscale, yscale);
     }

@@ -156,8 +156,11 @@ public class Board implements IDrawable {
 
     @Override
     public void draw(DrawContext drawContext) {
-        // TODO Auto-generated method stub
-
+        for (Square[] row : squares) {
+            for (Square s : row) {
+                s.draw(drawContext);
+            }
+        }
     }
 
     public int getWidth() {
