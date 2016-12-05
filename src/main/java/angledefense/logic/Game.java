@@ -1,6 +1,5 @@
 package angledefense.logic;
 
-import angledefense.gui.Hud;
 import angledefense.logic.minions.*;
 import angledefense.logic.towers.*;
 import com.google.gson.*;
@@ -21,13 +20,11 @@ public class Game {
 
     private transient Level currentLevel;
     public transient final DrawContext draw;
-    public transient final Hud hud;
     private transient boolean gameOver = false;
 
     private transient ModelHandle teapot = ModelHandle.create("teapot");
 
     private Game() {
-        this.hud = new Hud();
         this.draw = new DrawContext(this);
         this.minions = new ArrayList<>();
         this.towers = new ArrayList<>();
@@ -117,4 +114,7 @@ public class Game {
         this.gameOver = true;
     }
 
+    public void onBoardClick(Location loc, int button, boolean pressed) {
+        System.out.printf("Pos: %.2f, %.2f Button: %d Pressed: %b\n", loc.getX(), loc.getY(), button, pressed);
+    }
 }
