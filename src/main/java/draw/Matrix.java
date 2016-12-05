@@ -14,16 +14,16 @@ public class Matrix {
         return (float) Math.sin(rot);
     }
 
-    public static float[] gen(float x, float y, float z, float rot) {
+    public static float[] gen(float x, float y, float z, float scale, float rot) {
         return new float[] {
-            cos(rot), 0, -sin(rot), x,
-            0,        1, 0,         y,
-            sin(rot), 0, cos(rot),  z,
-            0,        0, 0,         1
+            cos(rot) * scale, 0,     -sin(rot) * scale, x,
+            0,                scale, 0,                 y,
+            sin(rot) * scale, 0,     cos(rot) * scale,  z,
+            0,                0,     0,                 1
         };
     }
 
-    public static float[] gen(Location pos, float alt, float rot) {
-        return gen(pos.getX(), alt, pos.getY(), rot);
+    public static float[] gen(Location pos, float scale, float alt, float rot) {
+        return gen(pos.getX(), alt, pos.getY(), scale, rot);
     }
 }

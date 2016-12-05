@@ -11,7 +11,7 @@ public class Model {
     public final VertexBuffer verts;
     public final int texture;
 
-    private Model(VertexBuffer verts, int texture) {
+    Model(VertexBuffer verts, int texture) {
         this.verts = verts;
         this.texture = texture;
     }
@@ -23,11 +23,5 @@ public class Model {
 
         context.setShaderTexture(0);
         verts.draw();
-    }
-
-    public static Model load(DrawContext context, JsonObject cfg) {
-        VertexBuffer vb = context.loadOBJ(cfg.get("path").getAsString());
-        int tex = context.loadPNG(cfg.get("texture").getAsString());
-        return new Model(vb, tex);
     }
 }

@@ -6,7 +6,6 @@ import java.io.*;
 import java.util.*;
 
 import angleDefenseLogic.Util;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.lwjgl.glfw.*;
@@ -32,7 +31,7 @@ public class DrawContext {
         }
     }
 
-    private Map<String, Model> models = new HashMap<>();
+    private Map<String, Model> models;
     private Map<String, VertexBuffer> vertbufs = new HashMap<>();
     private Map<String, Integer> textures = new HashMap<>();
 
@@ -54,24 +53,31 @@ public class DrawContext {
     private int unModelTrans;
     private int unTexture;
 
-    public void loadAssets() throws FileNotFoundException {
+    private void loadAssets() throws FileNotFoundException {
+        models = new HashMap<>();
+
         JsonObject o = new JsonParser().parse(new InputStreamReader(Util.newFileStream("assets.json"))).getAsJsonObject();
         o.entrySet().forEach(e -> {
             JsonObject a = e.getValue().getAsJsonObject();
             String name = e.getKey();
             switch (a.get("type").getAsString()) {
                 case "model":
-                    models.put(name, Model.load(DrawContext.this, a));
+                    VertexBuffer vb = loadOBJ(a.get("path").getAsString());
+                    int tex = loadPNG(a.get("texture").getAsString());
+                    models.put(name, new Model(vb, tex));
                     break;
             }
         });
+
+        ModelHandle.globalctx = this;
+        ModelHandle.waiting.forEach(d -> d.accept(this));
     }
 
-    public Model getModel(String asset) {
-        return models.get(asset);
+    Model getModel(String modelAsset) {
+        return models.get(modelAsset);
     }
 
-    VertexBuffer loadOBJ(String path) {
+    private VertexBuffer loadOBJ(String path) {
         return vertbufs.computeIfAbsent(path, p -> {
             try {
                 return OBJLoader.load(Util.newFileStream(path));
@@ -81,7 +87,7 @@ public class DrawContext {
         });
     }
 
-    int uploadImage(BufferedImage img) {
+    private int uploadImage(BufferedImage img) {
         int w = img.getWidth();
         int h = img.getHeight();
 
@@ -98,7 +104,7 @@ public class DrawContext {
         return tex;
     }
 
-    int loadPNG(String path) {
+    private int loadPNG(String path) {
         return textures.computeIfAbsent(path, p -> {
             try {
                 return uploadImage(ImageIO.read(Util.newFileStream(path)));
@@ -137,6 +143,8 @@ public class DrawContext {
 
         img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
+        loadAssets();
+
         shader = ShaderProgram.builder()
                 .setVert(Util.newFileStream("shaders/main.v.glsl"))
                 .setFrag(Util.newFileStream("shaders/main.f.glsl"))
@@ -162,7 +170,7 @@ public class DrawContext {
         GL20.glUniform2f(unVertRange, minalt, maxalt);
     }
 
-    public void setModelTransform(float[] matrix) {
+    void setModelTransform(float[] matrix) {
         GL20.glUniformMatrix4fv(unModelTrans, true, matrix);
     }
 
@@ -180,7 +188,10 @@ public class DrawContext {
         textures.values().forEach(GL11::glDeleteTextures);
         textures.clear();
 
-        models.clear();
+        shader.delete();
+
+        models = null;
+        ModelHandle.globalctx = null;
     }
 
     public void preDraw() {

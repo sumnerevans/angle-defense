@@ -3,5 +3,10 @@
     "type": "model",
     "path": "assets/teapot.obj",
     "texture":  "assets/teabake.png"
+  },
+  "gun": {
+    "type": "model",
+    "path": "assets/scifigun.obj",
+    "texture":  "assets/scifigun.png"
   }
 }

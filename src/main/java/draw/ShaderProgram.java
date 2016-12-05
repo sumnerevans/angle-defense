@@ -81,6 +81,12 @@ public class ShaderProgram {
         return GL20.glGetUniformLocation(prog, uniform);
     }
 
+    public void delete() {
+        GL20.glDeleteProgram(prog);
+        GL20.glDeleteShader(vert);
+        GL20.glDeleteShader(frag);
+    }
+
     public static Builder builder() {
         return new Builder();
     }

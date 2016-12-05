@@ -24,7 +24,7 @@ public class Game {
     public transient final JPanel display;
     private transient boolean gameOver = false;
 
-    Model teapot;
+    private transient ModelHandle teapot = ModelHandle.create("teapot");
 
     private Game() {
         this.hud = new Hud();
@@ -52,28 +52,16 @@ public class Game {
         return g;
     }
 
-    public float rottest = 0;
-
     public void loop() throws IOException {
-        // TODO: Do other stuff
         draw.init();
 
-        draw.loadAssets();
-        teapot = draw.getModel("teapot");
-
-        draw.setMapSize(-2, -2, 4, 4);
-        draw.setVerticalRange(-1, 3f);
+        draw.setMapSize(0, 0, board.width, board.height);
+        draw.setVerticalRange(-1, 0.8f * (board.width + board.height));
 
         while (!this.gameOver) {
             this.tick();
             
             draw.preDraw();
-
-            rottest += 0.02;
-            draw.setModelTransform(Matrix.gen(0, 0, 0, rottest));
-
-            teapot.draw(draw);
-
             this.render();
             draw.postDraw();
 
@@ -94,7 +82,12 @@ public class Game {
     }
 
     private void render() {
+        teapot.setTransform(new Location(10, 10), 3, 0, 0);
+        teapot.draw();
+
         board.draw(draw);
+        towers.forEach(t -> t.draw(draw));
+        minions.forEach(m -> m.draw(draw));
     }
 
     public void spawnMinion(Minion m) {
