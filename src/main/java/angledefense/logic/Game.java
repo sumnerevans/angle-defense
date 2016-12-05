@@ -58,7 +58,7 @@ public class Game {
     public void loop() throws IOException {
         draw.init();
 
-        draw.setVerticalRange(-1, 0.8f * (board.width + board.height));
+        draw.setVerticalRange(-2, 0.8f * (board.width + board.height));
 
         while (!this.gameOver) {
             this.tick();

@@ -40,7 +40,11 @@ public class Square implements IDrawable {
 
     @Override
     public void draw(DrawContext drawContext) {
-        mymodel.setTransform(location, 1, 0, 0);
+        if (squareType == SquareType.TRENCH) {
+            mymodel.setTransform(location, 1, -1f, 0);
+        } else {
+            mymodel.setTransform(location, 1, 0, 0);
+        }
         mymodel.draw();
     }
 
