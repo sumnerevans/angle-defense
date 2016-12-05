@@ -8,6 +8,8 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import static junit.framework.TestCase.*;
+
 public class GameplayTests extends TestBase {
     static private Game game;
     static private Player player;
@@ -63,9 +65,11 @@ public class GameplayTests extends TestBase {
 
     @Test
     public void testMinionSpawn() {
-        game.getLevel().spawnMinions(new TimeRange(0, 1), game);
-
+        game.getLevel().spawnMinions(new TimeRange(15.0f, 15.4f), game);
         assertEquals(1, game._getMinions().size());
+
+        game.getLevel().spawnMinions(new TimeRange(15.4f, 16.4f), game);
+        assertEquals(4, game._getMinions().size());
     }
 
     // Test minion move
