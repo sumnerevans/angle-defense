@@ -9,6 +9,8 @@ import angledefense.draw.*;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class Game {
     private final Player player;
@@ -19,6 +21,8 @@ public class Game {
     private float timeOfLastTick;
     private boolean forTest = false;
     float testTime = 0;
+    private Location selected;
+    private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
 
     public transient final ArrayList<Minion> minions;
     public transient final ArrayList<Tower> towers;
@@ -118,11 +122,9 @@ public class Game {
     }
 
     private void render() {
-        for (int x = 2; x < board.width; x += 5) {
-            for (int y = 0; y < board.height; y += 5) {
-                teapot.setTransform(new Location(x, y), 3, 0, 3.1416f / 4);
-                teapot.draw();
-            }
+        if (selected != null) {
+            teapot.setTransform(selected.floor(), 3, 0, 3.1416f / 4);
+            teapot.draw();
         }
 
         board.draw(draw);
@@ -163,7 +165,22 @@ public class Game {
     }
 
     public void onBoardClick(Location loc, int button, boolean pressed) {
-        System.out.printf("Pos: %.2f, %.2f Button: %d Pressed: %b\n", loc.getX(), loc.getY(), button, pressed);
+        if (pressed) {
+            if (loc.getX() < 0 || loc.getX() >= board.width + 1 || loc.getY() < 0 || loc.getY() >= board.height + 1) {
+                selected = null;
+            } else {
+                selected = loc;
+                onclick.forEach(c -> c.accept(button, loc));
+            }
+        }
+    }
+
+    public void addClickListener(BiConsumer<Integer, Location> listener) {
+        onclick.add(listener);
+    }
+
+    public Location getSelectedLocation() {
+        return selected;
     }
 
     // Testing only

@@ -202,6 +202,8 @@ public class DrawContext {
         float bw = width - mw * scale;
         float bh = height - mh * scale;
 
+        y = height - y;
+
         float xx = (x - bw / 2) / scale;
         float yy = (y - bh / 2) / scale;
 

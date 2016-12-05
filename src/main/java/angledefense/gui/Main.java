@@ -13,6 +13,7 @@ import java.io.*;
  */
 public class Main extends JFrame {
     private Main() {
+        this.setSize(900,600);
         this.setTitle("Angle Defense");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
