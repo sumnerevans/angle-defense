@@ -1,9 +1,9 @@
 package config;
 
-import angleDefenseGui.*;
 import angleDefenseLogic.*;
 import com.google.gson.*;
 import com.google.gson.reflect.*;
+import draw.DrawContext;
 
 import javax.imageio.*;
 import java.awt.*;

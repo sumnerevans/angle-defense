@@ -1,6 +1,6 @@
 package angleDefenseLogic.towers;
 
-import angleDefenseGui.DrawContext;
+import draw.DrawContext;
 import angleDefenseLogic.*;
 import angleDefenseLogic.minions.*;
 

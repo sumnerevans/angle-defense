@@ -4,21 +4,23 @@ import angleDefenseLogic.*;
 import com.google.gson.JsonParseException;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
 import java.io.*;
 
 /**
  * Created by sumner on 12/1/16.
  */
 public class Main extends JFrame {
-
     private Main() {
         this.setTitle("Angle Defense");
-        this.setSize(800, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
             // Load the game
-            Game game = Game.NewGame("default-config.json");
+            Game game = Game.newGame("default-config.json");
+
+            this.add(game.display);
+            this.setSize(game.display.getPreferredSize());
 
             // Show the window
             this.setVisible(true);
@@ -49,6 +51,8 @@ public class Main extends JFrame {
                     "Something went terribly wrong.\n\n" + e.getMessage(),
                     "Unknown Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }
 
     public static void main(String[] args) {

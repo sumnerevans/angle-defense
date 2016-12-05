@@ -18,7 +18,7 @@ public class GameplayTests extends TestBase {
     @Before
     public void before() throws FileNotFoundException {
         player = new Player("test", Color.BLUE);
-        game = Game.NewGame("test-config.json");
+        game = Game.newGame("test-config.json");
     }
 
     // Test that the level increments when the player beats a level

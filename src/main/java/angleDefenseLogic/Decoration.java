@@ -1,7 +1,7 @@
 package angleDefenseLogic;
 
-import angleDefenseGui.*;
 import com.google.gson.annotations.*;
+import draw.DrawContext;
 
 /**
  * Created by sumner on 11/29/16.

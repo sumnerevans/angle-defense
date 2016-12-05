@@ -15,7 +15,7 @@ public class ConfigLoadTests extends TestBase {
     @Before
     public void before() throws FileNotFoundException {
         // Reinitialize the game for every test
-        game = Game.NewGame("test-config.json");
+        game = Game.newGame("test-config.json");
     }
 
     // Test board configuration load: Ensure that the board configuration was loaded properly
