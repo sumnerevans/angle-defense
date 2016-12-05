@@ -4,11 +4,7 @@ import angleDefenseLogic.minions.*;
 import angleDefenseLogic.towers.*;
 import com.google.gson.*;
 import config.*;
-import draw.DrawContext;
-import draw.OBJLoader;
-import draw.ShaderProgram;
-import draw.VertexBuffer;
-import org.omg.CORBA.OBJ_ADAPTER;
+import draw.*;
 
 import javax.swing.*;
 import java.io.*;
@@ -28,8 +24,7 @@ public class Game {
     public transient final JPanel display;
     private transient boolean gameOver = false;
 
-    VertexBuffer teapot;
-    ShaderProgram shader;
+    Model teapot;
 
     private Game() {
         this.hud = new Hud();
@@ -57,29 +52,27 @@ public class Game {
         return g;
     }
 
-    public void loop() {
+    public float rottest = 0;
+
+    public void loop() throws IOException {
         // TODO: Do other stuff
         draw.init();
 
-        try {
-            teapot = OBJLoader.load(Util.newFileStream("assets/teapot.obj"));
+        draw.loadAssets();
+        teapot = draw.getModel("teapot");
 
-            shader = ShaderProgram.builder()
-                    .setVert(Util.newFileStream("shaders/basic.v.glsl"))
-                    .setFrag(Util.newFileStream("shaders/basic.f.glsl"))
-                    .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        draw.setMapSize(-2, -2, 4, 4);
+        draw.setVerticalRange(-1, 5);
 
         while (!this.gameOver) {
             this.tick();
             
             draw.preDraw();
 
-            shader.bind();
-            teapot.draw();
-            shader.unbind();
+            rottest += 0.1;
+            draw.setModelTransform(Matrix.gen(0, 0, 0, rottest));
+
+            teapot.draw(draw);
 
             this.render();
             draw.postDraw();

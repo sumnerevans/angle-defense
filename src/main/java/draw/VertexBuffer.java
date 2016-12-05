@@ -73,4 +73,9 @@ public class VertexBuffer {
     public static Builder builder(int verts) {
         return new Builder(verts);
     }
+
+    public static void delete(VertexBuffer vb) {
+        GL30.glDeleteVertexArrays(vb.vao);
+        GL15.glDeleteBuffers(vb.vbo);
+    }
 }

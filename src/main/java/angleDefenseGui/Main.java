@@ -13,7 +13,6 @@ import java.io.*;
 public class Main extends JFrame {
     private Main() {
         this.setTitle("Angle Defense");
-        this.setSize(800, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
@@ -21,6 +20,7 @@ public class Main extends JFrame {
             Game game = Game.newGame("default-config.json");
 
             this.add(game.display);
+            this.setSize(game.display.getPreferredSize());
 
             // Show the window
             this.setVisible(true);

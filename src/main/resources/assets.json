@@ -1,6 +1,7 @@
 {
   "teapot": {
-    "type": "OBJ",
-    "path": "assets/teapot.obj"
+    "type": "model",
+    "path": "assets/teapot.obj",
+    "texture":  "assets/teabake.png"
   }
 }

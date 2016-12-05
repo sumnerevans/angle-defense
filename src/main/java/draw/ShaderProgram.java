@@ -77,6 +77,10 @@ public class ShaderProgram {
         GL20.glUseProgram(0);
     }
 
+    public int getUnLoc(String uniform) {
+        return GL20.glGetUniformLocation(prog, uniform);
+    }
+
     public static Builder builder() {
         return new Builder();
     }
