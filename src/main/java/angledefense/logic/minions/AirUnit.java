@@ -15,12 +15,6 @@ public class AirUnit extends Minion {
     }
 
     @Override
-    public void draw(DrawContext drawContext) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     protected void receiveDamage(Tower tower, int amount) {
         if (tower instanceof GroundTower) return;
 

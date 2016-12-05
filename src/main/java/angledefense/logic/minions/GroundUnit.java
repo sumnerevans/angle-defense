@@ -11,13 +11,7 @@ public class GroundUnit extends Minion {
         super(n);
         this.goldReward = 3;
         this.health = 5;
-        this.speed = 3;
-    }
-
-    @Override
-    public void draw(DrawContext drawContext) {
-        // TODO Auto-generated method stub
-
+        this.speed = 5;
     }
 
     @Override

@@ -19,9 +19,9 @@ public class Game {
     private Board board;
     private ArrayList<Level> levels;
     private float gameStart;
-    private boolean forTest = false;
     private Location selected;
     private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
+    float testTime = 0;
 
     public transient final ArrayList<Minion> minions;
     public transient final ArrayList<Tower> towers;
@@ -66,8 +66,6 @@ public class Game {
         draw.init();
 
         draw.setVerticalRange(-2, 0.8f * (board.width + board.height));
-
-        currentLevel.spawnMinions(new TimeRange(0, 100), this);
 
         Instant last = Instant.now();
         levelStartTime = last;
@@ -204,4 +202,18 @@ public class Game {
     public ArrayList<Minion> _getMinions() {
         return this.minions;
     }
+
+    public void simulateSeconds(float seconds) {
+        Instant current = Instant.now();
+        this.levelStartTime = current;
+        long ms = (long) (seconds * 1000);
+
+        while (ms > 0) {
+            Instant next = current.plus(msperframe, ChronoUnit.MILLIS);
+            this.tick(current, next);
+            current = next;
+            ms -= msperframe;
+        }
+    }
+
 }
