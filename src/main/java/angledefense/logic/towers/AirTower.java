@@ -24,7 +24,7 @@ public class AirTower extends Tower {
 
     @Override
     public void attack(Minion minion) {
-        // TODO: Implement
+        minion.attacked(this, 10);
     }
 
     @Override

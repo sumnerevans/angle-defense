@@ -40,12 +40,14 @@ public abstract class Minion implements IDrawable, ITickable {
 
     public void moveForward(float distanceToTravel) {
         while (distanceToTravel > 0) {
-            Location a = location;
+            Location current = location;
             if (currentNode.next == null) break;
-            Location b = currentNode.next.location;
-            float nd = Location.dist(a, b);
+
+            Location next = currentNode.next.location;
+
+            float nd = Location.dist(current, next);
             if (distanceToTravel < nd) {
-                location = Location.lerp(a, b, distanceToTravel / nd);
+                location = Location.lerp(current, next, distanceToTravel / nd);
                 break;
             } else {
                 distanceToTravel -= nd;

@@ -42,17 +42,11 @@ public class GameplayTests extends TestBase {
     @Test
     public void testLivesDecrement() {
         int originalLives = game.getNumLives();
-        ArrayList<Minion> minions = new ArrayList<>();
 
-        // add some minions and let them march all the way
-        for (int i = 0; i < 5; i++)
-            minions.add(Minion.Type.GROUND.create(new Node(new Location(1, 1), null)));
-
-        for (Minion m : minions)
-            m.moveForward(Float.MAX_VALUE);
+        game.simulateSeconds(100);
 
         // Ensure that the number of lives has been decremented by the proper number
-        assertEquals(originalLives - minions.size(), game.getNumLives());
+        assertEquals(originalLives - game._getMinions().size(), game.getNumLives());
     }
 
     @Test
