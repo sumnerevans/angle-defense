@@ -4,6 +4,7 @@ import angledefense.logic.*;
 import angledefense.logic.towers.*;
 import com.google.gson.annotations.SerializedName;
 import angledefense.config.*;
+import com.google.gson.stream.MalformedJsonException;
 
 import java.util.function.*;
 
@@ -38,34 +39,15 @@ public abstract class Minion implements IDrawable, ITickable {
     }
 
     public void moveForward(float distanceToTravel) {
-        // I don't think this should happen, but just in case
-        if (this.currentNode == null) return;
-
-        if (this.currentNode.next == null) return;
-
-        if (this.currentNode.location.getX() == this.currentNode.next.location.getX()) {
-            // The minion should move vertically
-            float distToNext = this.currentNode.next.location.getY() - this.location.getY();
-
-            if (distanceToTravel > Math.abs(distToNext)) {
-                // Just go to the next node and recursively call moveForward
-                this.moveToNode(this.currentNode.next);
-                this.moveForward(distanceToTravel - distToNext);
+        while (distanceToTravel > 0) {
+            Node a = currentNode;
+            Node b = a.next;
+            float nd = Location.dist(a.location, b.location);
+            if (distanceToTravel < nd) {
+                location = Location.lerp(a.location, b.location, distanceToTravel / nd);
             } else {
-                // Linearly propagate it
-                this.location.setY(this.location.getY() + distanceToTravel);
-            }
-        } else if (this.currentNode.location.getY() == this.currentNode.next.location.getY()) {
-            // The minion should move horizontally
-            float distToNext = this.currentNode.next.location.getX() - this.location.getX();
-
-            if (distanceToTravel > Math.abs(distToNext)) {
-                // Just go to the next node and recursively call moveForward
-                this.moveToNode(this.currentNode.next);
-                this.moveForward(distanceToTravel - distToNext);
-            } else {
-                // Linearly propagate it
-                this.location.setX(this.location.getX() + distanceToTravel);
+                distanceToTravel -= nd;
+                currentNode = b;
             }
         }
     }
@@ -100,8 +82,7 @@ public abstract class Minion implements IDrawable, ITickable {
 
     // Testing Only
     public void _setLocation(int x, int y) {
-        this.location.setX(x);
-        this.location.setY(y);
+        this.location = new Location(x, y);
     }
 
     public void _setLocation(Location l) {
@@ -109,8 +90,7 @@ public abstract class Minion implements IDrawable, ITickable {
     }
 
     public void _setLocation(float x, float y) {
-        this.location.setX(x);
-        this.location.setY(y);
+        this.location = new Location(x, y);
     }
 
     public Location _getLocation() {

@@ -93,7 +93,7 @@ public class Game {
 
     private void render() {
         if (selected != null) {
-            teapot.setTransform(selected, 3, 0, 3.1416f / 4);
+            teapot.setTransform(selected.floor(), 3, 0, 3.1416f / 4);
             teapot.draw();
         }
 
