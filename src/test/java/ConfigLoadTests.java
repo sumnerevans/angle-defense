@@ -1,6 +1,6 @@
-import angleDefenseLogic.*;
-import angleDefenseLogic.minions.*;
-import config.*;
+import angledefense.logic.*;
+import angledefense.logic.minions.*;
+import angledefense.config.*;
 import org.junit.*;
 
 import java.io.*;
@@ -15,7 +15,7 @@ public class ConfigLoadTests extends TestBase {
     @Before
     public void before() throws FileNotFoundException {
         // Reinitialize the game for every test
-        game = Game.newGame("test-config.json");
+        game = Game.newGame("test-angledefense.config.json");
     }
 
     // Test board configuration load: Ensure that the board configuration was loaded properly

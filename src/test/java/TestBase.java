@@ -1,4 +1,4 @@
-import angleDefenseLogic.Decoration;
+import angledefense.logic.Decoration;
 
 import java.util.Arrays;
 import java.util.function.Predicate;

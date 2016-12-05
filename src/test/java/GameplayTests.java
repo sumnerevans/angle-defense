@@ -1,14 +1,12 @@
-import angleDefenseLogic.*;
-import angleDefenseLogic.minions.*;
-import angleDefenseLogic.towers.*;
-import config.*;
+import angledefense.logic.*;
+import angledefense.logic.minions.*;
+import angledefense.logic.towers.*;
+import angledefense.config.*;
 import org.junit.*;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.*;
-
-import static junit.framework.TestCase.*;
 
 public class GameplayTests extends TestBase {
     static private Game game;
@@ -18,7 +16,7 @@ public class GameplayTests extends TestBase {
     @Before
     public void before() throws FileNotFoundException {
         player = new Player("test", Color.BLUE);
-        game = Game.newGame("test-config.json");
+        game = Game.newGame("test-angledefense.config.json");
     }
 
     // Test that the level increments when the player beats a level
