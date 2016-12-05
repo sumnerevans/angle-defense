@@ -11,6 +11,7 @@ public class AirUnit extends Minion {
         super(n);
         this.goldReward = 5;
         this.health = 7;
+        this.speed = 4;
     }
 
     @Override
@@ -20,9 +21,10 @@ public class AirUnit extends Minion {
     }
 
     @Override
-    public void tick(Game game) {
+    public void tick(Game game, float dt) {
         // TODO Auto-generated method stub
 
+        this.moveForward(this.speed * dt);
     }
 
     @Override

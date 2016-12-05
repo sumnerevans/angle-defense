@@ -11,6 +11,7 @@ public class GroundUnit extends Minion {
         super(n);
         this.goldReward = 3;
         this.health = 5;
+        this.speed = 3;
     }
 
     @Override
@@ -20,9 +21,10 @@ public class GroundUnit extends Minion {
     }
 
     @Override
-    public void tick(Game game) {
+    public void tick(Game game,float dt) {
         // TODO Auto-generated method stub
 
+        this.moveForward(this.speed*dt);
     }
 
     @Override

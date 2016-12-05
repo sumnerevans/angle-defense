@@ -10,7 +10,6 @@ import java.awt.*;
 import java.io.*;
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class Game {
     private final Player player;
@@ -77,23 +76,24 @@ public class Game {
 
     private void tick() {
         float currentTime = this.timeSinceGameStart();
+        float dt = currentTime - timeOfLastTick;
 
         this.getLevel().spawnMinions(
                 new TimeRange(this.timeOfLastTick, currentTime),
                 this);
 
         for (Tower t : this.towers) {
-            t.tick(this);
+            t.tick(this, dt);
         }
 
         ArrayList<Minion> forRemoval = new ArrayList<>();
 
         for (Minion m : this.minions) {
-            m.tick(this);
+            m.tick(this, dt);
 
-            if (m.shouldRemove()) {
-                forRemoval.add(m);
-            }
+            if (m.gotToCastle()) this.looseLife();
+
+            if (m.shouldRemove()) forRemoval.add(m);
         }
 
         forRemoval.forEach(this.minions::remove);
@@ -130,6 +130,10 @@ public class Game {
         board.draw(draw);
         towers.forEach(t -> t.draw(draw));
         minions.forEach(m -> m.draw(draw));
+    }
+
+    private void looseLife() {
+        this.numLives--;
     }
 
     public void spawnMinion(Minion m) {

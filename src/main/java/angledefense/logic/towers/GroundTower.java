@@ -17,7 +17,7 @@ public class GroundTower extends Tower {
     }
 
     @Override
-    public void tick(Game game) {
+    public void tick(Game game,float dt) {
         // TODO Auto-generated method stub
 
     }
