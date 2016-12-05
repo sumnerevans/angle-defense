@@ -17,6 +17,7 @@ public class Hud extends JPanel {
     private InfoLayout infoLayout;
     private Game game;
     private ViewField viewField;
+    private ButtonBox buttonBox;
 
     public Hud(Game game) {
         this.game = game;
@@ -24,15 +25,20 @@ public class Hud extends JPanel {
     }
 
     private void initializeGUI() {
-        this.setPreferredSize(new Dimension(900,700));
+        this.setPreferredSize(new Dimension(514,50));
         infoLayout = new InfoLayout(game.getPlayer());
+        infoLayout.setLocation(0,0);
         viewField = new ViewField(game);
+        //buttonBox = new ButtonBox(buttons);
+        //buttonBox.setLocation(700,500);
+        //this.add(buttonBox);
         this.add(infoLayout);
         this.add(viewField);
+
     }
 
     public void drawContent() {
-        // TODO: I think this is how it is suposed to be?
+        // TODO: I think this is how it is supposed to be?
         this.setVisible(true);
     }
 
@@ -42,6 +48,7 @@ public class Hud extends JPanel {
     }
 
     public void createButtons() {
+
         // TODO: make this take in an image and return a button object
         // TODO: use Game.buildTower(Tower t) to build towers
     }

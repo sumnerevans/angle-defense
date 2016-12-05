@@ -16,30 +16,15 @@ public class InfoLayout extends JPanel {
 	public InfoLayout(Player player) {
 		setLayout(new GridLayout(1, 3));
 		setBorder(new EtchedBorder());
-		setPreferredSize(new Dimension(500, 50));
+		setPreferredSize(new Dimension(200, 50));
 
 		// Gold
 		JPanel goldPanel = new JPanel();
 		goldPanel.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
-		JTextField field = new JTextField(player.getGold());
+		JTextField field = new JTextField("TODO: Get Player Gold"/*player.getGold()*/);
+		field.setLocation(0,0);
 		field.setEditable(false);
 		goldPanel.add(field);
 		add(goldPanel);
-
-		// Gold
-		JPanel xPanel = new JPanel();
-		xPanel.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
-		JTextField f = new JTextField(player.getGold());
-		field.setEditable(false);
-		xPanel.add(field);
-		add(xPanel);
-
-		// Gold
-		JPanel yPanel = new JPanel();
-		yPanel.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
-		JTextField fi = new JTextField(player.getGold());
-		field.setEditable(false);
-		yPanel.add(field);
-		add(yPanel);
 	}
 }
