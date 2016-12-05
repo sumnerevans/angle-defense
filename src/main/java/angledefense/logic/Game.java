@@ -8,9 +8,10 @@ import angledefense.draw.*;
 
 import java.awt.*;
 import java.io.*;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 public class Game {
     private final Player player;
@@ -18,9 +19,7 @@ public class Game {
     private Board board;
     private ArrayList<Level> levels;
     private float gameStart;
-    private float timeOfLastTick;
     private boolean forTest = false;
-    float testTime = 0;
     private Location selected;
     private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
 
@@ -32,6 +31,8 @@ public class Game {
     private transient boolean gameOver = false;
 
     private transient ModelHandle selector = ModelHandle.create("selector");
+
+    private Instant levelStartTime;
 
     private Game() {
         this.player = new Player("Player", Color.BLUE);
@@ -59,6 +60,8 @@ public class Game {
         return g;
     }
 
+    public static long msperframe = 1000 / 30;
+
     public void loop() throws IOException {
         draw.init();
 
@@ -66,23 +69,36 @@ public class Game {
 
         currentLevel.spawnMinions(new TimeRange(0, 100), this);
 
-        while (!this.gameOver) {
-            this.tick();
+        Instant last = Instant.now();
+        levelStartTime = last;
+
+        while (!gameOver) {
+            Instant now = Instant.now();
+
+            tick(last, now);
 
             draw.preDraw();
-            this.render();
+            render();
             draw.postDraw();
+
+            long towait = msperframe - now.until(Instant.now(), ChronoUnit.MILLIS);
+            if (towait > msperframe) towait = msperframe;
+            if (towait > 0) {
+                try {
+                    Thread.sleep(towait);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            last = now;
         }
 
         draw.close();
     }
 
-    private void tick() {
-        float currentTime = this.timeSinceGameStart();
-
-        this.getLevel().spawnMinions(
-                new TimeRange(this.timeOfLastTick, currentTime),
-                this);
+    private void tick(Instant last, Instant now) {
+        this.getLevel().spawnMinions(new TimeRange(levelStartTime, last, now), this);
 
         for (Tower t : this.towers) {
             t.tick(this);
@@ -100,27 +116,21 @@ public class Game {
 
         forRemoval.forEach(this.minions::remove);
 
-        if (!this.currentLevel.hasMoreMinions(currentTime) && this.minions.size() == 0) {
+        if (!this.currentLevel.hasMoreMinions(TimeRange.relativeSecs(levelStartTime, now)) || this.minions.size() == 0) {
             this.incrementLevel();
         }
-
-        this.timeOfLastTick = currentTime;
-    }
-
-    private float timeSinceGameStart() {
-        if (this.forTest) return testTime;
-        return new Date().getTime() / 1000 - this.gameStart;
     }
 
     private void incrementLevel() {
         int nextLevelIndex = this.levels.indexOf(this.currentLevel) + 1;
 
         if (nextLevelIndex == this.levels.size()) {
-            this.gameOver = true;
+            //this.gameOver = true;
             return;
         }
 
         this.currentLevel = this.levels.get(nextLevelIndex);
+        levelStartTime = Instant.now();
     }
 
     private void render() {
@@ -188,13 +198,5 @@ public class Game {
     // Testing only
     public ArrayList<Minion> _getMinions() {
         return this.minions;
-    }
-
-    public void simulateSeconds(int seconds) {
-        this.forTest = true;
-        for (int i = 0; i < seconds; i++) {
-            this.tick();
-            this.testTime++;
-        }
     }
 }

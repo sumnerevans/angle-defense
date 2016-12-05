@@ -8,8 +8,8 @@
                     "minion": "ground",
                     "stats": {},
                     "count": 15,
-                    "start": 15,
-                    "end": 20
+                    "start": 5,
+                    "end": 10
                 }
             ]
         },
@@ -20,8 +20,8 @@
                     "minion": "ground",
                     "stats": {},
                     "count": 15,
-                    "start": 15,
-                    "end": 20
+                    "start": 1,
+                    "end": 10
                 }
             ]
         }
