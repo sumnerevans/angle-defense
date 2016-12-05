@@ -1,5 +1,6 @@
 package angledefense.config;
 
+import angledefense.gui.*;
 import angledefense.logic.*;
 import com.google.gson.*;
 import com.google.gson.reflect.*;
@@ -173,5 +174,9 @@ public class Board implements IDrawable {
 
     public Decoration[] getDecorations() {
         return decorations;
+    }
+
+    public Node[] getStartNodes() {
+        return startNodes;
     }
 }

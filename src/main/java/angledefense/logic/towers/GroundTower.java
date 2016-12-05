@@ -6,8 +6,8 @@ import angledefense.draw.DrawContext;
 
 public class GroundTower extends Tower {
 
-    public GroundTower(Player owner) {
-        super(owner);
+    public GroundTower(Player owner, Location location) {
+        super(owner, location);
     }
 
     @Override
@@ -24,6 +24,11 @@ public class GroundTower extends Tower {
 
     @Override
     public void attack(Minion minion) {
+        minion.attacked(this, 10);
+    }
+
+    @Override
+    public void upgrade() {
         // TODO: Implement
     }
 }

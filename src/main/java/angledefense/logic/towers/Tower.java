@@ -9,12 +9,17 @@ public abstract class Tower implements IDrawable, ITickable {
     protected float range;
     protected Player owner;
     protected int price;
+    protected int level;
+    protected int damage;
 
-    public Tower(Player owner) {
+    public Tower(Player owner, Location location) {
         this.owner = owner;
+        this.location = location;
     }
 
     public abstract void attack(Minion minion);
+
+    public abstract void upgrade();
 
     public void setAngle(float angle) {
         this.angle = angle;

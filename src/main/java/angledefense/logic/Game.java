@@ -72,6 +72,14 @@ public class Game {
     private void tick() {
         for (Minion m : this.minions) {
             m.tick(this);
+
+            if (m.shouldRemove()) {
+                forRemoval.add(m);
+            }
+        }
+
+        for (Minion m : forRemoval) {
+            this.minions.remove(m);
         }
 
         for (Tower t : this.towers) {

@@ -1,5 +1,6 @@
 package angledefense.logic;
 
+import angledefense.gui.*;
 import com.google.gson.annotations.*;
 import angledefense.draw.DrawContext;
 
@@ -35,8 +36,7 @@ public class Decoration implements IDrawable {
 
         Decoration that = (Decoration) o;
 
-        if (type != that.type) return false;
-        return location.equals(that.location);
+        return type == that.type && location.equals(that.location);
     }
 
     @Override

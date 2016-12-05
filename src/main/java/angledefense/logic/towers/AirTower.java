@@ -6,8 +6,8 @@ import angledefense.logic.minions.*;
 
 public class AirTower extends Tower {
 
-    public AirTower(Player owner) {
-        super(owner);
+    public AirTower(Player owner, Location location) {
+        super(owner, location);
     }
 
     @Override
@@ -24,6 +24,11 @@ public class AirTower extends Tower {
 
     @Override
     public void attack(Minion minion) {
+        // TODO: Implement
+    }
+
+    @Override
+    public void upgrade() {
         // TODO: Implement
     }
 }

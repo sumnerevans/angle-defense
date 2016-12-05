@@ -25,4 +25,15 @@ public class Wave {
     public float length() {
         return end - start;
     }
+
+    @Override
+    public String toString() {
+        return "Wave{" +
+                "minionType=" + minionType +
+                ", start=" + start +
+                ", end=" + end +
+                ", count=" + count +
+                ", stats=" + stats +
+                '}';
+    }
 }
