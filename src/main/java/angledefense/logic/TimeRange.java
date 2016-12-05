@@ -31,4 +31,12 @@ public class TimeRange {
     public void setStart(float start) {
         this.start = start;
     }
+
+    @Override
+    public String toString() {
+        return "TimeRange{" +
+                "start=" + start +
+                ", end=" + end +
+                '}';
+    }
 }

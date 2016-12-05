@@ -6,6 +6,7 @@ import org.junit.*;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import static junit.framework.TestCase.*;
@@ -23,24 +24,15 @@ public class GameplayTests extends TestBase {
 
     // Test that the level increments when the player beats a level
     @Test
-    public void testLevelIncrement() {
+    public void testLevelIncrement() throws IOException, InterruptedException {
+        game.simulateSeconds(60);
+
         Tower boom = new GroundTower(player, new Location(0, 0));
+        for (Minion m : game._getMinions()) {
+            m.attacked(boom, Integer.MAX_VALUE);
+        }
 
-        // add a bunch of minions
-        Minion one = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
-        Minion two = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
-        Minion three = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
-        Minion four = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
-        Minion five = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
-        Minion six = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
-
-        // kill all the minions
-        one.attacked(boom, Integer.MAX_VALUE);
-        two.attacked(boom, Integer.MAX_VALUE);
-        three.attacked(boom, Integer.MAX_VALUE);
-        four.attacked(boom, Integer.MAX_VALUE);
-        five.attacked(boom, Integer.MAX_VALUE);
-        six.attacked(boom, Integer.MAX_VALUE);
+        game.simulateSeconds(1);
 
         // Ensure that the level was incremented
         assertEquals(2, game.getLevel().getLevelNum());
@@ -148,7 +140,6 @@ public class GameplayTests extends TestBase {
         minion.attacked(tower, Integer.MAX_VALUE);
 
         // Ensure that the player's gold is incremented by the value of the minion
-        // TODO: UPDATE TO THE CORRECT GOLD REWARD
         assertEquals(5, player.getGold());
     }
 

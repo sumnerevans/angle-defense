@@ -27,7 +27,9 @@ public class GroundUnit extends Minion {
 
     @Override
     protected void receiveDamage(Tower tower, int amount) {
-        // TODO: Implement
+        if (tower instanceof AirTower) return;
+
+        this.health -= amount;
     }
 
 }

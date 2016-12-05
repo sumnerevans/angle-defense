@@ -1,6 +1,5 @@
 package angledefense.config;
 
-import angledefense.gui.*;
 import angledefense.logic.*;
 import com.google.gson.*;
 import com.google.gson.reflect.*;

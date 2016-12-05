@@ -6,7 +6,6 @@ import com.google.gson.*;
 import angledefense.config.*;
 import angledefense.draw.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -16,6 +15,10 @@ public class Game {
     private int numLives;
     private Board board;
     private ArrayList<Level> levels;
+    private float gameStart;
+    private float timeOfLastTick;
+    private boolean forTest = false;
+    float testTime = 0;
 
     public transient final ArrayList<Minion> minions;
     public transient final ArrayList<Tower> towers;
@@ -31,6 +34,7 @@ public class Game {
         this.draw = new DrawContext(this);
         this.minions = new ArrayList<>();
         this.towers = new ArrayList<>();
+        this.gameStart = new Date().getTime() / 1000;
     }
 
     public static Game newGame(String configFile) throws FileNotFoundException, JsonParseException {
@@ -68,6 +72,16 @@ public class Game {
     }
 
     private void tick() {
+        float currentTime = this.timeSinceGameStart();
+
+        this.getLevel().spawnMinions(
+                new TimeRange(this.timeOfLastTick, currentTime),
+                this);
+
+        for (Tower t : this.towers) {
+            t.tick(this);
+        }
+
         ArrayList<Minion> forRemoval = new ArrayList<>();
 
         for (Minion m : this.minions) {
@@ -78,13 +92,29 @@ public class Game {
             }
         }
 
-        for (Minion m : forRemoval) {
-            this.minions.remove(m);
+        forRemoval.forEach(this.minions::remove);
+
+        if (!this.currentLevel.hasMoreMinions(currentTime) && this.minions.size() == 0) {
+            this.incrementLevel();
         }
 
-        for (Tower t : this.towers) {
-            t.tick(this);
+        this.timeOfLastTick = currentTime;
+    }
+
+    private float timeSinceGameStart() {
+        if (this.forTest) return testTime;
+        return new Date().getTime() / 1000 - this.gameStart;
+    }
+
+    private void incrementLevel() {
+        int nextLevelIndex = this.levels.indexOf(this.currentLevel) + 1;
+
+        if (nextLevelIndex == this.levels.size()) {
+            this.gameOver = true;
+            return;
         }
+
+        this.currentLevel = this.levels.get(nextLevelIndex);
     }
 
     private void render() {
@@ -141,4 +171,11 @@ public class Game {
         return this.minions;
     }
 
+    public void simulateSeconds(int seconds) {
+        this.forTest = true;
+        for (int i = 0; i < seconds; i++) {
+            this.tick();
+            this.testTime++;
+        }
+    }
 }

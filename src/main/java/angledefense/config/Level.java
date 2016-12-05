@@ -38,4 +38,13 @@ public class Level {
     public Wave getWave(int index) {
         return this.waves.get(index);
     }
+
+    public boolean hasMoreMinions(float currentTime) {
+        for (Wave w : this.waves) {
+            if (w.end > currentTime)
+                return true;
+        }
+
+        return false;
+    }
 }
