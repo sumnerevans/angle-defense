@@ -7,7 +7,7 @@
                 {
                     "minion": "ground",
                     "stats": {
-                        "speed": 2,
+                        "speed": 1.5,
                         "health": 10,
                         "size": 0.6
                     },
@@ -23,7 +23,7 @@
                 {
                     "minion": "ground",
                     "stats": {
-                        "speed": 2.5,
+                        "speed": 2,
                         "health": 20,
                         "size": 0.5
                     },
@@ -34,11 +34,76 @@
                 {
                     "minion": "ground",
                     "stats": {
-                        "speed": 0.3,
+                        "speed": 0.7,
                         "health": 30,
                         "size": 0.7
                     },
                     "count": 15,
+                    "start": 20,
+                    "end": 25
+                }
+            ]
+        },
+        {
+            "levelNum": 3,
+            "waves": [
+                {
+                    "minion": "ground",
+                    "stats": {
+                        "speed": 2,
+                        "health": 40,
+                        "size": 0.5
+                    },
+                    "count": 35,
+                    "start": 15,
+                    "end": 26
+                },
+                {
+                    "minion": "ground",
+                    "stats": {
+                        "speed": 1,
+                        "health": 60,
+                        "size": 0.7
+                    },
+                    "count": 10,
+                    "start": 25,
+                    "end": 30
+                }
+            ]
+        },
+        {
+            "levelNum": 4,
+            "waves": [
+                {
+                    "minion": "ground",
+                    "stats": {
+                        "speed": 2.3,
+                        "health": 30,
+                        "size": 0.5
+                    },
+                    "count": 25,
+                    "start": 15,
+                    "end": 23
+                },
+                {
+                    "minion": "ground",
+                    "stats": {
+                        "speed": 1,
+                        "health": 80,
+                        "size": 0.7
+                    },
+                    "count": 20,
+                    "start": 20,
+                    "end": 30
+                },
+                {
+                    "minion": "ground",
+                    "stats": {
+                        "speed": 0.5,
+                        "health": 120,
+                        "size": 1
+                    },
+                    "count": 5,
                     "start": 25,
                     "end": 30
                 }
