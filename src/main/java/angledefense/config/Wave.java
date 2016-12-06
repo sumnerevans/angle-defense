@@ -12,7 +12,7 @@ public class Wave {
 	public final Minion.Type minionType;
 	public final float start, end;
 	public final int count;
-	private final JsonObject stats;
+	public final JsonObject stats;
 
 	/**
 	 * Create a minion

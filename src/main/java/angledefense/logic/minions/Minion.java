@@ -8,6 +8,8 @@ import angledefense.logic.IDrawable;
 import angledefense.logic.ITickable;
 import angledefense.logic.Location;
 import angledefense.logic.towers.Tower;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.function.Function;
@@ -21,10 +23,27 @@ public abstract class Minion implements IDrawable, ITickable {
 	protected Node currentNode;
 	protected boolean gotToCastle = false;
 	protected float speed;
+	protected float size = 1;
 
 	protected Minion(Node node) {
 		this.location = node.location;
 		this.currentNode = node;
+	}
+
+	public void loadStats(JsonObject stats) {
+		if (stats == null) return;
+		JsonElement health = stats.get("health");
+		if (health != null) {
+			this.health = health.getAsInt();
+		}
+		JsonElement speed = stats.get("speed");
+		if (speed != null) {
+			this.speed = speed.getAsFloat();
+		}
+		JsonElement size = stats.get("size");
+		if (size != null) {
+			this.size = size.getAsFloat();
+		}
 	}
 
 	public void moveForward(float distanceToTravel) {
@@ -57,7 +76,7 @@ public abstract class Minion implements IDrawable, ITickable {
 
 	@Override
 	public void draw(DrawContext drawContext) {
-		teapot.setTransform(location, 1, 0, 0);
+		teapot.setTransform(location, size, 0, 0);
 		teapot.draw();
 	}
 
