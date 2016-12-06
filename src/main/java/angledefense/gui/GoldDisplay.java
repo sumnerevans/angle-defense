@@ -13,9 +13,6 @@ import java.awt.*;
 
 public class GoldDisplay extends JPanel {
 	public GoldDisplay(Player player) {
-		setLayout(new GridLayout(1, 3));
-		setBorder(new EtchedBorder());
-		setPreferredSize(new Dimension(200, 50));
 
 		// Gold
 		JPanel goldPanel = new JPanel();
