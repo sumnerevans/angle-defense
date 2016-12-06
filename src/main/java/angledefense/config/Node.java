@@ -1,16 +1,16 @@
 package angledefense.config;
 
-import angledefense.logic.*;
+import angledefense.logic.Location;
 
 /**
  * Created by sumner on 11/29/16.
  */
 public class Node {
-    public final Location location;
-    public final Node next;
+	public final Location location;
+	public final Node next;
 
-    public Node(Location location, Node next) {
-        this.location = location;
-        this.next = next;
-    }
+	public Node(Location location, Node next) {
+		this.location = location;
+		this.next = next;
+	}
 }

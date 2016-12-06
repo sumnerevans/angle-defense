@@ -1,222 +1,224 @@
 package angledefense.logic;
 
-import angledefense.logic.minions.*;
-import angledefense.logic.towers.*;
-import com.google.gson.*;
-import angledefense.config.*;
-import angledefense.draw.*;
+import angledefense.config.Board;
+import angledefense.config.Level;
+import angledefense.draw.DrawContext;
+import angledefense.draw.ModelHandle;
+import angledefense.logic.minions.Minion;
+import angledefense.logic.towers.Tower;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.function.BiConsumer;
 
 public class Game {
-    public static final int INITIAL_HEIGHT = 700;
-    public static final int INITIAL_WIDTH = 700;
+	public static final int INITIAL_HEIGHT = 700;
+	public static final int INITIAL_WIDTH = 700;
+	public static long msperframe = 1000 / 30;
+	public transient final ArrayList<Minion> minions;
+	public transient final ArrayList<Tower> towers;
+	public transient final DrawContext draw;
+	private final Player player;
+	float testTime = 0;
+	private int numLives;
+	private Board board;
+	private ArrayList<Level> levels;
+	private float gameStart;
+	private Location selected;
+	private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
+	private transient Level currentLevel;
+	private transient boolean gameOver = false;
+	private transient ModelHandle selector = ModelHandle.create("selector");
+	private Instant levelStartTime;
 
-    private final Player player;
-    private int numLives;
-    private Board board;
-    private ArrayList<Level> levels;
-    private float gameStart;
-    private Location selected;
-    private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
-    float testTime = 0;
+	private Game() {
+		this.player = new Player("Player", Color.BLUE);
+		this.draw = new DrawContext(this);
+		this.minions = new ArrayList<>();
+		this.towers = new ArrayList<>();
+		this.gameStart = new Date().getTime() / 1000;
+	}
 
-    public transient final ArrayList<Minion> minions;
-    public transient final ArrayList<Tower> towers;
+	public static Game newGame(String configFile) throws FileNotFoundException, JsonParseException {
+		// Create a Game object from the angledefense.config JSON
+		Gson gson = new GsonBuilder().registerTypeAdapter(Board.class, new Board.Builder())
+				.setPrettyPrinting().create();
 
-    private transient Level currentLevel;
-    public transient final DrawContext draw;
-    private transient boolean gameOver = false;
+		InputStreamReader streamReader = new InputStreamReader(Util.newFileStream(configFile));
+		BufferedReader r = new BufferedReader(streamReader);
 
-    private transient ModelHandle selector = ModelHandle.create("selector");
+		Game g = gson.fromJson(r, Game.class);
 
-    private Instant levelStartTime;
+		if (g == null) {
+			throw new JsonParseException("Invalid JSON");
+		}
 
-    private Game() {
-        this.player = new Player("Player", Color.BLUE);
-        this.draw = new DrawContext(this);
-        this.minions = new ArrayList<>();
-        this.towers = new ArrayList<>();
-        this.gameStart = new Date().getTime() / 1000;
-    }
+		g.currentLevel = g.levels.get(0);
+		return g;
+	}
 
-    public static Game newGame(String configFile) throws FileNotFoundException, JsonParseException {
-        // Create a Game object from the angledefense.config JSON
-        Gson gson = new GsonBuilder().registerTypeAdapter(Board.class, new Board.Builder())
-                .setPrettyPrinting().create();
+	public void loop() throws IOException {
+		draw.init();
 
-        InputStreamReader streamReader = new InputStreamReader(Util.newFileStream(configFile));
-        BufferedReader r = new BufferedReader(streamReader);
+		draw.setVerticalRange(-2, 0.8f * (board.width + board.height));
 
-        Game g = gson.fromJson(r, Game.class);
+		Instant last = Instant.now();
+		levelStartTime = last;
 
-        if (g == null) {
-            throw new JsonParseException("Invalid JSON");
-        }
+		while (!gameOver) {
+			Instant now = Instant.now();
 
-        g.currentLevel = g.levels.get(0);
-        return g;
-    }
+			tick(last, now);
 
-    public static long msperframe = 1000 / 30;
+			draw.preDraw();
+			render();
+			draw.postDraw();
 
-    public void loop() throws IOException {
-        draw.init();
+			long towait = msperframe - now.until(Instant.now(), ChronoUnit.MILLIS);
+			if (towait > msperframe) towait = msperframe;
+			if (towait > 0) {
+				try {
+					Thread.sleep(towait);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 
-        draw.setVerticalRange(-2, 0.8f * (board.width + board.height));
+			last = now;
+		}
 
-        Instant last = Instant.now();
-        levelStartTime = last;
+		draw.close();
+	}
 
-        while (!gameOver) {
-            Instant now = Instant.now();
+	private void tick(Instant last, Instant now) {
+		this.getLevel().spawnMinions(new TimeRange(levelStartTime, last, now), this);
+		float dt = TimeRange.relativeSecs(last, now);
 
-            tick(last, now);
+		for (Tower t : this.towers) {
+			t.tick(this, dt);
+		}
 
-            draw.preDraw();
-            render();
-            draw.postDraw();
+		ArrayList<Minion> forRemoval = new ArrayList<>();
 
-            long towait = msperframe - now.until(Instant.now(), ChronoUnit.MILLIS);
-            if (towait > msperframe) towait = msperframe;
-            if (towait > 0) {
-                try {
-                    Thread.sleep(towait);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+		for (Minion m : this.minions) {
+			m.tick(this, dt);
 
-            last = now;
-        }
+			if (m.gotToCastle()) this.looseLife();
 
-        draw.close();
-    }
+			if (m.shouldRemove()) forRemoval.add(m);
+		}
 
-    private void tick(Instant last, Instant now) {
-        this.getLevel().spawnMinions(new TimeRange(levelStartTime, last, now), this);
-        float dt = TimeRange.relativeSecs(last, now);
+		forRemoval.forEach(this.minions::remove);
 
-        for (Tower t : this.towers) {
-            t.tick(this, dt);
-        }
+		if (!this.currentLevel.hasMoreMinions(TimeRange.relativeSecs(levelStartTime, now)) || this.minions.size() == 0) {
+			this.incrementLevel();
+		}
+	}
 
-        ArrayList<Minion> forRemoval = new ArrayList<>();
+	private void incrementLevel() {
+		int nextLevelIndex = this.levels.indexOf(this.currentLevel) + 1;
 
-        for (Minion m : this.minions) {
-            m.tick(this, dt);
+		if (nextLevelIndex == this.levels.size()) {
+			//this.gameOver = true;
+			return;
+		}
 
-            if (m.gotToCastle()) this.looseLife();
+		this.currentLevel = this.levels.get(nextLevelIndex);
+		levelStartTime = Instant.now();
+	}
 
-            if (m.shouldRemove()) forRemoval.add(m);
-        }
+	private void render() {
+		if (selected != null) {
+			selector.setTransform(selected.floor(), 1, -.8f, 0);
+			selector.draw();
+		}
 
-        forRemoval.forEach(this.minions::remove);
+		board.draw(draw);
+		towers.forEach(t -> t.draw(draw));
+		minions.forEach(m -> m.draw(draw));
+	}
 
-        if (!this.currentLevel.hasMoreMinions(TimeRange.relativeSecs(levelStartTime, now)) || this.minions.size() == 0) {
-            this.incrementLevel();
-        }
-    }
+	private void looseLife() {
+		this.numLives--;
+	}
 
-    private void incrementLevel() {
-        int nextLevelIndex = this.levels.indexOf(this.currentLevel) + 1;
+	public void spawnMinion(Minion m) {
+		this.minions.add(m);
+	}
 
-        if (nextLevelIndex == this.levels.size()) {
-            //this.gameOver = true;
-            return;
-        }
+	public void buildTower(Tower t) {
+		this.towers.add(t);
+	}
 
-        this.currentLevel = this.levels.get(nextLevelIndex);
-        levelStartTime = Instant.now();
-    }
+	public Board getBoard() {
+		return this.board;
+	}
 
-    private void render() {
-        if (selected != null) {
-            selector.setTransform(selected.floor(), 1, -.8f, 0);
-            selector.draw();
-        }
+	public ArrayList<Level> getLevels() {
+		return this.levels;
+	}
 
-        board.draw(draw);
-        towers.forEach(t -> t.draw(draw));
-        minions.forEach(m -> m.draw(draw));
-    }
+	public Level getLevel() {
+		return this.currentLevel;
+	}
 
-    private void looseLife() {
-        this.numLives--;
-    }
+	public int getNumLives() {
+		return this.numLives;
+	}
 
-    public void spawnMinion(Minion m) {
-        this.minions.add(m);
-    }
+	public void setGameOver() {
+		this.gameOver = true;
+	}
 
-    public void buildTower(Tower t) {
-        this.towers.add(t);
-    }
+	public Player getPlayer() {
+		return player;
+	}
 
-    public Board getBoard() {
-        return this.board;
-    }
+	public void onBoardClick(Location loc, int button, boolean pressed) {
+		if (pressed) {
+			if (loc.getX() < 0 || loc.getX() >= board.width + 1 || loc.getY() < 0 || loc.getY() >= board.height + 1) {
+				selected = null;
+			} else {
+				selected = loc;
+				onclick.forEach(c -> c.accept(button, loc));
+			}
+		}
+	}
 
-    public ArrayList<Level> getLevels() {
-        return this.levels;
-    }
+	public void addClickListener(BiConsumer<Integer, Location> listener) {
+		onclick.add(listener);
+	}
 
-    public Level getLevel() {
-        return this.currentLevel;
-    }
+	public Location getSelectedLocation() {
+		return selected;
+	}
 
-    public int getNumLives() {
-        return this.numLives;
-    }
+	// Testing only
+	public ArrayList<Minion> _getMinions() {
+		return this.minions;
+	}
 
-    public void setGameOver() {
-        this.gameOver = true;
-    }
+	public void simulateSeconds(float seconds) {
+		Instant current = Instant.now();
+		this.levelStartTime = current;
+		long ms = (long) (seconds * 1000);
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void onBoardClick(Location loc, int button, boolean pressed) {
-        if (pressed) {
-            if (loc.getX() < 0 || loc.getX() >= board.width + 1 || loc.getY() < 0 || loc.getY() >= board.height + 1) {
-                selected = null;
-            } else {
-                selected = loc;
-                onclick.forEach(c -> c.accept(button, loc));
-            }
-        }
-    }
-
-    public void addClickListener(BiConsumer<Integer, Location> listener) {
-        onclick.add(listener);
-    }
-
-    public Location getSelectedLocation() {
-        return selected;
-    }
-
-    // Testing only
-    public ArrayList<Minion> _getMinions() {
-        return this.minions;
-    }
-
-    public void simulateSeconds(float seconds) {
-        Instant current = Instant.now();
-        this.levelStartTime = current;
-        long ms = (long) (seconds * 1000);
-
-        while (ms > 0) {
-            Instant next = current.plus(msperframe, ChronoUnit.MILLIS);
-            this.tick(current, next);
-            current = next;
-            ms -= msperframe;
-        }
-    }
+		while (ms > 0) {
+			Instant next = current.plus(msperframe, ChronoUnit.MILLIS);
+			this.tick(current, next);
+			current = next;
+			ms -= msperframe;
+		}
+	}
 
 }

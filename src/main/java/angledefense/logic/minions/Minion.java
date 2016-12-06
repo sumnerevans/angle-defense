@@ -1,120 +1,121 @@
 package angledefense.logic.minions;
 
+import angledefense.config.Node;
 import angledefense.draw.DrawContext;
 import angledefense.draw.ModelHandle;
-import angledefense.logic.*;
-import angledefense.logic.towers.*;
+import angledefense.logic.Game;
+import angledefense.logic.IDrawable;
+import angledefense.logic.ITickable;
+import angledefense.logic.Location;
+import angledefense.logic.towers.Tower;
 import com.google.gson.annotations.SerializedName;
-import angledefense.config.*;
-import com.google.gson.stream.MalformedJsonException;
 
-import java.util.function.*;
+import java.util.function.Function;
 
 public abstract class Minion implements IDrawable, ITickable {
-    public enum Type {
-        @SerializedName("ground")
-        GROUND(GroundUnit::new),
+	private static ModelHandle teapot = ModelHandle.create("teapot");
+	protected boolean dead = false;
+	protected int health;
+	protected int goldReward;
+	protected Location location;
+	protected Node currentNode;
+	protected boolean gotToCastle = false;
+	protected float speed;
 
-        @SerializedName("air")
-        AIR(AirUnit::new);
+	protected Minion(Node node) {
+		this.location = node.location;
+		this.currentNode = node;
+	}
 
-        private Function<Node, Minion> spawner;
+	public void moveForward(float distanceToTravel) {
+		while (distanceToTravel > 0) {
+			Location current = location;
+			if (currentNode.next == null) {
+				this.gotToCastle = true;
+				this.dead = true;
+				break;
+			}
 
-        Type(Function<Node, Minion> s) {
-            this.spawner = s;
-        }
+			Location next = currentNode.next.location;
 
-        public Minion create(Node n) {
-            return this.spawner.apply(n);
-        }
-    }
+			float nd = Location.dist(current, next);
+			if (distanceToTravel < nd) {
+				location = Location.lerp(current, next, distanceToTravel / nd);
+				break;
+			} else {
+				distanceToTravel -= nd;
+				currentNode = currentNode.next;
+				location = currentNode.location;
+			}
+		}
+	}
 
-    protected boolean dead = false;
-    protected int health;
-    protected int goldReward;
-    protected Location location;
-    protected Node currentNode;
-    protected boolean gotToCastle = false;
-    protected float speed;
+	@Override
+	public void tick(Game game, float dt) {
+		this.moveForward(this.speed * dt);
+	}
 
-    private static ModelHandle teapot = ModelHandle.create("teapot");
+	@Override
+	public void draw(DrawContext drawContext) {
+		teapot.setTransform(location, 1, 0, 0);
+		teapot.draw();
+	}
 
-    protected Minion(Node node) {
-        this.location = node.location;
-        this.currentNode = node;
-    }
+	abstract protected void receiveDamage(Tower tower, int amount);
 
-    public void moveForward(float distanceToTravel) {
-        while (distanceToTravel > 0) {
-            Location current = location;
-            if (currentNode.next == null) {
-                this.gotToCastle = true;
-                this.dead = true;
-                break;
-            }
+	public void attacked(Tower tower, int amount) {
+		this.receiveDamage(tower, amount);
 
-            Location next = currentNode.next.location;
+		if (this.health <= 0) {
+			this.dead = true;
+			tower.getOwner().addGold(this.goldReward);
+		}
+	}
 
-            float nd = Location.dist(current, next);
-            if (distanceToTravel < nd) {
-                location = Location.lerp(current, next, distanceToTravel / nd);
-                break;
-            } else {
-                distanceToTravel -= nd;
-                currentNode = currentNode.next;
-                location = currentNode.location;
-            }
-        }
-    }
+	public boolean shouldRemove() {
+		return this.isDead();
+	}
 
-    @Override
-    public void tick(Game game, float dt) {
-        this.moveForward(this.speed * dt);
-    }
+	public boolean isDead() {
+		return this.dead;
+	}
 
-    @Override
-    public void draw(DrawContext drawContext) {
-        teapot.setTransform(location, 1, 0, 0);
-        teapot.draw();
-    }
+	public boolean gotToCastle() {
+		return gotToCastle;
+	}
 
-    abstract protected void receiveDamage(Tower tower, int amount);
+	// Testing Only
+	public void _setLocation(int x, int y) {
+		this.location = new Location(x, y);
+	}
 
-    public void attacked(Tower tower, int amount) {
-        this.receiveDamage(tower, amount);
+	public void _setLocation(Location l) {
+		this.location = l;
+	}
 
-        if (this.health <= 0) {
-            this.dead = true;
-            tower.getOwner().addGold(this.goldReward);
-        }
-    }
+	public void _setLocation(float x, float y) {
+		this.location = new Location(x, y);
+	}
 
-    public boolean shouldRemove() {
-        return this.isDead();
-    }
+	public Location _getLocation() {
+		return this.location;
+	}
 
-    public boolean isDead() {
-        return this.dead;
-    }
+	public enum Type {
+		@SerializedName("ground")
+		GROUND(GroundUnit::new),
 
-    public boolean gotToCastle() {
-        return gotToCastle;
-    }
+		@SerializedName("air")
+		AIR(AirUnit::new);
 
-    // Testing Only
-    public void _setLocation(int x, int y) {
-        this.location = new Location(x, y);
-    }
+		private Function<Node, Minion> spawner;
 
-    public void _setLocation(Location l) {
-        this.location = l;
-    }
+		Type(Function<Node, Minion> s) {
+			this.spawner = s;
+		}
 
-    public void _setLocation(float x, float y) {
-        this.location = new Location(x, y);
-    }
-
-    public Location _getLocation() {
-        return this.location;
-    }
+		public Minion create(Node n) {
+			return this.spawner.apply(n);
+		}
+	}
 }

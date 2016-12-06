@@ -2,26 +2,26 @@
   "teapot": {
     "type": "model",
     "path": "assets/teapot.obj",
-    "texture":  "assets/teabake.png"
+    "texture": "assets/teabake.png"
   },
   "gun": {
     "type": "model",
     "path": "assets/scifigun.obj",
-    "texture":  "assets/scifigun.png"
+    "texture": "assets/scifigun.png"
   },
   "selector": {
     "type": "model",
     "path": "assets/selector.obj",
-    "texture":  "assets/selector_color.png"
+    "texture": "assets/selector_color.png"
   },
   "tile_blank_green": {
     "type": "model",
     "path": "assets/blank_tile.obj",
-    "texture":  "assets/tile_green.png"
+    "texture": "assets/tile_green.png"
   },
   "tile_blank_brown": {
     "type": "model",
     "path": "assets/blank_tile.obj",
-    "texture":  "assets/tile_brown.png"
+    "texture": "assets/tile_brown.png"
   }
 }

@@ -11,11 +11,11 @@ import java.util.ArrayList;
 public class ButtonBox extends JPanel {
 	public ButtonBox(ArrayList<JButton> buttons) {
 
-		this.setPreferredSize(new Dimension(200,200));
+		this.setPreferredSize(new Dimension(200, 200));
 		this.setBorder(new EtchedBorder());
 		this.setLayout(new GridLayout(2, 2));
 		for (JButton B : buttons) {
-			B.setSize(50,50);
+			B.setSize(50, 50);
 			B.setBorder(new EtchedBorder());
 		}
 	}

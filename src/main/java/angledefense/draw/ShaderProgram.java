@@ -1,7 +1,7 @@
 package angledefense.draw;
 
 import org.apache.commons.io.IOUtils;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL20;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,84 +10,83 @@ import java.io.InputStream;
  * Created by Sam Sartor on 12/4/2016.
  */
 public class ShaderProgram {
-    public static class Builder {
-        private String vertSrc;
-        private String fragSrc;
+	public final int vert;
+	public final int frag;
+	public final int prog;
+	private ShaderProgram(int vert, int frag, int prog) {
+		this.vert = vert;
+		this.frag = frag;
+		this.prog = prog;
+	}
 
-        public Builder setVert(String vertSrc) {
-            this.vertSrc = vertSrc;
-            return this;
-        }
+	public static Builder builder() {
+		return new Builder();
+	}
 
-        public Builder setVert(InputStream stream) throws IOException {
-            setVert(IOUtils.toString(stream));
-            return this;
-        }
+	public void bind() {
+		GL20.glUseProgram(prog);
+	}
 
-        public Builder setFrag(String fragSrc) {
-            this.fragSrc = fragSrc;
-            return this;
-        }
+	public void unbind() {
+		GL20.glUseProgram(0);
+	}
 
-        public Builder setFrag(InputStream stream) throws IOException {
-            setFrag(IOUtils.toString(stream));
-            return this;
-        }
+	public int getUnLoc(String uniform) {
+		return GL20.glGetUniformLocation(prog, uniform);
+	}
 
-        private void printLog(String pre, String log) {
-            if (!log.isEmpty()) System.out.printf("[%s LOG]: %s", pre, log);
-        }
+	public void delete() {
+		GL20.glDeleteProgram(prog);
+		GL20.glDeleteShader(vert);
+		GL20.glDeleteShader(frag);
+	}
 
-        public ShaderProgram build() {
-            int vert = GL20.glCreateShader(GL20.GL_VERTEX_SHADER);
-            GL20.glShaderSource(vert, vertSrc);
-            GL20.glCompileShader(vert);
-            printLog("VERTEX SHADER", GL20.glGetShaderInfoLog(vert));
+	public static class Builder {
+		private String vertSrc;
+		private String fragSrc;
 
-            int frag = GL20.glCreateShader(GL20.GL_FRAGMENT_SHADER);
-            GL20.glShaderSource(frag, fragSrc);
-            GL20.glCompileShader(frag);
-            printLog("FRAGMENT SHADER", GL20.glGetShaderInfoLog(frag));
+		public Builder setVert(String vertSrc) {
+			this.vertSrc = vertSrc;
+			return this;
+		}
 
-            int prog = GL20.glCreateProgram();
-            GL20.glAttachShader(prog, vert);
-            GL20.glAttachShader(prog, frag);
-            GL20.glLinkProgram(prog);
-            printLog("SHADER LINK", GL20.glGetProgramInfoLog(frag));
+		public Builder setVert(InputStream stream) throws IOException {
+			setVert(IOUtils.toString(stream));
+			return this;
+		}
 
-            return new ShaderProgram(vert, frag, prog);
-        }
-    }
+		public Builder setFrag(String fragSrc) {
+			this.fragSrc = fragSrc;
+			return this;
+		}
 
-    public final int vert;
-    public final int frag;
-    public final int prog;
+		public Builder setFrag(InputStream stream) throws IOException {
+			setFrag(IOUtils.toString(stream));
+			return this;
+		}
 
-    private ShaderProgram(int vert, int frag, int prog) {
-        this.vert = vert;
-        this.frag = frag;
-        this.prog = prog;
-    }
+		private void printLog(String pre, String log) {
+			if (!log.isEmpty()) System.out.printf("[%s LOG]: %s", pre, log);
+		}
 
-    public void bind() {
-        GL20.glUseProgram(prog);
-    }
+		public ShaderProgram build() {
+			int vert = GL20.glCreateShader(GL20.GL_VERTEX_SHADER);
+			GL20.glShaderSource(vert, vertSrc);
+			GL20.glCompileShader(vert);
+			printLog("VERTEX SHADER", GL20.glGetShaderInfoLog(vert));
 
-    public void unbind() {
-        GL20.glUseProgram(0);
-    }
+			int frag = GL20.glCreateShader(GL20.GL_FRAGMENT_SHADER);
+			GL20.glShaderSource(frag, fragSrc);
+			GL20.glCompileShader(frag);
+			printLog("FRAGMENT SHADER", GL20.glGetShaderInfoLog(frag));
 
-    public int getUnLoc(String uniform) {
-        return GL20.glGetUniformLocation(prog, uniform);
-    }
+			int prog = GL20.glCreateProgram();
+			GL20.glAttachShader(prog, vert);
+			GL20.glAttachShader(prog, frag);
+			GL20.glLinkProgram(prog);
+			printLog("SHADER LINK", GL20.glGetProgramInfoLog(frag));
 
-    public void delete() {
-        GL20.glDeleteProgram(prog);
-        GL20.glDeleteShader(vert);
-        GL20.glDeleteShader(frag);
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
+			return new ShaderProgram(vert, frag, prog);
+		}
+	}
 }

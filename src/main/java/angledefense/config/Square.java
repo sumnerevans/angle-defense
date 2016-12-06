@@ -1,64 +1,64 @@
 package angledefense.config;
 
+import angledefense.draw.DrawContext;
 import angledefense.draw.ModelHandle;
 import angledefense.logic.IDrawable;
 import angledefense.logic.Location;
-import angledefense.draw.DrawContext;
 
 public class Square implements IDrawable {
-    public enum SquareType {
-        GROUND, TRENCH
-    }
+	private static ModelHandle blankGreen = ModelHandle.create("tile_blank_green");
+	private static ModelHandle blankBrown = ModelHandle.create("tile_blank_brown");
+	private Location location;
+	private SquareType squareType;
+	private CliffSide[] cliffSides;
 
-    public enum CliffSide {
-        TOP, BOTTOM, LEFT, RIGHT
-    }
+	private ModelHandle mymodel;
 
-    private Location location;
-    private SquareType squareType;
-    private CliffSide[] cliffSides;
+	/**
+	 * Create a square
+	 *
+	 * @param location
+	 * @param squareType
+	 * @param cliffSides
+	 */
+	public Square(Location location, SquareType squareType, CliffSide[] cliffSides) {
+		this.location = location;
+		this.squareType = squareType;
+		this.cliffSides = cliffSides;
 
-    private ModelHandle mymodel;
+		switch (squareType) {
+			case GROUND:
+				mymodel = blankGreen;
+				break;
+			case TRENCH:
+				mymodel = blankBrown;
+				break;
+		}
+	}
 
-    private static ModelHandle blankGreen = ModelHandle.create("tile_blank_green");
-    private static ModelHandle blankBrown = ModelHandle.create("tile_blank_brown");
+	@Override
+	public void draw(DrawContext drawContext) {
+		if (squareType == SquareType.TRENCH) {
+			mymodel.setTransform(location, 1, -1f, 0);
+		} else {
+			mymodel.setTransform(location, 1, 0, 0);
+		}
+		mymodel.draw();
+	}
 
-    /**
-     * Create a square
-     * @param location
-     * @param squareType
-     * @param cliffSides
-     */
-    public Square(Location location, SquareType squareType, CliffSide[] cliffSides) {
-        this.location = location;
-        this.squareType = squareType;
-        this.cliffSides = cliffSides;
+	public SquareType getSquareType() {
+		return this.squareType;
+	}
 
-        switch (squareType) {
-            case GROUND:
-                mymodel = blankGreen;
-                break;
-            case TRENCH:
-                mymodel = blankBrown;
-                break;
-        }
-    }
+	public CliffSide[] getCliffSides() {
+		return this.cliffSides;
+	}
 
-    @Override
-    public void draw(DrawContext drawContext) {
-        if (squareType == SquareType.TRENCH) {
-            mymodel.setTransform(location, 1, -1f, 0);
-        } else {
-            mymodel.setTransform(location, 1, 0, 0);
-        }
-        mymodel.draw();
-    }
+	public enum SquareType {
+		GROUND, TRENCH
+	}
 
-    public SquareType getSquareType() {
-        return this.squareType;
-    }
-
-    public CliffSide[] getCliffSides() {
-        return this.cliffSides;
-    }
+	public enum CliffSide {
+		TOP, BOTTOM, LEFT, RIGHT
+	}
 }

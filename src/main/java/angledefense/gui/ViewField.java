@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class ViewField extends JPanel {
 	public ViewField(Game game) {
-		setPreferredSize(new Dimension(850,550));
+		setPreferredSize(new Dimension(850, 550));
 		setBorder(new EtchedBorder());
 
 	}

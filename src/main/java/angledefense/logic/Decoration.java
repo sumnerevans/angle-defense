@@ -1,47 +1,46 @@
 package angledefense.logic;
 
-import com.google.gson.annotations.*;
 import angledefense.draw.DrawContext;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by sumner on 11/29/16.
  */
 public class Decoration implements IDrawable {
-    public enum Type {
-        @SerializedName("pillar")
-        PILLAR,
+	public final Type type;
+	public final Location location;
+	public Decoration(Type type, Location location) {
+		this.type = type;
+		this.location = location;
+	}
 
-        @SerializedName("flag")
-        FLAG
-    }
+	@Override
+	public void draw(DrawContext drawContext) {
+		// TODO: Implement
+	}
 
-    public final Type type;
-    public final Location location;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
-    public Decoration(Type type, Location location) {
-        this.type = type;
-        this.location = location;
-    }
+		Decoration that = (Decoration) o;
 
-    @Override
-    public void draw(DrawContext drawContext) {
-        // TODO: Implement
-    }
+		return type == that.type && location.equals(that.location);
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public int hashCode() {
+		int result = type.hashCode();
+		result = 31 * result + location.hashCode();
+		return result;
+	}
 
-        Decoration that = (Decoration) o;
+	public enum Type {
+		@SerializedName("pillar")
+		PILLAR,
 
-        return type == that.type && location.equals(that.location);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = type.hashCode();
-        result = 31 * result + location.hashCode();
-        return result;
-    }
+		@SerializedName("flag")
+		FLAG
+	}
 }
