@@ -24,8 +24,9 @@ public class GameplayTests extends TestBase {
     // Always reinitialize everything for each test
     @Before
     public void before() throws FileNotFoundException {
-        player = new Player("test", Color.BLUE);
+        player = new Player(game, "test", Color.BLUE);
         game = Game.newGame("test-config.json");
+        game.preventGui = true;
     }
 
     // Test that the level increments when the player beats a level
@@ -75,16 +76,16 @@ public class GameplayTests extends TestBase {
 
         // Ensure that the minion moves properly
         minion.moveForward(1);
-        assertEquals(new Location(2, 2), minion._getLocation());
+        assertEquals(new Location(2, 2), minion.getLocation());
 
         minion.moveForward(3);
-        assertEquals(new Location(3, 4), minion._getLocation());
+        assertEquals(new Location(3, 4), minion.getLocation());
 
         minion.moveForward(6);
-        assertEquals(new Location(9, 4), minion._getLocation());
+        assertEquals(new Location(9, 4), minion.getLocation());
 
         minion.moveForward(7);
-        assertEquals(new Location(9, 9), minion._getLocation());
+        assertEquals(new Location(9, 9), minion.getLocation());
     }
 
     // Test Tower attack mechanisms
@@ -138,7 +139,7 @@ public class GameplayTests extends TestBase {
         minion.attacked(tower, Integer.MAX_VALUE);
 
         // Ensure that the player's gold is incremented by the value of the minion
-        assertEquals(5, player.getGold());
+        assertEquals(15, player.getGold());
     }
 
 }

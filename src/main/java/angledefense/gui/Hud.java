@@ -11,52 +11,36 @@ import java.util.ArrayList;
  * and a Angle modification System.
  */
 public class Hud extends JPanel {
-	private ArrayList<JButton> buttons;
-	private ArrayList<JLabel> textLabels;
-	private Game game;
-	private ButtonBox buttonBox;
-	private GoldDisplay goldDisplay;
+    private ArrayList<JButton> buttons;
+    private ArrayList<JLabel> textLabels;
+    private Game game;
+    private ButtonBox buttonBox;
+    private GoldDisplay goldDisplay;
+    private TowerSettingsDisplay towerSettingsDisplay;
 
-	public Hud(Game game) {
-		this.game = game;
-		game.setUIListener(g -> {
-			goldDisplay.setGold(game.getPlayer().getGold());
-		});
-		initializeGUI();
-	}
+    public Hud(Game game) {
+        this.game = game;
 
-	private void initializeGUI() {
-		this.setLayout(new GridLayout(3, 1));
-		this.setPreferredSize(new Dimension(200, 512));
-		goldDisplay = new GoldDisplay(game.getPlayer());
-		buttonBox = new ButtonBox(game);
+        game.setUIListener(g -> {
+            goldDisplay.setGold(game.getPlayer().getGold());
+            if (game.getSelectedLocation() != null)
+                towerSettingsDisplay.setInfo(game.getTower(game.getSelectedLocation()));
+            else
+                towerSettingsDisplay.setInfo(null);
+        });
 
-		this.add(goldDisplay);
-		this.add(buttonBox);
-	}
+        initializeGUI();
+    }
 
-	public void drawContent() {
-		// TODO: I think this is how it is supposed to be?
-		this.setVisible(true);
-	}
+    private void initializeGUI() {
+        this.setLayout(new GridLayout(3, 1));
+        this.setPreferredSize(new Dimension(200, 512));
+        goldDisplay = new GoldDisplay();
+        buttonBox = new ButtonBox(game);
+        towerSettingsDisplay = new TowerSettingsDisplay();
 
-	private JButton createButton() {
-		JButton button = new JButton();
-		return button;
-	}
-
-	public void createButtons() {
-
-		// TODO: make this take in an image and return a button object
-		// TODO: use Game.buildTower(Tower t) to build towers
-	}
-
-	public Color getColor() {
-		//TODO: Make this
-		return Color.blue;
-	}
-
-	public String getName() {
-		return "Blarg";
-	}
+        this.add(goldDisplay);
+        this.add(buttonBox);
+        this.add(towerSettingsDisplay);
+    }
 }

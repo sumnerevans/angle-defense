@@ -32,4 +32,8 @@ public class Player {
 	public int getGold() {
 		return gold;
 	}
+
+	public Game getGame() {
+		return game;
+	}
 }
