@@ -6,6 +6,7 @@ import java.io.*;
 import java.nio.DoubleBuffer;
 import java.util.*;
 
+import angledefense.config.Board;
 import angledefense.logic.Game;
 import angledefense.logic.Location;
 import angledefense.logic.Util;
@@ -28,8 +29,8 @@ public class DrawContext {
 
     private long window = -1;
 
-    private int width = 512;
-    private int height = 512;
+    private int width = Game.INITIAL_WIDTH;
+    private int height = Game.INITIAL_HEIGHT;
 
     private GLCapabilities capabilities;
 
