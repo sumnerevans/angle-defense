@@ -7,12 +7,15 @@ import angledefense.logic.Player;
 import angledefense.logic.minions.Minion;
 import angledefense.util.Util;
 
-public class AirGroundTower extends Tower {
-    public AirGroundTower(Player owner, Location location) {
+public class FreezeTower extends Tower {
+    private float slowAmmount;
+
+    public FreezeTower(Player owner, Location location) {
         super(owner, location, 1);
         this.damage = 10;
         this.range = 4;
         this.fireRate = 1.5f;
+        this.slowAmmount = 0.5f;
     }
 
 	@Override
@@ -22,11 +25,13 @@ public class AirGroundTower extends Tower {
 
     @Override
     public void attack(Minion minion) {
+        minion.decreaseSpeed(slowAmmount);
         minion.attacked(this, this.damage);
     }
 
     @Override
     public void upgrade() {
         this.damage *= this.level;
+        this.slowAmmount += 0.1;
     }
 }

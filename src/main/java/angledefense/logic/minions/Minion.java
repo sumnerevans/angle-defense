@@ -10,12 +10,14 @@ import angledefense.logic.Location;
 import angledefense.logic.towers.Tower;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.function.Function;
 
 public abstract class Minion implements IDrawable, ITickable {
+    public enum Type {GROUND, AIR}
+
     private static ModelHandle teapot = ModelHandle.create("teapot");
+    protected Type type;
     protected boolean dead = false;
     protected int health;
     protected int goldReward;
@@ -24,6 +26,7 @@ public abstract class Minion implements IDrawable, ITickable {
     protected float speed;
     protected float size = 1;
     protected float rotation = Float.NaN;
+    private float slowAmmount = 0f;
 
     protected int owchticks = 0;
 
@@ -73,7 +76,10 @@ public abstract class Minion implements IDrawable, ITickable {
     @Override
     public void tick(Game game, float dt) {
         Location a = location;
-        this.moveForward(this.speed * dt);
+        if (slowAmmount > 0) {
+            slowAmmount -= 0.1;
+        }
+        this.moveForward((this.speed - slowAmmount) * dt);
         Location b = location;
         rotation = Location.angle(a, b);
 
@@ -130,35 +136,13 @@ public abstract class Minion implements IDrawable, ITickable {
         this.location = new Location(x, y);
     }
 
-    @Override
-    public String toString() {
-        return "Minion{" +
-                "dead=" + dead +
-                ", health=" + health +
-                ", goldReward=" + goldReward +
-                ", location=" + location +
-                ", currentNode=" + currentNode +
-                ", speed=" + speed +
-                ", size=" + size +
-                ", rotation=" + rotation +
-                '}';
+    public void decreaseSpeed(float slowAmmount) {
+        if (this.slowAmmount < slowAmmount) {
+            this.slowAmmount = slowAmmount;
+        }
     }
 
-    public enum Type {
-        @SerializedName("ground")
-        GROUND(GroundUnit::new),
-
-        @SerializedName("air")
-        AIR(AirUnit::new);
-
-        private Function<Node, Minion> spawner;
-
-        Type(Function<Node, Minion> s) {
-            this.spawner = s;
-        }
-
-        public Minion create(Node n) {
-            return this.spawner.apply(n);
-        }
+    public Type getType() {
+        return this.type;
     }
 }

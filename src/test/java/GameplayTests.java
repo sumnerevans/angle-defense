@@ -4,7 +4,7 @@ import angledefense.logic.Location;
 import angledefense.logic.Player;
 import angledefense.logic.TimeRange;
 import angledefense.logic.minions.Minion;
-import angledefense.logic.towers.AirGroundTower;
+import angledefense.logic.towers.FreezeTower;
 import angledefense.logic.towers.AirTower;
 import angledefense.logic.towers.GroundTower;
 import angledefense.logic.towers.Tower;
@@ -92,7 +92,7 @@ public class GameplayTests extends TestBase {
     @Test
     public void testTowerAttackMechanisms() {
         // Place one of each type of tower
-        Tower airGroundTower = new AirGroundTower(player, new Location(0, 0));
+        Tower airGroundTower = new FreezeTower(player, new Location(0, 0));
         Tower airTower = new AirTower(player, new Location(0, 0));
         Tower groundTower = new GroundTower(player, new Location(0, 0));
 

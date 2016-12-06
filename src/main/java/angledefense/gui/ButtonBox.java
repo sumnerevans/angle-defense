@@ -3,7 +3,7 @@ package angledefense.gui;
 import angledefense.logic.Game;
 import angledefense.logic.Location;
 import angledefense.logic.Player;
-import angledefense.logic.towers.AirGroundTower;
+import angledefense.logic.towers.FreezeTower;
 import angledefense.logic.towers.AirTower;
 import angledefense.logic.towers.GroundTower;
 import angledefense.logic.towers.Tower;
@@ -28,13 +28,9 @@ public class ButtonBox extends JPanel {
         this.setBorder(new EtchedBorder());
         this.setLayout(new GridLayout(3, 1));
 
-        JButton A = createButton("Anti Ground Cannon", GroundTower::new);
-        JButton B = createButton("Gyro Zapper", AirTower::new);
-        JButton C = createButton("Big Daddy", AirGroundTower::new);
-
-        A.setSize(50, 50);
-        B.setSize(50, 50);
-        C.setSize(50, 50);
+		JButton A = createButton("Anti Ground Cannon", GroundTower::new);
+		JButton B = createButton("Gyro Zapper", AirTower::new);
+		JButton C = createButton("Big Daddy", FreezeTower::new);
 
         this.add(A);
         this.add(B);
