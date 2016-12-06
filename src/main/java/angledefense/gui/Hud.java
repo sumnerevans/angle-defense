@@ -26,7 +26,7 @@ public class Hud extends JPanel {
 		this.setLayout(new GridLayout(3, 1));
 		this.setPreferredSize(new Dimension(200, 512));
 		goldDisplay = new GoldDisplay(game.getPlayer());
-		buttonBox = new ButtonBox();
+		buttonBox = new ButtonBox(game);
 
 		this.add(goldDisplay);
 		this.add(buttonBox);

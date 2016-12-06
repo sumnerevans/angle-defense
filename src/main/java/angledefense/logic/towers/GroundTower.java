@@ -6,8 +6,9 @@ import angledefense.logic.Location;
 import angledefense.logic.Player;
 import angledefense.logic.minions.Minion;
 
-public class GroundTower extends Tower {
+import java.awt.event.ActionEvent;
 
+public class GroundTower extends Tower {
 	public GroundTower(Player owner, Location location) {
 		super(owner, location);
 		this.damage = 10;

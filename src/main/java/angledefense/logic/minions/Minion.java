@@ -23,6 +23,7 @@ public abstract class Minion implements IDrawable, ITickable {
 	protected Node currentNode;
 	protected float speed;
 	protected float size = 1;
+	protected float rotation = Float.NaN;
 
 	protected Minion(Node node) {
 		this.location = node.location;
@@ -69,12 +70,15 @@ public abstract class Minion implements IDrawable, ITickable {
 
 	@Override
 	public void tick(Game game, float dt) {
+		Location a = location;
 		this.moveForward(this.speed * dt);
+		Location b = location;
+		rotation = Location.angle(a, b);
 	}
 
 	@Override
 	public void draw(DrawContext drawContext) {
-		teapot.setTransform(location, size, -1, 0);
+		teapot.setTransform(location, size, -1, rotation);
 		teapot.draw();
 	}
 
