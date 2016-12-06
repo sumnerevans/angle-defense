@@ -3,6 +3,10 @@ package angledefense.gui;
 import angledefense.logic.Game;
 import angledefense.logic.Location;
 import angledefense.logic.Player;
+import angledefense.logic.minions.AirUnit;
+import angledefense.logic.towers.AirGroundTower;
+import angledefense.logic.towers.AirTower;
+import angledefense.logic.towers.GroundTower;
 import angledefense.logic.towers.Tower;
 import jdk.nashorn.internal.objects.NativeUint8Array;
 
@@ -29,36 +33,30 @@ public class ButtonBox extends JPanel {
 		this.setLayout(new GridLayout(3, 1));
 
 
-		JButton A = createButton("Anti Ground Cannon", listener);
-		JButton B = createButton("Gyro Zapper", listener);
-		JButton C = createButton("Big Daddy", listener);
+		JButton A = createButton("Anti Ground Cannon", GroundTower::new);
+		JButton B = createButton("Gyro Zapper", AirTower::new);
+		JButton C = createButton("Big Daddy", AirGroundTower::new);
 
 		A.setSize(50,50);
 		B.setSize(50,50);
 		C.setSize(50,50);
-
-		
-		A.addActionListener(listener);
-		B.addActionListener(listener);
-		C.addActionListener(listener);
-
 
 		this.add(A);
 		this.add(B);
 		this.add(C);
 	}
 
-	private JButton createButton(String text, ActionListener listener){
+	private JButton createButton(String text, BiFunction<Player,Location,Tower> listener){
 		JButton button = new JButton(text);
-		button.addActionListener(listener);
+		button.addActionListener(new BuildListener(listener));
 		add (button);
 		return button;
 	}
 
 	// Listener
-	private class groundTowerListener implements ActionListener {
+	private class BuildListener implements ActionListener {
 		private BiFunction<Player,Location,Tower> supplier;
-		public groundTowerListener(BiFunction<Player,Location,Tower> supplier) {
+		public BuildListener(BiFunction<Player,Location,Tower> supplier) {
 			this.supplier = supplier;
 		}
 
@@ -70,7 +68,7 @@ public class ButtonBox extends JPanel {
 				game.buildTower(this.supplier.apply(game.getPlayer(), l));
 			}
 			else {
-				
+				JOptionPane.showMessageDialog(ButtonBox.this, "Can not place tower, no location selected.", "Place Tower", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}
