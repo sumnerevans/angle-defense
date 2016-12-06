@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -39,6 +40,7 @@ public class Game {
 
     private transient Level currentLevel;
     private transient boolean gameOver = false;
+    private transient boolean playerWon = false;
 
     private transient ModelHandle towerSelector = ModelHandle.create("tower_selector");
     private transient ModelHandle selector = ModelHandle.create("selector");
@@ -47,6 +49,7 @@ public class Game {
     private int numLives;
     private Board board;
     private ArrayList<Level> levels;
+    private float playRate = 1;
 
     // Other private instance variables
     private transient Location selected;
@@ -134,7 +137,7 @@ public class Game {
             last = now;
         }
 
-        // TODO: Add loose/win message
+        this.playerWon = this.numLives>0;
 
         draw.close();
     }
@@ -147,8 +150,8 @@ public class Game {
      * @param now
      */
     private void tick(Instant last, Instant now) {
-        this.getLevel().spawnMinions(new TimeRange(levelStartTime, last, now), this);
-        float dt = TimeRange.relativeSecs(last, now);
+        this.getLevel().spawnMinions(new TimeRange(levelStartTime, last, now, this.playRate), this);
+        float dt = TimeRange.relativeSecs(last, now) * this.playRate;
 
         for (Tower t : this.towers.values()) {
             t.tick(this, dt);
@@ -204,6 +207,10 @@ public class Game {
 
     private void looseLife() {
         this.numLives--;
+
+        if (this.numLives <= 0) {
+            this.gameOver = true;
+        }
     }
 
     public void spawnMinion(Minion m) {
@@ -286,5 +293,9 @@ public class Game {
             current = next;
             ms -= MS_PER_FRAME;
         }
+    }
+
+    public boolean didPlayerWin() {
+        return playerWon;
     }
 }

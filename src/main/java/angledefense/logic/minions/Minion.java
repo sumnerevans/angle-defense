@@ -21,7 +21,6 @@ public abstract class Minion implements IDrawable, ITickable {
 	protected int goldReward;
 	protected Location location;
 	protected Node currentNode;
-	protected boolean gotToCastle = false;
 	protected float speed;
 	protected float size = 1;
 	protected float rotation = Float.NaN;
@@ -51,7 +50,6 @@ public abstract class Minion implements IDrawable, ITickable {
 		while (distanceToTravel > 0) {
 			Location current = location;
 			if (currentNode.next == null) {
-				this.gotToCastle = true;
 				this.dead = true;
 				break;
 			}
@@ -104,7 +102,7 @@ public abstract class Minion implements IDrawable, ITickable {
 	}
 
 	public boolean gotToCastle() {
-		return gotToCastle;
+		return currentNode.next == null;
 	}
 
 	// Testing Only
