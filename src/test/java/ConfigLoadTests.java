@@ -79,8 +79,8 @@ public class ConfigLoadTests extends TestBase {
 		Level firstLevel = levels.get(0);
 		assertEquals(Minion.Type.GROUND, firstLevel.getWave(0).minionType);
 		assertEquals(15, firstLevel.getWave(0).count);
-		assertEquals(15.0, firstLevel.getWave(0).start, 0.00001);
-		assertEquals(20.0, firstLevel.getWave(0).end, 0.00001);
+		assertEquals(20.0, firstLevel.getWave(0).start, 0.00001);
+		assertEquals(25.0, firstLevel.getWave(0).end, 0.00001);
 	}
 
 }

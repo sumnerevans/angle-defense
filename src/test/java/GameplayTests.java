@@ -32,7 +32,7 @@ public class GameplayTests extends TestBase {
     // Test that the level increments when the player beats a level
     @Test
     public void testLevelIncrement() throws IOException, InterruptedException {
-        game.simulateSeconds(60);
+        game.simulateSeconds(100);
 
         Tower boom = new GroundTower(player, new Location(0, 0));
         for (Minion m : game._getMinions()) {
@@ -56,10 +56,10 @@ public class GameplayTests extends TestBase {
 
     @Test
     public void testMinionSpawn() {
-        game.getLevel().spawnMinions(new TimeRange(15.0f, 15.4f, 1), game);
+        game.getLevel().spawnMinions(new TimeRange(20.0f, 20.4f, 1), game);
         assertEquals(1, game._getMinions().size());
 
-        game.getLevel().spawnMinions(new TimeRange(15.4f, 16.4f, 1), game);
+        game.getLevel().spawnMinions(new TimeRange(20.4f, 21.4f, 1), game);
         assertEquals(4, game._getMinions().size());
     }
 

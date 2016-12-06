@@ -217,6 +217,7 @@ public class Game {
 
     private void looseLife() {
         this.numLives--;
+        this.notifyUI();
 
         if (this.numLives <= 0) {
             this.gameOver = true;
