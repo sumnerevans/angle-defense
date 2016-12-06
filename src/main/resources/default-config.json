@@ -33,7 +33,7 @@
                     "end": 23
                 },
                 {
-                    "minion": "ground",
+                    "minion": "air",
                     "stats": {
                         "speed": 0.7,
                         "health": 30,
@@ -76,7 +76,7 @@
             "levelNum": 4,
             "waves": [
                 {
-                    "minion": "ground",
+                    "minion": "air",
                     "stats": {
                         "speed": 2.3,
                         "health": 30,
