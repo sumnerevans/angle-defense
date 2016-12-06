@@ -68,4 +68,8 @@ public abstract class Tower implements IDrawable, ITickable {
     public Location getLocation() {
         return location;
     }
+
+    public float getAngle() {
+        return angle;
+    }
 }
