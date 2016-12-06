@@ -24,13 +24,6 @@ public class GroundTower extends Tower {
     }
 
     @Override
-    public void attack(Minion minion) {
-        if (minion.getType() == Minion.Type.GROUND) {
-            minion.attacked(this, this.damage);
-        }
-    }
-
-    @Override
     public void upgrade() throws Exception {
         int cost;
 

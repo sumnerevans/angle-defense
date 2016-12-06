@@ -119,10 +119,10 @@ public abstract class Minion implements IDrawable, ITickable {
         drawContext.setColorMult(1f, 1f, 1f);
     }
 
-    abstract protected void receiveDamage(Tower tower, int amount);
+    abstract protected boolean receiveDamage(Tower tower, int amount);
 
-    public void attacked(Tower tower, int amount) {
-        this.receiveDamage(tower, amount);
+    public boolean attacked(Tower tower, int amount) {
+        if(!this.receiveDamage(tower, amount)) return false;
 
         owchticks = 10;
 
@@ -130,6 +130,8 @@ public abstract class Minion implements IDrawable, ITickable {
             this.dead = true;
             tower.getOwner().addGold(this.goldReward);
         }
+
+        return true;
     }
 
     public boolean shouldRemove() {

@@ -31,9 +31,10 @@ public class FreezeTower extends Tower {
     }
 
     @Override
-    public void attack(Minion minion) {
+    public boolean attack(Minion minion) {
         minion.decreaseSpeed(slowAmmount);
         minion.attacked(this, this.damage);
+        return true;
     }
 
     @Override

@@ -47,6 +47,7 @@ public abstract class Tower implements IDrawable, ITickable {
         towerModel.draw();
 
         if (isFiring > 0) {
+
             lazerModel.setTransform(loc, range, .5f, angle);
             lazerModel.draw();
         }
@@ -57,7 +58,10 @@ public abstract class Tower implements IDrawable, ITickable {
         }
     }
 
-    public abstract void attack(Minion minion);
+    public boolean attack(Minion minion) {
+        return minion.attacked(this, this.damage);
+    }
+
 
     public abstract void upgrade() throws Exception;
 
@@ -78,20 +82,24 @@ public abstract class Tower implements IDrawable, ITickable {
 
         if (timeUntilFire < 1 / this.fireRate) return;
 
+        boolean hit = false;
+
         for (Minion m : game.minions) {
             boolean angleInAngleRange = Util.angleInRange(this.angle, Location.angle(this
                     .getLocation(), m.getLocation()), (float) Math.PI / 7.5f);
             boolean angleInRange = Location.dist(this.getLocation(), m.getLocation()) < this.range;
 
             if (angleInAngleRange && angleInRange) {
-                this.isFiring = 5;
-                m.attacked(this, this.damage);
-                this.lastFireTime = game.getNow();
-
-                // Don't kill any more minions
-                if (!isAreaOfEffect()) break;
+                boolean hitthis = m.attacked(this, this.damage);
+                hit |= hitthis;
+                if (hitthis) {
+                    this.isFiring = 5;
+                    if (!isAreaOfEffect()) break;
+                }
             }
         }
+
+        this.lastFireTime = game.getNow();
     }
 
     private Location getLocation() {

@@ -17,11 +17,13 @@ public class GroundUnit extends Minion {
     }
 
     @Override
-    protected void receiveDamage(Tower tower, int amount) {
-        if (tower instanceof AirTower) return;
+    protected boolean receiveDamage(Tower tower, int amount) {
+        if (tower instanceof AirTower) return false;
 
         this.health -= amount;
-        this.speed *= 0.9;
+        // this.speed *= 0.9;
+
+        return true;
     }
 
 }
