@@ -25,7 +25,7 @@ void main() {
     pos.xy *= scale;
 
     f_uv = v_tex;
-    f_norm = (u_model_trans * vec4(v_norm, 0)).xzy;
+    f_norm = normalize((u_model_trans * vec4(v_norm, 0)).xzy);
 
     gl_Position = pos;
 }
