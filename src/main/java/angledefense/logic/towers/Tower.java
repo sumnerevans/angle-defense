@@ -24,7 +24,9 @@ public abstract class Tower implements IDrawable, ITickable {
     protected int isFiring = 0;
     protected float fireRate;
     protected int damage;
+	protected int xp = 0;
     protected Instant lastFireTime;
+
 
     public Tower(Player owner, Location location, int price) {
         this.owner = owner;

@@ -22,7 +22,11 @@ public class GroundTower extends Tower {
 	}
 
     @Override
-    public void attack(Minion minion) {minion.attacked(this, this.damage);}
+    public void attack(Minion minion) {
+        if (minion.getType() != Minion.Type.AIR) {
+            minion.attacked(this, this.damage);
+        }
+    }
 
     @Override
     public void upgrade() {
