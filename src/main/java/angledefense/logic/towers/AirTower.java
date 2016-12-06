@@ -29,7 +29,7 @@ public class AirTower extends Tower {
     @Override
     public void attack(Minion minion) {
 
-        if (minion.getType() != Minion.Type.GROUND) {
+        if (minion.getType() == Minion.Type.AIR) {
             minion.attacked(this, this.damage);
         }
     }

@@ -142,7 +142,10 @@ public class Game {
             last = now;
         }
 
-        this.playerWon = this.numLives > 0;
+        if (this.currentLevel == this.levels.get(this.levels.size() - 1) &&
+                this.currentLevel.hasMoreMinions(TimeRange.relativeSecs(levelStartTime, now))) {
+            this.playerWon = this.numLives > 0;
+        }
 
         draw.close();
     }
