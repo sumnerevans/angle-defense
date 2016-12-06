@@ -35,6 +35,9 @@ public class GroundTower extends Tower {
         this.damage *= this.level;
 
         switch (this.level) {
+            case 0:
+                this.price = CostManager.GroundPriceLevel1;
+                break;
             case 1:
                 this.price = CostManager.GroundPriceLevel2;
                 break;

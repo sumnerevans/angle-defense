@@ -40,6 +40,9 @@ public class AirTower extends Tower {
         this.range += 0.5;
 
         switch (this.level) {
+            case 0:
+                this.price = CostManager.AirPriceLevel1;
+                break;
             case 1:
                 this.price = CostManager.AirPriceLevel2;
                 break;
