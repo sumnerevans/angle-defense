@@ -12,8 +12,8 @@ import java.awt.event.ActionEvent;
 public class GroundTower extends Tower {
     public GroundTower(Player owner, Location location) {
         super(owner, location);
+        this.damage = 5;
         this.price = CostManager.AirPriceLevel3;
-        this.damage = 1;
         this.range = 5;
         this.fireRate = 3;
     }
