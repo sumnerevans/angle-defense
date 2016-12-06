@@ -37,7 +37,7 @@ public class Hud extends JPanel {
         this.setPreferredSize(new Dimension(200, 512));
         goldDisplay = new GoldDisplay();
         buttonBox = new ButtonBox(game);
-        towerSettingsDisplay = new TowerSettingsDisplay();
+        towerSettingsDisplay = new TowerSettingsDisplay(this.game);
 
         this.add(goldDisplay);
         this.add(buttonBox);

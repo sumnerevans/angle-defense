@@ -239,6 +239,7 @@ public class Game {
         if (board.getSquare(t.x, t.y).getSquareType() != Square.SquareType.GROUND)
             throw new Exception("Towers can not be placed there!");
         this.towers.put(i, t);
+        this.notifyUI();
         return true;
     }
 
@@ -251,6 +252,8 @@ public class Game {
                 onclick.forEach(c -> c.accept(button, loc));
             }
         }
+
+        this.notifyUI();
     }
 
     public void addClickListener(BiConsumer<Integer, Location> listener) {

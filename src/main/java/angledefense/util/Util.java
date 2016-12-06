@@ -38,4 +38,8 @@ public class Util {
 
         return false;
     }
+
+    public static float toDegrees(float angle) {
+        return (float) 180 / (float) Math.PI * angle;
+    }
 }
