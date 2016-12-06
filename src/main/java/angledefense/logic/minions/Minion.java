@@ -122,6 +122,20 @@ public abstract class Minion implements IDrawable, ITickable {
         this.location = new Location(x, y);
     }
 
+    @Override
+    public String toString() {
+        return "Minion{" +
+                "dead=" + dead +
+                ", health=" + health +
+                ", goldReward=" + goldReward +
+                ", location=" + location +
+                ", currentNode=" + currentNode +
+                ", speed=" + speed +
+                ", size=" + size +
+                ", rotation=" + rotation +
+                '}';
+    }
+
     public enum Type {
         @SerializedName("ground")
         GROUND(GroundUnit::new),

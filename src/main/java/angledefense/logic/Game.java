@@ -60,6 +60,9 @@ public class Game {
 
     private transient Consumer<Game> uilisten;
 
+    // For tests
+    public boolean preventGui = false;
+
     /**
      * Create a game object. Called by Gson somehow.
      */
@@ -101,6 +104,7 @@ public class Game {
     }
 
     public void notifyUI() {
+        if (this.preventGui) return;
         uilisten.accept(this);
     }
 
@@ -233,7 +237,8 @@ public class Game {
         t.onSpawn();
         int i = t.y * board.width + t.x;
         if (this.towers.containsKey(i)) throw new Exception("There is already a tower there!");
-        if (board.getSquare(t.x, t.y).getSquareType() != Square.SquareType.GROUND) throw new Exception("Towers can not be placed there!");
+        if (board.getSquare(t.x, t.y).getSquareType() != Square.SquareType.GROUND)
+            throw new Exception("Towers can not be placed there!");
         this.towers.put(i, t);
         return true;
     }
