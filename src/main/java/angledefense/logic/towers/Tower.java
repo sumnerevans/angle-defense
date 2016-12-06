@@ -6,8 +6,6 @@ import angledefense.logic.*;
 import angledefense.logic.minions.Minion;
 import angledefense.util.Util;
 
-import javax.jws.WebParam;
-import javax.management.modelmbean.ModelMBean;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
@@ -26,6 +24,7 @@ public abstract class Tower implements IDrawable, ITickable {
     protected int isFiring = 0;
     protected float fireRate;
     protected int damage;
+	protected int xp = 0;
     protected Instant lastFireTime;
 
 	protected ModelHandle towerModel = gun;
