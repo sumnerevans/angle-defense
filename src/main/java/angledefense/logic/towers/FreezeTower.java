@@ -38,23 +38,27 @@ public class FreezeTower extends Tower {
 
     @Override
     public void upgrade() throws Exception {
-        this.damage *= this.level + 1;
-        this.slowAmmount += 0.1;
-        this.range += 1;
+        int cost;
 
         switch (this.level) {
             case 0:
-                this.price = CostManager.FreezePriceLevel1;
+                cost = CostManager.FreezePriceLevel1;
                 break;
             case 1:
-                this.price = CostManager.FreezePriceLevel2;
+                cost = CostManager.FreezePriceLevel2;
                 break;
             case 2:
-                this.price = CostManager.FreezePriceLevel3;
+                cost = CostManager.FreezePriceLevel3;
                 break;
             default:
                 throw new Exception("Can't upgrade any more");
         }
+
+        owner.spendGold(cost);
+
+        this.level++;
+        this.damage *= this.level + 1;
+        this.slowAmmount += 0.1;
     }
 
     @Override
