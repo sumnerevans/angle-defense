@@ -24,8 +24,8 @@ public class GameplayTests extends TestBase {
     // Always reinitialize everything for each test
     @Before
     public void before() throws FileNotFoundException {
-        player = new Player(game, "test", Color.BLUE);
         game = Game.newGame("test-config.json");
+        player = new Player(game, "test", Color.BLUE);
         game.preventGui = true;
     }
 
@@ -139,7 +139,7 @@ public class GameplayTests extends TestBase {
         minion.attacked(tower, Integer.MAX_VALUE);
 
         // Ensure that the player's gold is incremented by the value of the minion
-        assertEquals(15, player.getGold());
+        assertEquals(9, player.getGold());
     }
 
 }

@@ -87,7 +87,14 @@ public class TowerSettingsDisplay extends JPanel {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             Tower t = game.getTower(game.getSelectedLocation());
-            t.upgrade();
+
+            try {
+                t.upgrade();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(TowerSettingsDisplay.this, ex.getMessage(),
+                        "Place Tower", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
 }

@@ -58,13 +58,20 @@ public abstract class Minion implements IDrawable, ITickable {
         if (health != null) {
             this.health = health.getAsInt();
         }
+
         JsonElement speed = stats.get("speed");
         if (speed != null) {
             this.speed = speed.getAsFloat();
         }
+
         JsonElement size = stats.get("size");
         if (size != null) {
             this.size = size.getAsFloat();
+        }
+
+        JsonElement goldReward = stats.get("goldReward");
+        if (goldReward != null) {
+            this.goldReward = goldReward.getAsInt();
         }
     }
 
