@@ -2,6 +2,7 @@ package angledefense.config;
 
 import angledefense.logic.Game;
 import angledefense.logic.TimeRange;
+import angledefense.logic.minions.Minion;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,7 +34,9 @@ public class Level {
 			for (int i = 0; i < minionsToSpawn; i++) {
 				Node[] startNodes = game.getBoard().getStartNodes();
 				Node randNode = startNodes[new Random().nextInt(startNodes.length)];
-				game.spawnMinion(w.minionType.create(randNode));
+				Minion m = w.minionType.create(randNode);
+				m.loadStats(w.stats);
+				game.spawnMinion(m);
 			}
 		}
 	}
