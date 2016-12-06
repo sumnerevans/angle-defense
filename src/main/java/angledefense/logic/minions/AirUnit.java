@@ -1,7 +1,6 @@
 package angledefense.logic.minions;
 
 import angledefense.config.Node;
-import angledefense.logic.CostManager;
 import angledefense.draw.ModelHandle;
 import angledefense.logic.towers.GroundTower;
 import angledefense.logic.towers.Tower;
@@ -18,11 +17,13 @@ public class AirUnit extends Minion {
     }
 
     @Override
-    protected void receiveDamage(Tower tower, int amount) {
-        if (tower instanceof GroundTower) return;
+    protected boolean receiveDamage(Tower tower, int amount) {
+        if (tower instanceof GroundTower) return false;
 
         this.health -= amount;
-        this.speed *= 0.9;
+        // this.speed *= 0.9;
+
+        return true;
     }
 
 }

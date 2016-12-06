@@ -25,7 +25,17 @@ public class Util {
         return stream;
     }
 
+    public static float boundAngle(float theta) {
+        theta /= Math.PI;
+        theta = (theta + 1) / 2;
+        if (theta > 1 || theta < 0) theta -= (int) (theta);
+        theta = theta * 2 - 1;
+        return theta * (float) Math.PI;
+    }
+
     public static boolean angleInRange(float theta1, float theta2, float tolerance) {
+        theta1 = boundAngle(theta1);
+        theta2 = boundAngle(theta2);
         float dtheta = Math.abs(theta1 - theta2);
 
         if (dtheta > Math.PI) {
