@@ -10,6 +10,7 @@ import angledefense.util.Util;
 
 public class FreezeTower extends Tower {
     private static ModelHandle freeze = ModelHandle.create("freeze");
+    private static ModelHandle feztow = ModelHandle.create("feztow");
     private float slowAmmount;
 
     public FreezeTower(Player owner, Location location) {
@@ -19,6 +20,7 @@ public class FreezeTower extends Tower {
         this.fireRate = 1.5f;
         this.slowAmmount = 0.5f;
         this.lazerModel = freeze;
+        this.towerModel = feztow;
     }
 
 	@Override

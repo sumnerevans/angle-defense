@@ -43,5 +43,20 @@
     "type": "model",
     "path": "assets/antiair.obj",
     "texture": "assets/antiair.png"
+  },
+  "feztow": {
+    "type": "model",
+    "path": "assets/feztow.obj",
+    "texture": "assets/feztow.png"
+  },
+  "flytea": {
+    "type": "model",
+    "path": "assets/flytea.obj",
+    "texture": "assets/flytea.png"
+  },
+  "marker": {
+    "type": "model",
+    "path": "assets/marker.obj",
+    "texture": "assets/marker.png"
   }
 }
