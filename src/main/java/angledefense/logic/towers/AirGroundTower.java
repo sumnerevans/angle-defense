@@ -10,9 +10,9 @@ import angledefense.util.Util;
 public class AirGroundTower extends Tower {
     public AirGroundTower(Player owner, Location location) {
         super(owner, location, 1);
-        this.damage = 10;
+        this.damage = 1;
         this.range = 4;
-        this.fireRate = 1.5f;
+        this.fireRate = 3;
     }
 
 	@Override
