@@ -30,6 +30,13 @@ task run(type:JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
+configurations {
+    fat {
+        description = 'fat jar'
+        extendsFrom runtime
+    }
+}
+
 dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.google.guava:guava:20.0'
@@ -41,7 +48,24 @@ dependencies {
     compile "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
     runtime "org.lwjgl:lwjgl:${lwjglVersion}:${lwjglNatives}"
     runtime "org.lwjgl:lwjgl-glfw:${lwjglVersion}:${lwjglNatives}"
-    //runtime "org.lwjgl:lwjgl-opengl:${lwjglVersion}:${lwjglNatives}"
+
+    fat "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
+    fat "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
+    fat "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
+    fat "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
+    fat "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
+    fat "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos"
 
     testCompile 'junit:junit:4.12'
+}
+
+jar {
+    from {
+        (configurations.fat).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    manifest {
+        attributes("Main-Class": "angledefense.gui.Main")
+    }
 }
