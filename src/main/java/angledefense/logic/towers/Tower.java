@@ -21,7 +21,7 @@ public abstract class Tower implements IDrawable, ITickable {
 
     public Tower(Player owner, Location location) {
         this.owner = owner;
-        this.location = location;
+        this.location = new Location(location.intX(), location.intY());
     }
 
     public void tick(Game game, float dt) {
@@ -51,7 +51,12 @@ public abstract class Tower implements IDrawable, ITickable {
         this.angle = angle;
     }
 
-    public Player getOwner() {
-        return owner;
-    }
+	public Player getOwner() {
+		return owner;
+	}
+
+	public boolean onSpawn() throws Exception {
+		owner.spendGold(price);
+		return true;
+	}
 }

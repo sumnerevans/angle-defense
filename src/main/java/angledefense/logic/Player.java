@@ -7,29 +7,26 @@ import java.security.InvalidParameterException;
  * Created by Sumner on 11/21/16.
  */
 public class Player {
-	private int gold;
+	private int gold = 10;
 	private String name;
 	private Color color;
+	private Game game;
 
-	public Player(String name, Color color) {
-		this.gold = 0;
+	public Player(Game game, String name, Color color) {
+		this.game = game;
 		this.name = name;
 		this.color = color;
 	}
 
-	public void addGold(int amount) {
-		if (amount < 0)
-			throw new InvalidParameterException("'amount' parameter cannot be negative.");
-
-		gold += amount;
+	public void spendGold(int amount) throws Exception {
+		if (amount > gold) throw new Exception("Not enough gold!");
+		gold -= amount;
+		game.notifyUI();
 	}
 
-	public void sendGold(Player recipient, int amount) {
-		if (this.gold < amount)
-			throw new InvalidParameterException("Cannot send more gold than they own.");
-
-		this.gold -= amount;
-		recipient.gold += amount;
+	public void addGold(int amount) {
+		gold += amount;
+		game.notifyUI();
 	}
 
 	public int getGold() {

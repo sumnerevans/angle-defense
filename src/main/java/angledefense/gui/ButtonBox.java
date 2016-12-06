@@ -65,7 +65,11 @@ public class ButtonBox extends JPanel {
 			Location l = game.getSelectedLocation();
 			if (l != null) {
 				l = l.floor();
-				game.buildTower(this.supplier.apply(game.getPlayer(), l));
+				try {
+					game.buildTower(this.supplier.apply(game.getPlayer(), l));
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(ButtonBox.this, ex.getMessage(), "Place Tower", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 			else {
 				JOptionPane.showMessageDialog(ButtonBox.this, "Can not place tower, no location selected.", "Place Tower", JOptionPane.INFORMATION_MESSAGE);

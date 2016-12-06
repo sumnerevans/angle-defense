@@ -20,7 +20,9 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public class Game {
     // Global Constants
@@ -28,15 +30,18 @@ public class Game {
     public static final int INITIAL_WIDTH = 700;
     public static final long MS_PER_FRAME = 1000 / 30;
 
-    private final Player player;
+    private transient final Player player;
 
     // These are not loaded via the Gson JSON deserializer, so they have to be transient.S
     public transient final ArrayList<Minion> minions;
-    public transient final ArrayList<Tower> towers;
+    public transient final HashMap<Integer, Tower> towers;
     public transient final DrawContext draw;
 
     private transient Level currentLevel;
     private transient boolean gameOver = false;
+    private transient boolean playerWon = false;
+
+    private transient ModelHandle towerSelector = ModelHandle.create("tower_selector");
     private transient ModelHandle selector = ModelHandle.create("selector");
 
     // Private instance variables loaded from JSON
@@ -53,15 +58,16 @@ public class Game {
     private boolean playerWon = false;
     private Instant now;
 
+    private transient Consumer<Game> uilisten;
+
     /**
      * Create a game object. Called by Gson somehow.
      */
     private Game() {
-        this.player = new Player("Player", Color.BLUE);
+        this.player = new Player(this, "Player", Color.BLUE);
         this.draw = new DrawContext(this);
         this.minions = new ArrayList<>();
-        this.towers = new ArrayList<>();
-        this.gameStart = new Date().getTime() / 1000;
+        this.towers = new HashMap<>();
     }
 
     /**
@@ -88,6 +94,14 @@ public class Game {
 
         g.currentLevel = g.levels.get(0);
         return g;
+    }
+
+    public void setUIListener(Consumer<Game> listener) {
+        uilisten = listener;
+    }
+
+    public void notifyUI() {
+        uilisten.accept(this);
     }
 
     /**
@@ -142,7 +156,7 @@ public class Game {
         this.now = Instant.now();
         float dt = TimeRange.relativeSecs(last, now) * this.playRate;
 
-        for (Tower t : this.towers) {
+        for (Tower t : this.towers.values()) {
             t.tick(this, dt);
         }
 
@@ -182,12 +196,15 @@ public class Game {
 
     private void render() {
         if (selected != null) {
-            selector.setTransform(selected.floor(), 1, -.8f, 0);
-            selector.draw();
+            ModelHandle sel;
+            if (getTower(selected) != null) sel = towerSelector;
+            else sel = selector;
+            sel.setTransform(selected.floor(), 1, -.8f, 0);
+            sel.draw();
         }
 
         board.draw(draw);
-        towers.forEach(t -> t.draw(draw));
+        towers.forEach((p, t) -> t.draw(draw));
         minions.forEach(m -> m.draw(draw));
     }
 
@@ -203,8 +220,21 @@ public class Game {
         this.minions.add(m);
     }
 
-    public void buildTower(Tower t) {
-        this.towers.add(t);
+    public Tower getTower(Location l) {
+        return getTower(l.intX(), l.intY());
+    }
+
+    public Tower getTower(int x, int y) {
+        int i = y * board.width + x;
+        return towers.get(i);
+    }
+
+    public boolean buildTower(Tower t) throws Exception {
+        t.onSpawn();
+        int i =  t.y * board.width + t.x;
+        if (this.towers.containsKey(i)) throw new Exception("There is already a tower there!");
+        this.towers.put(i, t);
+        return true;
     }
 
     public void onBoardClick(Location loc, int button, boolean pressed) {
