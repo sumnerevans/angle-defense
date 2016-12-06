@@ -27,28 +27,24 @@ public class Board implements IDrawable {
 	private final Node[] startNodes;
 	private final Node[] endNodes;
 	private final Square[][] squares;
-	private final Image image;
 	private final Decoration[] decorations;
 
 	/**
 	 * Create a board, this is called by the Builder
-	 *
-	 * @param width
+	 *  @param width
 	 * @param height
 	 * @param startNodes
 	 * @param endNodes
 	 * @param squares
 	 * @param decorations
-	 * @param image
 	 */
 	private Board(int width, int height, Node[] startNodes, Node[] endNodes, Square[][] squares,
-				  Decoration[] decorations, Image image) {
+				  Decoration[] decorations) {
 		this.width = width;
 		this.height = height;
 		this.startNodes = startNodes;
 		this.endNodes = endNodes;
 		this.squares = squares;
-		this.image = image;
 		this.decorations = decorations;
 	}
 
@@ -172,18 +168,7 @@ public class Board implements IDrawable {
 				}
 			}
 
-			// Load the background image
-			BufferedImage background = null;
-			try {
-				String backgroundImageFileName = jsonObject.get("image").getAsString();
-				InputStream stream = Util.newFileStream(backgroundImageFileName);
-				background = ImageIO.read(stream);
-			} catch (IOException ex) {
-				System.out.println("Failed to load board background image");
-				ex.printStackTrace();
-			}
-
-			return new Board(width, height, starts, ends, squares, decorations, background);
+			return new Board(width, height, starts, ends, squares, decorations);
 		}
 
 		/**
