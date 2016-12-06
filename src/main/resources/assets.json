@@ -33,5 +33,10 @@
     "type": "model",
     "path": "assets/lazer.obj",
     "texture": "assets/lazer.png"
+  },
+  "freeze": {
+    "type": "model",
+    "path": "assets/lazer.obj",
+    "texture": "assets/freeze.png"
   }
 }

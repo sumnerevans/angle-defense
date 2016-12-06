@@ -6,13 +6,15 @@ import angledefense.logic.*;
 import angledefense.logic.minions.Minion;
 import angledefense.util.Util;
 
+import javax.jws.WebParam;
+import javax.management.modelmbean.ModelMBean;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;
 
 public abstract class Tower implements IDrawable, ITickable {
-    private static ModelHandle gun = ModelHandle.create("gun");
-    private static ModelHandle lazer = ModelHandle.create("lazer");
+    public static final ModelHandle gun = ModelHandle.create("gun");
+    public static final ModelHandle lazer = ModelHandle.create("lazer");
 
     public final int x;
     public final int y;
@@ -25,6 +27,9 @@ public abstract class Tower implements IDrawable, ITickable {
     protected float fireRate;
     protected int damage;
     protected Instant lastFireTime;
+
+	protected ModelHandle towerModel = gun;
+	protected ModelHandle lazerModel = lazer;
 
     public Tower(Player owner, Location location, int price) {
         this.owner = owner;
@@ -39,12 +44,12 @@ public abstract class Tower implements IDrawable, ITickable {
     @Override
     public void draw(DrawContext drawContext) {
         Location loc = this.getLocation();
-        gun.setTransform(loc, 1, 0, angle);
-        gun.draw();
+        towerModel.setTransform(loc, 1, 0, angle);
+		towerModel.draw();
 
         if (isFiring > 0) {
-            lazer.setTransform(loc, range, .5f, angle);
-            lazer.draw();
+            lazerModel.setTransform(loc, range, .5f, angle);
+			lazerModel.draw();
         }
     }
 
@@ -80,7 +85,7 @@ public abstract class Tower implements IDrawable, ITickable {
                 this.lastFireTime = game.getNow();
 
                 // Don't kill any more minions
-                break;
+                if (!isAreaOfEffect()) break;
             }
         }
     }
@@ -101,4 +106,8 @@ public abstract class Tower implements IDrawable, ITickable {
     public float getAngle() {
         return angle;
     }
+
+    protected boolean isAreaOfEffect() {
+		return false;
+	}
 }
