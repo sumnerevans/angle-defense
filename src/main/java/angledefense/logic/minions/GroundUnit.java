@@ -10,7 +10,7 @@ public class GroundUnit extends Minion {
         super(n);
         this.goldReward = 3;
         this.health = 10;
-        this.speed = 2;
+        this.speed = 3;
     }
 
     @Override
