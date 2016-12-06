@@ -55,7 +55,6 @@ public class Game {
     private Location selected;
     private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
     private Instant levelStartTime;
-    private boolean playerWon = false;
     private Instant now;
 
     private transient Consumer<Game> uilisten;
@@ -231,7 +230,7 @@ public class Game {
 
     public boolean buildTower(Tower t) throws Exception {
         t.onSpawn();
-        int i =  t.y * board.width + t.x;
+        int i = t.getLocation().intY() * board.width + t.getLocation().intX();
         if (this.towers.containsKey(i)) throw new Exception("There is already a tower there!");
         this.towers.put(i, t);
         return true;

@@ -27,6 +27,11 @@ public abstract class Tower implements IDrawable, ITickable {
     public void tick(Game game, float dt) {
         this.isFiring--;
 
+        if (this.lastFireTime == null) {
+            this.lastFireTime = game.getNow();
+            return;
+        }
+
         float timeUntilFire = this.lastFireTime.until(game.getNow(), ChronoUnit.MILLIS) / 1000f;
 
         if (timeUntilFire > 0) return;
@@ -51,12 +56,16 @@ public abstract class Tower implements IDrawable, ITickable {
         this.angle = angle;
     }
 
-	public Player getOwner() {
-		return owner;
-	}
+    public Player getOwner() {
+        return owner;
+    }
 
-	public boolean onSpawn() throws Exception {
-		owner.spendGold(price);
-		return true;
-	}
+    public boolean onSpawn() throws Exception {
+        owner.spendGold(price);
+        return true;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
 }
