@@ -1,6 +1,7 @@
 package angledefense.logic.towers;
 
 import angledefense.draw.DrawContext;
+import angledefense.draw.ModelHandle;
 import angledefense.logic.CostManager;
 import angledefense.logic.Game;
 import angledefense.logic.Location;
@@ -9,12 +10,15 @@ import angledefense.logic.minions.GroundUnit;
 import angledefense.logic.minions.Minion;
 
 public class AirTower extends Tower {
+    private static ModelHandle antiair = ModelHandle.create("antiair");
+
     public AirTower(Player owner, Location location) {
         super(owner, location);
         this.price = CostManager.AirPriceLevel1;
         this.damage = 5;
         this.range = 5;
         this.fireRate = 3;
+        this.towerModel = antiair;
     }
 
     @Override

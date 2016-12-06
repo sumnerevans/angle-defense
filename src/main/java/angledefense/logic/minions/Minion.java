@@ -33,7 +33,6 @@ public abstract class Minion implements IDrawable, ITickable {
         }
     }
 
-    private static ModelHandle teapot = ModelHandle.create("teapot");
     protected Type type;
     protected boolean dead = false;
     protected int health;
@@ -46,6 +45,8 @@ public abstract class Minion implements IDrawable, ITickable {
     private float slowAmmount = 0f;
 
     protected int owchticks = 0;
+
+    protected ModelHandle model;
 
     protected Minion(Node node) {
         this.location = node.location;
@@ -113,8 +114,8 @@ public abstract class Minion implements IDrawable, ITickable {
     @Override
     public void draw(DrawContext drawContext) {
         if (owchticks > 0) drawContext.setColorMult(1f, .2f, .2f);
-        teapot.setTransform(location, size, -1, rotation);
-        teapot.draw();
+        model.setTransform(location, size, -1, rotation);
+        model.draw();
         drawContext.setColorMult(1f, 1f, 1f);
     }
 
