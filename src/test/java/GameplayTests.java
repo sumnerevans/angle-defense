@@ -110,9 +110,11 @@ public class GameplayTests extends TestBase {
 
         // Ensure that the ground tower kills ground units
         groundTower.attack(groundUnit);
+        groundTower.attack(groundUnit);
         assertTrue(groundUnit.isDead());
 
         // Ensure that the air tower kills air units
+        airTower.attack(airUnit);
         airTower.attack(airUnit);
         assertTrue(airUnit.isDead());
 
@@ -120,7 +122,14 @@ public class GameplayTests extends TestBase {
         groundUnit = Minion.Type.GROUND.create(new Node(new Location(1, 1), null));
         airUnit = Minion.Type.AIR.create(new Node(new Location(1, 1), null));
 
+        // It takes four attacks to kill
         airGroundTower.attack(groundUnit);
+        airGroundTower.attack(groundUnit);
+        airGroundTower.attack(groundUnit);
+        airGroundTower.attack(groundUnit);
+        airGroundTower.attack(airUnit);
+        airGroundTower.attack(airUnit);
+        airGroundTower.attack(airUnit);
         airGroundTower.attack(airUnit);
 
         assertTrue(groundUnit.isDead());
@@ -134,6 +143,7 @@ public class GameplayTests extends TestBase {
         // Place a tower and minion
         Tower tower = new AirTower(player, new Location(0, 0));
         Minion minion = Minion.Type.AIR.create(new Node(new Location(1, 1), null));
+        minion._setGoldReward(5);
 
         // Kill the minion
         minion.attacked(tower, Integer.MAX_VALUE);
