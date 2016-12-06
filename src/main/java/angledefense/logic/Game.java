@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -43,12 +44,14 @@ public class Game {
     private int numLives;
     private Board board;
     private ArrayList<Level> levels;
+    private float playRate = 1;
 
     // Other private instance variables
     private float gameStart;
     private Location selected;
     private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
     private Instant levelStartTime;
+    private boolean playerWon = false;
 
     /**
      * Create a game object. Called by Gson somehow.
@@ -122,7 +125,7 @@ public class Game {
             last = now;
         }
 
-        // TODO: Add loose/win message
+        this.playerWon=this.numLives>0;
 
         draw.close();
     }
@@ -135,8 +138,8 @@ public class Game {
      * @param now
      */
     private void tick(Instant last, Instant now) {
-        this.getLevel().spawnMinions(new TimeRange(levelStartTime, last, now), this);
-        float dt = TimeRange.relativeSecs(last, now);
+        this.getLevel().spawnMinions(new TimeRange(levelStartTime, last, now, this.playRate), this);
+        float dt = TimeRange.relativeSecs(last, now) * this.playRate;
 
         for (Tower t : this.towers) {
             t.tick(this, dt);
@@ -189,6 +192,10 @@ public class Game {
 
     private void looseLife() {
         this.numLives--;
+
+        if (this.numLives <= 0) {
+            this.gameOver = true;
+        }
     }
 
     public void spawnMinion(Minion m) {
@@ -260,4 +267,7 @@ public class Game {
         }
     }
 
+    public boolean didPlayerWin() {
+        return playerWon;
+    }
 }

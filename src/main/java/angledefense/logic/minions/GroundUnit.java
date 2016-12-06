@@ -18,6 +18,7 @@ public class GroundUnit extends Minion {
         if (tower instanceof AirTower) return;
 
         this.health -= amount;
+        this.speed *= 0.9;
     }
 
 }

@@ -1,5 +1,6 @@
 {
     "numLives": 30,
+    "playRate": 1,
     "levels": [
         {
             "levelNum": 1,
