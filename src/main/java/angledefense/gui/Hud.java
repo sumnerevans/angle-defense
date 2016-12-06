@@ -7,12 +7,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by Sumner on 11/21/16.
+ * Hud displays a GUI system that displays the players Gold amount, has buttons for each tower,
+ * and a Angle modification System.
  */
 public class Hud extends JPanel {
 	private ArrayList<JButton> buttons;
 	private ArrayList<JLabel> textLabels;
-	private InfoLayout infoLayout;
 	private Game game;
 	private ViewField viewField;
 	private ButtonBox buttonBox;
@@ -22,16 +22,15 @@ public class Hud extends JPanel {
 		initializeGUI();
 	}
 
+
 	private void initializeGUI() {
-		this.setPreferredSize(new Dimension(150, 512));
-		infoLayout = new InfoLayout(game.getPlayer());
-		infoLayout.setLocation(0, 0);
-		viewField = new ViewField(game);
-		//buttonBox = new ButtonBox(buttons);
+		this.setPreferredSize(new Dimension(200, 512));
+		buttonBox = new ButtonBox(buttons);
+
 		//buttonBox.setLocation(700,500);
 		//this.add(buttonBox);
-		this.add(infoLayout);
 		this.add(viewField);
+
 
 	}
 
