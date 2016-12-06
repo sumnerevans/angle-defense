@@ -32,20 +32,26 @@ public class GroundTower extends Tower {
 
     @Override
     public void upgrade() throws Exception {
-        this.damage *= this.level;
+        int cost;
 
         switch (this.level) {
             case 0:
-                this.price = CostManager.GroundPriceLevel1;
+                cost = CostManager.GroundPriceLevel1;
                 break;
             case 1:
-                this.price = CostManager.GroundPriceLevel2;
+                cost = CostManager.GroundPriceLevel2;
                 break;
             case 2:
-                this.price = CostManager.GroundPriceLevel3;
+                cost = CostManager.GroundPriceLevel3;
                 break;
             default:
                 throw new Exception("Can't upgrade any more");
         }
+
+        owner.spendGold(cost);
+
+        this.level++;
+        this.damage *= this.level;
+        this.range += 0.5;
     }
 }

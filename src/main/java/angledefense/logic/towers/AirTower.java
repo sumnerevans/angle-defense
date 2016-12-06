@@ -36,21 +36,26 @@ public class AirTower extends Tower {
 
     @Override
     public void upgrade() throws Exception {
-        this.damage *= this.level;
-        this.range += 0.5;
+        int cost;
 
         switch (this.level) {
             case 0:
-                this.price = CostManager.AirPriceLevel1;
+                cost = CostManager.AirPriceLevel1;
                 break;
             case 1:
-                this.price = CostManager.AirPriceLevel2;
+                cost = CostManager.AirPriceLevel2;
                 break;
             case 2:
-                this.price = CostManager.AirPriceLevel3;
+                cost = CostManager.AirPriceLevel3;
                 break;
             default:
                 throw new Exception("Can't upgrade any more");
         }
+
+        owner.spendGold(cost);
+
+        this.level++;
+        this.damage *= this.level;
+        this.range += 0.5;
     }
 }
