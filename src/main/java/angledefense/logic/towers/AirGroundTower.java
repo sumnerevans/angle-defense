@@ -10,6 +10,7 @@ public class AirGroundTower extends Tower {
 
 	public AirGroundTower(Player owner, Location location) {
 		super(owner, location);
+		this.damage = 10;
 	}
 
 	@Override
@@ -26,7 +27,7 @@ public class AirGroundTower extends Tower {
 
 	@Override
 	public void attack(Minion minion) {
-		minion.attacked(this, 10);
+		minion.attacked(this, this.damage);
 	}
 
 	@Override

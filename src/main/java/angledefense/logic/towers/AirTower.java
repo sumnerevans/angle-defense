@@ -10,6 +10,7 @@ public class AirTower extends Tower {
 
 	public AirTower(Player owner, Location location) {
 		super(owner, location);
+		this.damage = 10;
 	}
 
 	@Override

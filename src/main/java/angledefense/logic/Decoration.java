@@ -7,6 +7,14 @@ import com.google.gson.annotations.SerializedName;
  * Created by sumner on 11/29/16.
  */
 public class Decoration implements IDrawable {
+	public enum Type {
+		@SerializedName("pillar")
+		PILLAR,
+
+		@SerializedName("flag")
+		FLAG
+	}
+
 	public final Type type;
 	public final Location location;
 	public Decoration(Type type, Location location) {
@@ -34,13 +42,5 @@ public class Decoration implements IDrawable {
 		int result = type.hashCode();
 		result = 31 * result + location.hashCode();
 		return result;
-	}
-
-	public enum Type {
-		@SerializedName("pillar")
-		PILLAR,
-
-		@SerializedName("flag")
-		FLAG
 	}
 }

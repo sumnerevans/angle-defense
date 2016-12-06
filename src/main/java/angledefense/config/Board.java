@@ -4,7 +4,7 @@ import angledefense.draw.DrawContext;
 import angledefense.logic.Decoration;
 import angledefense.logic.IDrawable;
 import angledefense.logic.Location;
-import angledefense.logic.Util;
+import angledefense.util.FileUtils;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
@@ -176,7 +176,7 @@ public class Board implements IDrawable {
 			BufferedImage background = null;
 			try {
 				String backgroundImageFileName = jsonObject.get("image").getAsString();
-				InputStream stream = Util.newFileStream(backgroundImageFileName);
+				InputStream stream = FileUtils.newFileStream(backgroundImageFileName);
 				background = ImageIO.read(stream);
 			} catch (IOException ex) {
 				System.out.println("Failed to load board background image");

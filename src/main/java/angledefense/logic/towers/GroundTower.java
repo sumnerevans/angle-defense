@@ -10,6 +10,7 @@ public class GroundTower extends Tower {
 
 	public GroundTower(Player owner, Location location) {
 		super(owner, location);
+		this.damage = 10;
 	}
 
 	@Override
