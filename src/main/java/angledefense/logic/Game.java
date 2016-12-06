@@ -143,7 +143,8 @@ public class Game {
         }
 
         if (this.currentLevel == this.levels.get(this.levels.size() - 1) &&
-                this.currentLevel.hasMoreMinions(TimeRange.relativeSecs(levelStartTime, now))) {
+                !this.currentLevel.hasMoreMinions(TimeRange.relativeSecs(levelStartTime, now))) {
+            System.out.println(this.numLives);
             this.playerWon = this.numLives > 0;
         }
 
