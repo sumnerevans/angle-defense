@@ -235,9 +235,13 @@ public class Game {
     public boolean buildTower(Tower t) throws Exception {
         t.onSpawn();
         int i = t.y * board.width + t.x;
-        if (this.towers.containsKey(i)) throw new Exception("There is already a tower there!");
+
+        if (this.towers.containsKey(i))
+            throw new Exception("There is already a tower there!");
+
         if (board.getSquare(t.x, t.y).getSquareType() != Square.SquareType.GROUND)
             throw new Exception("Towers can not be placed there!");
+
         this.towers.put(i, t);
         this.notifyUI();
         return true;

@@ -19,22 +19,21 @@ public abstract class Tower implements IDrawable, ITickable {
     private float angle;
     protected float range;
     protected Player owner;
-    protected int price = 1;
+    protected int price;
     protected int level;
     protected int isFiring = 0;
     protected float fireRate;
     protected int damage;
-	protected int xp = 0;
+    protected int xp = 0;
     protected Instant lastFireTime;
 
 	protected ModelHandle towerModel = gun;
 	protected ModelHandle lazerModel = lazer;
 
-    public Tower(Player owner, Location location, int price) {
+    public Tower(Player owner, Location location) {
         this.owner = owner;
         this.x = location.intX();
         this.y = location.intY();
-        this.price = price;
 
         // Random angle in [-pi, pi]
         this.setAngle((float) (new Random().nextFloat() * 2 * Math.PI - Math.PI));
@@ -54,7 +53,7 @@ public abstract class Tower implements IDrawable, ITickable {
 
     public abstract void attack(Minion minion);
 
-    public abstract void upgrade();
+    public abstract void upgrade() throws Exception;
 
     public void setAngle(float angle) {
         this.angle = angle;

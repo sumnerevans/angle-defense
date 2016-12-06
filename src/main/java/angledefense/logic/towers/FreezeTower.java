@@ -2,6 +2,7 @@ package angledefense.logic.towers;
 
 import angledefense.draw.DrawContext;
 import angledefense.draw.ModelHandle;
+import angledefense.logic.CostManager;
 import angledefense.logic.Game;
 import angledefense.logic.Location;
 import angledefense.logic.Player;
@@ -14,7 +15,8 @@ public class FreezeTower extends Tower {
     private float slowAmmount;
 
     public FreezeTower(Player owner, Location location) {
-        super(owner, location, 1);
+        super(owner, location);
+        this.price = CostManager.AirPriceLevel2;
         this.damage = 3;
         this.range = 4;
         this.fireRate = 1.5f;
@@ -23,10 +25,10 @@ public class FreezeTower extends Tower {
         this.towerModel = feztow;
     }
 
-	@Override
-	public void draw(DrawContext drawContext) {
-		super.draw(drawContext);
-	}
+    @Override
+    public void draw(DrawContext drawContext) {
+        super.draw(drawContext);
+    }
 
     @Override
     public void attack(Minion minion) {
@@ -35,10 +37,21 @@ public class FreezeTower extends Tower {
     }
 
     @Override
-    public void upgrade() {
-        this.damage *= this.level;
+    public void upgrade() throws Exception {
+        this.damage *= this.level + 1;
         this.slowAmmount += 0.1;
         this.range += 1;
+
+        switch (this.level) {
+            case 1:
+                this.price = CostManager.FreezePriceLevel2;
+                break;
+            case 2:
+                this.price = CostManager.FreezePriceLevel3;
+                break;
+            default:
+                throw new Exception("Can't upgrade any more");
+        }
     }
 
     @Override

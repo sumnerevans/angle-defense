@@ -10,7 +10,6 @@ public class GroundUnit extends Minion {
 
     GroundUnit(Node n) {
         super(n);
-        this.goldReward = 3;
         this.health = 10;
         this.speed = 3;
         this.type = Type.GROUND;

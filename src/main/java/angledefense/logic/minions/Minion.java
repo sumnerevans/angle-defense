@@ -36,7 +36,7 @@ public abstract class Minion implements IDrawable, ITickable {
     protected Type type;
     protected boolean dead = false;
     protected int health;
-    protected int goldReward;
+    protected int goldReward = 1;
     protected Location location;
     protected Node currentNode;
     protected float speed;
@@ -59,13 +59,20 @@ public abstract class Minion implements IDrawable, ITickable {
         if (health != null) {
             this.health = health.getAsInt();
         }
+
         JsonElement speed = stats.get("speed");
         if (speed != null) {
             this.speed = speed.getAsFloat();
         }
+
         JsonElement size = stats.get("size");
         if (size != null) {
             this.size = size.getAsFloat();
+        }
+
+        JsonElement goldReward = stats.get("goldReward");
+        if (goldReward != null) {
+            this.goldReward = goldReward.getAsInt();
         }
     }
 
@@ -152,6 +159,10 @@ public abstract class Minion implements IDrawable, ITickable {
 
     public void _setLocation(float x, float y) {
         this.location = new Location(x, y);
+    }
+
+    public void _setGoldReward(int goldReward) {
+        this.goldReward = goldReward;
     }
 
     public void decreaseSpeed(float slowAmmount) {

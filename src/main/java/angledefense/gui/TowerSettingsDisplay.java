@@ -25,7 +25,7 @@ public class TowerSettingsDisplay extends JPanel {
         this.game = game;
 
         this.setPreferredSize(new Dimension(100, 50));
-        this.setBorder(new TitledBorder(new EtchedBorder(), "Angle: "));
+        this.setBorder(new TitledBorder(new EtchedBorder(), "Tower: "));
 
         JButton incrementButton = createButton("+", (float) Math.PI / 36f);
         this.buttons.add(incrementButton);
@@ -35,11 +35,18 @@ public class TowerSettingsDisplay extends JPanel {
         text.setLocation(0, 0);
         text.setPreferredSize(new Dimension(70, 20));
         text.setEnabled(false);
+        text.setEditable(false);
         this.add(text);
 
-        JButton decrementButon = createButton("-", -(float) Math.PI / 36f);
-        this.buttons.add(decrementButon);
-        this.add(decrementButon);
+        JButton decrementButton = createButton("-", -(float) Math.PI / 36f);
+        this.buttons.add(decrementButton);
+        this.add(decrementButton);
+
+        // Upgrade button
+        JButton upgradeButton = new JButton("Upgrade");
+        upgradeButton.addActionListener(new UpgradeListener());
+        this.buttons.add(upgradeButton);
+        this.add(upgradeButton);
 
     }
 
@@ -74,5 +81,20 @@ public class TowerSettingsDisplay extends JPanel {
 
         for (JButton b : this.buttons)
             b.setEnabled(t != null);
+    }
+
+    private class UpgradeListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
+            Tower t = game.getTower(game.getSelectedLocation());
+
+            try {
+                t.upgrade();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(TowerSettingsDisplay.this, ex.getMessage(),
+                        "Place Tower", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
     }
 }

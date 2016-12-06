@@ -10,7 +10,8 @@
                     "stats": {
                         "speed": 1.5,
                         "health": 10,
-                        "size": 0.6
+                        "size": 0.6,
+                        "goldReward": 5
                     },
                     "count": 25,
                     "start": 15,
@@ -24,9 +25,10 @@
                 {
                     "minion": "ground",
                     "stats": {
-                        "speed": 2,
+                        "speed": 0.7,
                         "health": 20,
-                        "size": 0.5
+                        "size": 0.5,
+                        "goldReward": 6
                     },
                     "count": 25,
                     "start": 15,
@@ -35,9 +37,10 @@
                 {
                     "minion": "air",
                     "stats": {
-                        "speed": 0.7,
-                        "health": 30,
-                        "size": 0.7
+                        "speed": 2,
+                        "health": 20,
+                        "size": 0.7,
+                        "goldReward": 8
                     },
                     "count": 15,
                     "start": 20,
@@ -52,8 +55,9 @@
                     "minion": "ground",
                     "stats": {
                         "speed": 2,
-                        "health": 40,
-                        "size": 0.5
+                        "health": 25,
+                        "size": 0.5,
+                        "goldReward": 7
                     },
                     "count": 35,
                     "start": 15,
@@ -63,8 +67,9 @@
                     "minion": "ground",
                     "stats": {
                         "speed": 1,
-                        "health": 60,
-                        "size": 0.7
+                        "health": 50,
+                        "size": 0.7,
+                        "goldReward": 10
                     },
                     "count": 10,
                     "start": 25,
@@ -80,7 +85,8 @@
                     "stats": {
                         "speed": 2.3,
                         "health": 30,
-                        "size": 0.5
+                        "size": 0.5,
+                        "goldReward": 8
                     },
                     "count": 25,
                     "start": 15,
@@ -91,7 +97,8 @@
                     "stats": {
                         "speed": 1,
                         "health": 80,
-                        "size": 0.7
+                        "size": 0.7,
+                        "goldReward": 12
                     },
                     "count": 20,
                     "start": 20,
@@ -102,7 +109,8 @@
                     "stats": {
                         "speed": 0.5,
                         "health": 120,
-                        "size": 1
+                        "size": 1,
+                        "goldReward": 15
                     },
                     "count": 5,
                     "start": 25,

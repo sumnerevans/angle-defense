@@ -1,6 +1,7 @@
 package angledefense.logic.minions;
 
 import angledefense.config.Node;
+import angledefense.logic.CostManager;
 import angledefense.draw.ModelHandle;
 import angledefense.logic.towers.GroundTower;
 import angledefense.logic.towers.Tower;
@@ -10,7 +11,6 @@ public class AirUnit extends Minion {
 
     protected AirUnit(Node n) {
         super(n);
-        this.goldReward = 5;
         this.health = 10;
         this.speed = 3;
         this.type = Type.AIR;
