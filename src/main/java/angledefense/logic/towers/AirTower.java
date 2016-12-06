@@ -30,6 +30,7 @@ public class AirTower extends Tower {
 
     @Override
     public void upgrade() {
-        // TODO: Implement
+        this.damage *= this.level;
+        this.range += 0.5;
     }
 }

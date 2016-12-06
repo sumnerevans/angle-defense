@@ -12,7 +12,7 @@ public class FreezeTower extends Tower {
 
     public FreezeTower(Player owner, Location location) {
         super(owner, location, 1);
-        this.damage = 1;
+        this.damage = 3;
         this.range = 4;
         this.fireRate = 1.5f;
         this.slowAmmount = 0.5f;
@@ -33,5 +33,6 @@ public class FreezeTower extends Tower {
     public void upgrade() {
         this.damage *= this.level;
         this.slowAmmount += 0.1;
+        this.range += 1;
     }
 }

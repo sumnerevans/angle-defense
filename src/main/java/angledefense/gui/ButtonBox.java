@@ -29,8 +29,8 @@ public class ButtonBox extends JPanel {
         this.setLayout(new GridLayout(3, 1));
 
 		JButton A = createButton("Anti Ground Cannon", GroundTower::new);
-		JButton B = createButton("Gyro Zapper", AirTower::new);
-		JButton C = createButton("Big Daddy", FreezeTower::new);
+		JButton B = createButton("Anti Air Cannon", AirTower::new);
+		JButton C = createButton("Freeze Tower", FreezeTower::new);
 
         this.add(A);
         this.add(B);

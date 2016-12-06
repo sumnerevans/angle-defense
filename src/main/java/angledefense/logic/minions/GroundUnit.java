@@ -11,6 +11,7 @@ public class GroundUnit extends Minion {
         this.goldReward = 3;
         this.health = 10;
         this.speed = 3;
+        this.type = Type.GROUND;
     }
 
     @Override
