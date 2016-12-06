@@ -25,6 +25,11 @@ repositories {
     mavenCentral()
 }
 
+task run(type:JavaExec) {
+    main = "angledefense.gui.Main"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.google.guava:guava:20.0'
