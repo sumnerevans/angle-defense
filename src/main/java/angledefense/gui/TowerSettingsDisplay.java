@@ -6,6 +6,7 @@ import angledefense.logic.towers.Tower;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import java.awt.*;
 
 /**
  * Created by sumner on 12/5/16.
@@ -14,13 +15,13 @@ public class TowerSettingsDisplay extends JPanel {
     private JTextField text = new JTextField();
 
     public TowerSettingsDisplay() {
+        this.setPreferredSize(new Dimension(100, 50));
+        this.setBorder(new TitledBorder(new EtchedBorder(), "Angle: "));
 
         // Angle
-        JPanel anglePanel = new JPanel();
-        anglePanel.setBorder(new TitledBorder(new EtchedBorder(), "Angle: "));
         text.setLocation(0, 0);
-        anglePanel.add(text);
-        add(anglePanel);
+        text.setPreferredSize(new Dimension(100, 20));
+        this.add(text);
     }
 
     public void setInfo(Tower angle) {

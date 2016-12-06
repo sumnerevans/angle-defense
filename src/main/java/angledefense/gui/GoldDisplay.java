@@ -12,21 +12,20 @@ import java.awt.*;
  */
 
 public class GoldDisplay extends JPanel {
-	private JTextField text;
+    private JTextField text;
 
-	public GoldDisplay(Player player) {
+    public GoldDisplay() {
+        this.setPreferredSize(new Dimension(100, 50));
+        this.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
 
-		// Gold
-		JPanel goldPanel = new JPanel();
-		goldPanel.setBorder(new TitledBorder(new EtchedBorder(), "Gold: "));
-		text = new JTextField();
-		text.setLocation(0, 0);
-		text.setEditable(false);
-		goldPanel.add(text);
-		add(goldPanel);
-	}
+        text = new JTextField();
+        text.setLocation(0, 0);
+        text.setEditable(false);
+        text.setPreferredSize(new Dimension(100, 20));
+        add(text);
+    }
 
-	public void setGold(int gold) {
-		text.setText("" + gold);
-	}
+    public void setGold(int gold) {
+        text.setText("" + gold);
+    }
 }
