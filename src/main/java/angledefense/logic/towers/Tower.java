@@ -11,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 
 public abstract class Tower implements IDrawable, ITickable {
 	private static ModelHandle gun = ModelHandle.create("gun");
+	private static ModelHandle lazer = ModelHandle.create("lazer");
 
 	public final int x;
 	public final int y;
@@ -33,8 +34,13 @@ public abstract class Tower implements IDrawable, ITickable {
 
 	@Override
 	public void draw(DrawContext drawContext) {
-		gun.setTransform(new Location(x + .5f, y + .5f), 1, 0, angle);
+		Location loc = new Location(x + .5f, y + .5f);
+		gun.setTransform(loc, 1, 0, angle);
 		gun.draw();
+		if (isFiring > 0) {
+			lazer.setTransform(loc, range, .5f, angle);
+			lazer.draw();
+		}
 	}
 
 	public abstract void attack(Minion minion);
@@ -60,7 +66,7 @@ public abstract class Tower implements IDrawable, ITickable {
 		for (Minion m : game.minions) {
 			if (Util.angleInRange(this.angle,
 					Location.angle(this.getLocation(), m.getLocation()),
-					12)) {
+					24)) {
 
 				this.isFiring = 5;
 				m.attacked(this, this.damage);

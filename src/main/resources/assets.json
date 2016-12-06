@@ -28,5 +28,10 @@
     "type": "model",
     "path": "assets/blank_tile.obj",
     "texture": "assets/tile_brown.png"
+  },
+  "lazer": {
+    "type": "model",
+    "path": "assets/lazer.obj",
+    "texture": "assets/lazer.png"
   }
 }
