@@ -13,7 +13,7 @@ import java.util.Random;
 public abstract class Tower implements IDrawable, ITickable {
     public static final ModelHandle gun = ModelHandle.create("gun");
     public static final ModelHandle lazer = ModelHandle.create("lazer");
-	public static final ModelHandle marker = ModelHandle.create("marker");
+    public static final ModelHandle marker = ModelHandle.create("marker");
 
     public final int x;
     public final int y;
@@ -28,8 +28,8 @@ public abstract class Tower implements IDrawable, ITickable {
     protected int xp = 0;
     protected Instant lastFireTime;
 
-	protected ModelHandle towerModel = gun;
-	protected ModelHandle lazerModel = lazer;
+    protected ModelHandle towerModel = gun;
+    protected ModelHandle lazerModel = lazer;
 
     public Tower(Player owner, Location location) {
         this.owner = owner;
@@ -44,18 +44,18 @@ public abstract class Tower implements IDrawable, ITickable {
     public void draw(DrawContext drawContext) {
         Location loc = this.getLocation();
         towerModel.setTransform(loc, 1, 0, angle);
-		towerModel.draw();
+        towerModel.draw();
 
         if (isFiring > 0) {
 
             lazerModel.setTransform(loc, range, .5f, angle);
-			lazerModel.draw();
+            lazerModel.draw();
         }
 
         for (int i = 0; i < level; i++) {
-			marker.setTransform(loc, 1, 0, i * (float) Math.PI / 4);
-			marker.draw();
-		}
+            marker.setTransform(loc, 1, 0, i * (float) Math.PI / 4);
+            marker.draw();
+        }
     }
 
     public boolean attack(Minion minion) {
@@ -120,6 +120,6 @@ public abstract class Tower implements IDrawable, ITickable {
     }
 
     protected boolean isAreaOfEffect() {
-		return false;
-	}
+        return false;
+    }
 }

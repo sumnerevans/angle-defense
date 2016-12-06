@@ -15,14 +15,14 @@ public class Hud extends JPanel {
     private ArrayList<JLabel> textLabels;
     private Game game;
     private ButtonBox buttonBox;
-    private GoldDisplay goldDisplay;
+    private PlayerDisplay playerDisplay;
     private TowerSettingsDisplay towerSettingsDisplay;
 
     public Hud(Game game) {
         this.game = game;
 
         game.setUIListener(g -> {
-            goldDisplay.setGold(game.getPlayer().getGold());
+            playerDisplay.setInfo(game);
             if (game.getSelectedLocation() != null)
                 towerSettingsDisplay.setInfo(game.getTower(game.getSelectedLocation()));
             else
@@ -35,11 +35,11 @@ public class Hud extends JPanel {
     private void initializeGUI() {
         this.setLayout(new GridLayout(3, 1));
         this.setPreferredSize(new Dimension(200, 512));
-        goldDisplay = new GoldDisplay();
+        playerDisplay = new PlayerDisplay();
         buttonBox = new ButtonBox(game);
         towerSettingsDisplay = new TowerSettingsDisplay(this.game);
 
-        this.add(goldDisplay);
+        this.add(playerDisplay);
         this.add(buttonBox);
         this.add(towerSettingsDisplay);
     }
