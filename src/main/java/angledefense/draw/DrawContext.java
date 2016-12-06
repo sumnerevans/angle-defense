@@ -200,7 +200,7 @@ public class DrawContext {
         yscale = scale / height;
 
         float tx = -.5f * mw;
-        float ty = -.5f * mh + 1;
+        float ty = -.5f * mh;
 
         GL20.glUniform4f(unMapSize, tx, ty, xscale, -yscale);
     }

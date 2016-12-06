@@ -2,6 +2,7 @@ package angledefense.logic;
 
 import angledefense.config.Board;
 import angledefense.config.Level;
+import angledefense.config.Square;
 import angledefense.draw.DrawContext;
 import angledefense.draw.ModelHandle;
 import angledefense.logic.minions.Minion;
@@ -55,7 +56,6 @@ public class Game {
     private Location selected;
     private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
     private Instant levelStartTime;
-    private boolean playerWon = false;
     private Instant now;
 
     private transient Consumer<Game> uilisten;
@@ -231,8 +231,9 @@ public class Game {
 
     public boolean buildTower(Tower t) throws Exception {
         t.onSpawn();
-        int i =  t.y * board.width + t.x;
+        int i = t.y * board.width + t.x;
         if (this.towers.containsKey(i)) throw new Exception("There is already a tower there!");
+        if (board.getSquare(t.x, t.y).getSquareType() != Square.SquareType.GROUND) throw new Exception("Towers can not be placed there!");
         this.towers.put(i, t);
         return true;
     }
