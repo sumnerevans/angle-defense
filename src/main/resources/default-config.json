@@ -30,6 +30,7 @@
     "height": 17,
     "width": 17,
     "nodes": {
+      "rstart": [16.5, 3.5, "tmerge"],
       "tstart": [11.5, -0.5, "tmerge"],
       "tmerge": [11.5, 3.5, "mmerge"],
       "mmerge": [11.5, 9.5, "bend1"],
@@ -41,7 +42,7 @@
       "lmerge": [5.5, 9.5, "mmerge"],
       "lstart2": [0.5, 9.5, "lmerge"]
     },
-    "startNodes": ["tstart", "lstart1", "lstart2"],
+    "startNodes": ["rstart", "tstart", "lstart1", "lstart2"],
     "endNodes": ["end"],
     "decorations": [
       {

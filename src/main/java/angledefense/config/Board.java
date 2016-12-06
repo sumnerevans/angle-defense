@@ -167,7 +167,7 @@ public class Board implements IDrawable {
 							cliffSides.toArray(new Square.CliffSide[0]));
 				}
 			}
-			
+
 			return new Board(width, height, starts, ends, squares, decorations);
 		}
 
