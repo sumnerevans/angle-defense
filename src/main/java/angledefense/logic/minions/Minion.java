@@ -25,6 +25,8 @@ public abstract class Minion implements IDrawable, ITickable {
     protected float size = 1;
     protected float rotation = Float.NaN;
 
+    protected int owchticks = 0;
+
     protected Minion(Node node) {
         this.location = node.location;
         this.currentNode = node;
@@ -74,18 +76,24 @@ public abstract class Minion implements IDrawable, ITickable {
         this.moveForward(this.speed * dt);
         Location b = location;
         rotation = Location.angle(a, b);
+
+        if (owchticks > 0) owchticks--;
     }
 
     @Override
     public void draw(DrawContext drawContext) {
+        if (owchticks > 0) drawContext.setColorMult(1f, .2f, .2f);
         teapot.setTransform(location, size, -1, rotation);
         teapot.draw();
+        drawContext.setColorMult(1f, 1f, 1f);
     }
 
     abstract protected void receiveDamage(Tower tower, int amount);
 
     public void attacked(Tower tower, int amount) {
         this.receiveDamage(tower, amount);
+
+        owchticks = 10;
 
         if (this.health <= 0) {
             this.dead = true;

@@ -40,6 +40,7 @@ public class DrawContext {
     private int unVertRange;
     private int unModelTrans;
     private int unTexture;
+    private int unColorMul;
 
     private Game game;
 
@@ -181,6 +182,9 @@ public class DrawContext {
         unVertRange = shader.getUnLoc("u_vert_range");
         unModelTrans = shader.getUnLoc("u_model_trans");
         unTexture = shader.getUnLoc("u_color_tex");
+        unColorMul = shader.getUnLoc("u_color_mul");
+
+        setColorMult(1, 1, 1);
 
         updateSize();
 
@@ -232,6 +236,10 @@ public class DrawContext {
 
     void setShaderTexture(int tex) {
         GL20.glUniform1i(unTexture, tex);
+    }
+
+    public void setColorMult(float r, float g, float b) {
+        GL20.glUniform3f(unColorMul, r, g, b);
     }
 
     public void close() {
