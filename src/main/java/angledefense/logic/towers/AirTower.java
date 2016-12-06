@@ -7,19 +7,17 @@ import angledefense.logic.Player;
 import angledefense.logic.minions.Minion;
 
 public class AirTower extends Tower {
-
     public AirTower(Player owner, Location location) {
-        super(owner, location);
+        super(owner, location, 1);
         this.damage = 10;
         this.range = 5;
         this.fireRate = 2;
     }
 
-    @Override
-    public void draw(DrawContext drawContext) {
-        // TODO Auto-generated method stub
-
-    }
+	@Override
+	public void draw(DrawContext drawContext) {
+		super.draw(drawContext);
+	}
 
     @Override
     public void attack(Minion minion) {
