@@ -14,24 +14,22 @@ public class Hud extends JPanel {
 	private ArrayList<JButton> buttons;
 	private ArrayList<JLabel> textLabels;
 	private Game game;
-	private ViewField viewField;
 	private ButtonBox buttonBox;
+	private GoldDisplay goldDisplay;
 
 	public Hud(Game game) {
 		this.game = game;
 		initializeGUI();
 	}
 
-
 	private void initializeGUI() {
+		this.setLayout(new GridLayout(3, 1));
 		this.setPreferredSize(new Dimension(200, 512));
-		buttonBox = new ButtonBox(buttons);
+		goldDisplay = new GoldDisplay(game.getPlayer());
+		buttonBox = new ButtonBox();
 
-		//buttonBox.setLocation(700,500);
-		//this.add(buttonBox);
-		this.add(viewField);
-
-
+		this.add(goldDisplay);
+		this.add(buttonBox);
 	}
 
 	public void drawContent() {
