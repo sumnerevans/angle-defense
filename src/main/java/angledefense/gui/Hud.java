@@ -11,7 +11,6 @@ import java.util.*;
  * Created by Sumner on 11/21/16.
  */
 public class Hud extends JPanel {
-    private JPanel board;
     private ArrayList<JButton> buttons;
     private ArrayList<JLabel> textLabels;
     private InfoLayout infoLayout;
@@ -25,7 +24,7 @@ public class Hud extends JPanel {
     }
 
     private void initializeGUI() {
-        this.setPreferredSize(new Dimension(514,60));
+        this.setPreferredSize(new Dimension(150,512));
         infoLayout = new InfoLayout(game.getPlayer());
         infoLayout.setLocation(0,0);
         viewField = new ViewField(game);

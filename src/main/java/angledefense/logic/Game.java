@@ -14,6 +14,9 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 public class Game {
+    public static final int INITIAL_HEIGHT = 700;
+    public static final int INITIAL_WIDTH = 700;
+
     private final Player player;
     private int numLives;
     private Board board;
