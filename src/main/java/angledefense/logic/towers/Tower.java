@@ -40,7 +40,7 @@ public abstract class Tower implements IDrawable, ITickable {
 
     @Override
     public void draw(DrawContext drawContext) {
-        Location loc = new Location(x + .5f, y + .5f);
+        Location loc = this.getLocation();
         gun.setTransform(loc, 1, 0, angle);
         gun.draw();
 
@@ -69,10 +69,11 @@ public abstract class Tower implements IDrawable, ITickable {
 
         float timeUntilFire = this.lastFireTime.until(game.getNow(), ChronoUnit.MILLIS) / 1000f;
 
-        if (timeUntilFire < this.fireRate) return;
+        if (timeUntilFire < 1 / this.fireRate) return;
 
         for (Minion m : game.minions) {
-            boolean angleInAngleRange = Util.angleInRange(this.angle, Location.angle(this.getLocation(), m.getLocation()), 24);
+            boolean angleInAngleRange = Util.angleInRange(this.angle, Location.angle(this
+                    .getLocation(), m.getLocation()), (float) Math.PI / 7.5f);
             boolean angleInRange = Location.dist(this.getLocation(), m.getLocation()) < this.range;
 
             if (angleInAngleRange && angleInRange) {
@@ -87,7 +88,7 @@ public abstract class Tower implements IDrawable, ITickable {
     }
 
     private Location getLocation() {
-        return new Location(x, y);
+        return new Location(x + 0.5f, y + 0.5f);
     }
 
     public Player getOwner() {

@@ -28,8 +28,8 @@ public class Util {
     public static boolean angleInRange(float theta1, float theta2, float tolerance) {
         float dtheta = Math.abs(theta1 - theta2);
 
-        if (dtheta > 180) {
-            if (dtheta - 180 <= tolerance)
+        if (dtheta > Math.PI) {
+            if (2 * Math.PI - dtheta <= tolerance)
                 return true;
         } else {
             if (dtheta <= tolerance)

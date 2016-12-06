@@ -11,9 +11,9 @@ import java.awt.event.ActionEvent;
 public class GroundTower extends Tower {
     public GroundTower(Player owner, Location location) {
         super(owner, location, 1);
-        this.damage = 10;
+        this.damage = 1;
         this.range = 5;
-        this.fireRate = 2;
+        this.fireRate = 3;
     }
 
 	@Override

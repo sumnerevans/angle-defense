@@ -10,9 +10,9 @@ import angledefense.logic.minions.Minion;
 public class AirTower extends Tower {
     public AirTower(Player owner, Location location) {
         super(owner, location, 1);
-        this.damage = 10;
+        this.damage = 1;
         this.range = 5;
-        this.fireRate = 2;
+        this.fireRate = 3;
     }
 
 	@Override
