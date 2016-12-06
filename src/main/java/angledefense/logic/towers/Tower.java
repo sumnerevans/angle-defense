@@ -13,6 +13,7 @@ import java.util.Random;
 public abstract class Tower implements IDrawable, ITickable {
     public static final ModelHandle gun = ModelHandle.create("gun");
     public static final ModelHandle lazer = ModelHandle.create("lazer");
+	public static final ModelHandle marker = ModelHandle.create("marker");
 
     public final int x;
     public final int y;
@@ -49,6 +50,11 @@ public abstract class Tower implements IDrawable, ITickable {
             lazerModel.setTransform(loc, range, .5f, angle);
 			lazerModel.draw();
         }
+
+        for (int i = 0; i < level; i++) {
+			marker.setTransform(loc, 1, 0, i * (float) Math.PI / 4);
+			marker.draw();
+		}
     }
 
     public abstract void attack(Minion minion);

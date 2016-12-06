@@ -43,6 +43,9 @@ public class FreezeTower extends Tower {
         this.range += 1;
 
         switch (this.level) {
+            case 0:
+                this.price = CostManager.FreezePriceLevel1;
+                break;
             case 1:
                 this.price = CostManager.FreezePriceLevel2;
                 break;
