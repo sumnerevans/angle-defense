@@ -4,6 +4,7 @@ import angledefense.draw.DrawContext;
 import angledefense.logic.Game;
 import angledefense.logic.Location;
 import angledefense.logic.Player;
+import angledefense.logic.minions.GroundUnit;
 import angledefense.logic.minions.Minion;
 
 public class AirTower extends Tower {
@@ -21,7 +22,10 @@ public class AirTower extends Tower {
 
     @Override
     public void attack(Minion minion) {
-        minion.attacked(this, 10);
+
+        if (minion.getType() != Minion.Type.GROUND ) {
+            minion.attacked(this, this.damage);
+        }
     }
 
     @Override

@@ -22,12 +22,10 @@ public class GroundTower extends Tower {
 	}
 
     @Override
-    public void attack(Minion minion) {
-        minion.attacked(this, 10);
-    }
+    public void attack(Minion minion) {minion.attacked(this, this.damage);}
 
     @Override
     public void upgrade() {
-        // TODO: Implement
+        this.damage *= this.level;
     }
 }
