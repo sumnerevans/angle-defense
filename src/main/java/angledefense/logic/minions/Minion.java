@@ -10,11 +10,28 @@ import angledefense.logic.Location;
 import angledefense.logic.towers.Tower;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.function.Function;
 
 public abstract class Minion implements IDrawable, ITickable {
-    public enum Type {GROUND, AIR}
+    public enum Type {
+        @SerializedName("ground")
+        GROUND(GroundUnit::new),
+
+        @SerializedName("air")
+        AIR(AirUnit::new);
+
+        private Function<Node, Minion> spawner;
+
+        Type(Function<Node, Minion> s) {
+            this.spawner = s;
+        }
+
+        public Minion create(Node n) {
+            return this.spawner.apply(n);
+        }
+    }
 
     private static ModelHandle teapot = ModelHandle.create("teapot");
     protected Type type;
