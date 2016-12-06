@@ -1,4 +1,4 @@
-package angledefense.draw;
+package angledefense.util;
 
 import angledefense.logic.Location;
 

@@ -9,8 +9,8 @@ public class AirUnit extends Minion {
 	protected AirUnit(Node n) {
 		super(n);
 		this.goldReward = 5;
-		this.health = 7;
-		this.speed = 4;
+		this.health = 10;
+		this.speed = 3;
 	}
 
 	@Override

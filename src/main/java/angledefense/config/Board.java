@@ -4,7 +4,7 @@ import angledefense.draw.DrawContext;
 import angledefense.logic.Decoration;
 import angledefense.logic.IDrawable;
 import angledefense.logic.Location;
-import angledefense.logic.Util;
+import angledefense.util.FileUtils;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
@@ -167,7 +167,7 @@ public class Board implements IDrawable {
 							cliffSides.toArray(new Square.CliffSide[0]));
 				}
 			}
-
+			
 			return new Board(width, height, starts, ends, squares, decorations);
 		}
 

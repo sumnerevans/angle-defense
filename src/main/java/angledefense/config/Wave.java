@@ -14,6 +14,14 @@ public class Wave {
 	public final int count;
 	private final JsonObject stats;
 
+	/**
+	 * Create a minion
+	 * @param minionType
+	 * @param start
+	 * @param end
+	 * @param count
+	 * @param stats
+	 */
 	public Wave(Minion.Type minionType, float start, float end, int count, JsonObject stats) {
 		this.minionType = minionType;
 		this.start = start;

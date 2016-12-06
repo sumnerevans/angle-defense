@@ -11,8 +11,8 @@ import java.awt.*;
  * Created by Mobius on 12/5/16.
  */
 
-public class InfoLayout extends JPanel {
-	public InfoLayout(Player player) {
+public class GoldDisplay extends JPanel {
+	public GoldDisplay(Player player) {
 		setLayout(new GridLayout(1, 3));
 		setBorder(new EtchedBorder());
 		setPreferredSize(new Dimension(200, 50));

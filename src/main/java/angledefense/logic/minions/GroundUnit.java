@@ -6,18 +6,18 @@ import angledefense.logic.towers.Tower;
 
 public class GroundUnit extends Minion {
 
-	GroundUnit(Node n) {
-		super(n);
-		this.goldReward = 3;
-		this.health = 5;
-		this.speed = 5;
-	}
+    GroundUnit(Node n) {
+        super(n);
+        this.goldReward = 3;
+        this.health = 10;
+        this.speed = 3;
+    }
 
-	@Override
-	protected void receiveDamage(Tower tower, int amount) {
-		if (tower instanceof AirTower) return;
+    @Override
+    protected void receiveDamage(Tower tower, int amount) {
+        if (tower instanceof AirTower) return;
 
-		this.health -= amount;
-	}
+        this.health -= amount;
+    }
 
 }

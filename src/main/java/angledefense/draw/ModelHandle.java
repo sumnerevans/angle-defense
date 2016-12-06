@@ -1,6 +1,7 @@
 package angledefense.draw;
 
 import angledefense.logic.Location;
+import angledefense.util.Matrix;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,11 @@ public class ModelHandle {
 	private ModelHandle() {
 	}
 
+	/**
+	 * Creates a ModelHandle given an asset name
+	 * @param modelAsset
+	 * @return
+	 */
 	public static ModelHandle create(String modelAsset) {
 		ModelHandle out = new ModelHandle();
 		if (globalctx != null) {
