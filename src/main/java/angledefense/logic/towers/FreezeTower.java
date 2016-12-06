@@ -31,7 +31,7 @@ public class FreezeTower extends Tower {
 
     @Override
     public void upgrade() {
-        this.damage *= this.level;
+        this.damage *= this.level + 1;
         this.slowAmmount += 0.1;
         this.range += 1;
     }
