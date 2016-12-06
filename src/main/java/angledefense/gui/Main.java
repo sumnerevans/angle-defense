@@ -29,6 +29,8 @@ public class Main extends JFrame {
 			this.setVisible(true);
 			this.setAlwaysOnTop(true);
 
+			game.notifyUI();
+
 			// Play the game
 			game.loop();
 		} catch (FileNotFoundException e) {

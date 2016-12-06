@@ -19,6 +19,9 @@ public class Hud extends JPanel {
 
 	public Hud(Game game) {
 		this.game = game;
+		game.setUIListener(g -> {
+			goldDisplay.setGold(game.getPlayer().getGold());
+		});
 		initializeGUI();
 	}
 

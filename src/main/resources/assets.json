@@ -14,6 +14,11 @@
     "path": "assets/selector.obj",
     "texture": "assets/selector_color.png"
   },
+  "tower_selector": {
+    "type": "model",
+    "path": "assets/selector.obj",
+    "texture": "assets/towsel_color.png"
+  },
   "tile_blank_green": {
     "type": "model",
     "path": "assets/blank_tile.obj",

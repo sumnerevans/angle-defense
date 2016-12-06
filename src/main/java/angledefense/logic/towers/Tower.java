@@ -7,17 +7,19 @@ import angledefense.logic.Player;
 import angledefense.logic.minions.Minion;
 
 public abstract class Tower implements IDrawable, ITickable {
-	protected Location location;
+	public final int x;
+	public final int y;
 	protected float angle;
 	protected float range;
 	protected Player owner;
-	protected int price;
+	protected int price = 1;
 	protected int level;
 	protected int damage;
 
 	public Tower(Player owner, Location location) {
 		this.owner = owner;
-		this.location = location;
+		this.x = location.intX();
+		this.y = location.intY();
 	}
 
 	public abstract void attack(Minion minion);
@@ -28,11 +30,12 @@ public abstract class Tower implements IDrawable, ITickable {
 		this.angle = angle;
 	}
 
-	public void setPosition(int x, int y) {
-		this.location = new Location(x, y);
-	}
-
 	public Player getOwner() {
 		return owner;
+	}
+
+	public boolean onSpawn() throws Exception {
+		owner.spendGold(price);
+		return true;
 	}
 }
