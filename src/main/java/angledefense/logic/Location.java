@@ -78,4 +78,10 @@ public class Location implements Cloneable {
     protected Object clone() throws CloneNotSupportedException {
         return new Location(x, y);
     }
+
+	public static float angle(Location a, Location b) {
+        float dx = b.x - a.x;
+        float dy = b.y - a.y;
+        return (float) Math.atan2(dy, dx);
+	}
 }
