@@ -53,6 +53,7 @@ public class TowerSettingsDisplay extends JPanel {
     private JButton createButton(String text, float incrementAmount) {
         JButton button = new JButton(text);
         button.addActionListener(new ButtonListener(incrementAmount));
+        button.setPreferredSize(new Dimension(50, 20));
         return button;
     }
 
