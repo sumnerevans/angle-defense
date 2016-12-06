@@ -8,8 +8,6 @@ import angledefense.util.Util;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +37,7 @@ public class TowerSettingsDisplay extends JPanel {
         text.setLocation(0, 0);
         text.setPreferredSize(new Dimension(70, 20));
         text.setEnabled(false);
-        text.addActionListener(actionEvent -> updateTowerAngle(warn()));
+        text.addActionListener(actionEvent -> updateTowerAngle(validateInput()));
         text.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -103,6 +101,7 @@ public class TowerSettingsDisplay extends JPanel {
             try {
                 t.upgrade();
             } catch (Exception ex) {
+                // This is a real hack, TODO: Fix this someday
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(TowerSettingsDisplay.this, ex.getMessage(),
                         "Place Tower", JOptionPane.INFORMATION_MESSAGE);
@@ -110,7 +109,7 @@ public class TowerSettingsDisplay extends JPanel {
         }
     }
 
-    private Float warn() {
+    private Float validateInput() {
         Float value = null;
         try {
             value = Float.parseFloat(text.getText());
