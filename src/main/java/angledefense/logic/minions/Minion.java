@@ -76,7 +76,7 @@ public abstract class Minion implements IDrawable, ITickable {
 
 	@Override
 	public void draw(DrawContext drawContext) {
-		teapot.setTransform(location, size, 0, 0);
+		teapot.setTransform(location, size, -1, 0);
 		teapot.draw();
 	}
 
