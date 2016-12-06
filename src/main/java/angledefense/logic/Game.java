@@ -6,12 +6,11 @@ import angledefense.draw.DrawContext;
 import angledefense.draw.ModelHandle;
 import angledefense.logic.minions.Minion;
 import angledefense.logic.towers.Tower;
-import angledefense.util.FileUtils;
+import angledefense.util.Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -52,6 +51,7 @@ public class Game {
     private ArrayList<BiConsumer<Integer, Location>> onclick = new ArrayList<>();
     private Instant levelStartTime;
     private boolean playerWon = false;
+    private Instant now;
 
     /**
      * Create a game object. Called by Gson somehow.
@@ -77,7 +77,7 @@ public class Game {
         Gson gson = new GsonBuilder().registerTypeAdapter(Board.class, new Board.Builder())
                 .setPrettyPrinting().create();
 
-        InputStreamReader streamReader = new InputStreamReader(FileUtils.newFileStream(configFile));
+        InputStreamReader streamReader = new InputStreamReader(Util.newFileStream(configFile));
         BufferedReader r = new BufferedReader(streamReader);
 
         Game g = gson.fromJson(r, Game.class);
@@ -125,7 +125,7 @@ public class Game {
             last = now;
         }
 
-        this.playerWon=this.numLives>0;
+        this.playerWon = this.numLives > 0;
 
         draw.close();
     }
@@ -139,6 +139,7 @@ public class Game {
      */
     private void tick(Instant last, Instant now) {
         this.getLevel().spawnMinions(new TimeRange(levelStartTime, last, now, this.playRate), this);
+        this.now = Instant.now();
         float dt = TimeRange.relativeSecs(last, now) * this.playRate;
 
         for (Tower t : this.towers) {
@@ -269,5 +270,9 @@ public class Game {
 
     public boolean didPlayerWin() {
         return playerWon;
+    }
+
+    public Instant getNow() {
+        return now;
     }
 }

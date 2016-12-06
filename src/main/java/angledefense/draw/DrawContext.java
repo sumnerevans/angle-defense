@@ -2,7 +2,7 @@ package angledefense.draw;
 
 import angledefense.logic.Game;
 import angledefense.logic.Location;
-import angledefense.util.FileUtils;
+import angledefense.util.Util;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.lwjgl.BufferUtils;
@@ -55,7 +55,7 @@ public class DrawContext {
     private void loadAssets() throws FileNotFoundException {
         models = new HashMap<>();
 
-        JsonObject o = new JsonParser().parse(new InputStreamReader(FileUtils.newFileStream("assets.json"))).getAsJsonObject();
+        JsonObject o = new JsonParser().parse(new InputStreamReader(Util.newFileStream("assets.json"))).getAsJsonObject();
 
         // Load all of the things
         o.entrySet().forEach(e -> {
@@ -81,7 +81,7 @@ public class DrawContext {
     private VertexBuffer loadOBJ(String path) {
         return vertbufs.computeIfAbsent(path, p -> {
             try {
-                return OBJLoader.load(FileUtils.newFileStream(path));
+                return OBJLoader.load(Util.newFileStream(path));
             } catch (FileNotFoundException e) {
                 return null;
             }
@@ -108,7 +108,7 @@ public class DrawContext {
     private int loadPNG(String path) {
         return textures.computeIfAbsent(path, p -> {
             try {
-                return uploadImage(ImageIO.read(FileUtils.newFileStream(path)));
+                return uploadImage(ImageIO.read(Util.newFileStream(path)));
             } catch (IOException e) {
                 return null;
             }
@@ -171,8 +171,8 @@ public class DrawContext {
         loadAssets();
 
         shader = ShaderProgram.builder()
-                .setVert(FileUtils.newFileStream("shaders/main.v.glsl"))
-                .setFrag(FileUtils.newFileStream("shaders/main.f.glsl"))
+                .setVert(Util.newFileStream("shaders/main.v.glsl"))
+                .setFrag(Util.newFileStream("shaders/main.f.glsl"))
                 .build();
 
         shader.bind();

@@ -9,30 +9,26 @@ import angledefense.logic.minions.Minion;
 import java.awt.event.ActionEvent;
 
 public class GroundTower extends Tower {
-	public GroundTower(Player owner, Location location) {
-		super(owner, location);
-		this.damage = 10;
-	}
+    public GroundTower(Player owner, Location location) {
+        super(owner, location);
+        this.damage = 10;
+        this.range = 5;
+        this.fireRate = 2;
+    }
 
-	@Override
-	public void draw(DrawContext drawContext) {
-		// TODO Auto-generated method stub
+    @Override
+    public void draw(DrawContext drawContext) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void tick(Game game, float dt) {
-		// TODO Auto-generated method stub
+    @Override
+    public void attack(Minion minion) {
+        minion.attacked(this, 10);
+    }
 
-	}
-
-	@Override
-	public void attack(Minion minion) {
-		minion.attacked(this, 10);
-	}
-
-	@Override
-	public void upgrade() {
-		// TODO: Implement
-	}
+    @Override
+    public void upgrade() {
+        // TODO: Implement
+    }
 }

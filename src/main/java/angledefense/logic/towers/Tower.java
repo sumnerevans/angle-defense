@@ -1,38 +1,57 @@
 package angledefense.logic.towers;
 
-import angledefense.logic.IDrawable;
-import angledefense.logic.ITickable;
-import angledefense.logic.Location;
-import angledefense.logic.Player;
+import angledefense.logic.*;
 import angledefense.logic.minions.Minion;
+import angledefense.util.Util;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 public abstract class Tower implements IDrawable, ITickable {
-	protected Location location;
-	protected float angle;
-	protected float range;
-	protected Player owner;
-	protected int price;
-	protected int level;
-	protected int damage;
+    protected Location location;
+    protected float angle;
+    protected float range;
+    protected int isFiring = 0;
+    protected Player owner;
+    protected int price;
+    protected int level = 1;
+    protected float fireRate;
+    protected int damage;
+    protected Instant lastFireTime;
 
-	public Tower(Player owner, Location location) {
-		this.owner = owner;
-		this.location = location;
-	}
+    public Tower(Player owner, Location location) {
+        this.owner = owner;
+        this.location = location;
+    }
 
-	public abstract void attack(Minion minion);
+    public void tick(Game game, float dt) {
+        this.isFiring--;
 
-	public abstract void upgrade();
+        float timeUntilFire = this.lastFireTime.until(game.getNow(), ChronoUnit.MILLIS) / 1000f;
 
-	public void setAngle(float angle) {
-		this.angle = angle;
-	}
+        if (timeUntilFire > 0) return;
 
-	public void setPosition(int x, int y) {
-		this.location = new Location(x, y);
-	}
+        for (Minion m : game.minions) {
+            if (Util.angleInRange(this.angle,
+                    Location.angle(this.location, m.getLocation()),
+                    12)) {
 
-	public Player getOwner() {
-		return owner;
-	}
+                this.isFiring = 5;
+                m.attacked(this, this.damage);
+                this.lastFireTime = game.getNow();
+            }
+        }
+    }
+
+    public abstract void attack(Minion minion);
+
+    public abstract void upgrade();
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
 }

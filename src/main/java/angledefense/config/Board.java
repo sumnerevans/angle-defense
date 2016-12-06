@@ -4,15 +4,9 @@ import angledefense.draw.DrawContext;
 import angledefense.logic.Decoration;
 import angledefense.logic.IDrawable;
 import angledefense.logic.Location;
-import angledefense.util.FileUtils;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;

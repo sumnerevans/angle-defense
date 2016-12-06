@@ -8,9 +8,9 @@ import java.io.InputStream;
 /**
  * Created by sumner on 11/30/16.
  */
-public class FileUtils {
+public class Util {
     public static InputStream newFileStream(String path) throws FileNotFoundException {
-        ClassLoader cl = FileUtils.class.getClassLoader();
+        ClassLoader cl = Util.class.getClassLoader();
         InputStream stream = cl.getResourceAsStream(path);
 
 
@@ -23,5 +23,19 @@ public class FileUtils {
         }
 
         return stream;
+    }
+
+    public static boolean angleInRange(float theta1, float theta2, float tolerance) {
+        float dtheta = Math.abs(theta1 - theta2);
+
+        if (dtheta > 180) {
+            if (dtheta - 180 <= tolerance)
+                return true;
+        } else {
+            if (dtheta <= tolerance)
+                return true;
+        }
+
+        return false;
     }
 }
