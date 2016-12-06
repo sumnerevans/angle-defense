@@ -13,6 +13,12 @@ public class Level {
 
     }
 
+    /**
+     * Spawns minions for the given time range
+     *
+     * @param time
+     * @param game
+     */
     public void spawnMinions(TimeRange time, Game game) {
         for (Wave w : this.waves) {
             if (time.getEnd() < w.start || time.getStart() > w.end) continue;

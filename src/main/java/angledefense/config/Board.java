@@ -12,6 +12,9 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
+/** This class is immutable
+ *
+ */
 public class Board implements IDrawable {
     public final int width, height;
 
@@ -21,6 +24,16 @@ public class Board implements IDrawable {
     private final Image image;
     private final Decoration[] decorations;
 
+    /**
+     * Create a board, this is called by the Builder
+     * @param width
+     * @param height
+     * @param startNodes
+     * @param endNodes
+     * @param squares
+     * @param decorations
+     * @param image
+     */
     private Board(int width, int height, Node[] startNodes, Node[] endNodes, Square[][] squares,
                   Decoration[] decorations, Image image) {
         this.width = width;
@@ -32,9 +45,13 @@ public class Board implements IDrawable {
         this.decorations = decorations;
     }
 
+    /**
+     * Builds a Board from JSON
+     */
     public static class Builder implements JsonDeserializer<Board> {
         private Gson gson = new Gson();
 
+        // Deserializes the Board JSON
         @Override
         public Board deserialize(JsonElement json, Type type, JsonDeserializationContext context)
                 throws JsonParseException {
@@ -132,6 +149,13 @@ public class Board implements IDrawable {
             return new Board(width, height, starts, ends, squares, decorations, background);
         }
 
+        /**
+         * Builds a node from JSON
+         * @param name
+         * @param nodesJson
+         * @param created
+         * @return
+         */
         private Node buildNode(String name, JsonObject nodesJson, Map<String, Node> created) {
             Node out = created.get(name);
             if (out != null) return out;
@@ -155,6 +179,7 @@ public class Board implements IDrawable {
 
     @Override
     public void draw(DrawContext drawContext) {
+        // Draw the squares
         for (Square[] row : squares) {
             for (Square s : row) {
                 s.draw(drawContext);

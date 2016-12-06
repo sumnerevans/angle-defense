@@ -23,6 +23,12 @@ public class Square implements IDrawable {
     private static ModelHandle blankGreen = ModelHandle.create("tile_blank_green");
     private static ModelHandle blankBrown = ModelHandle.create("tile_blank_brown");
 
+    /**
+     * Create a square
+     * @param location
+     * @param squareType
+     * @param cliffSides
+     */
     public Square(Location location, SquareType squareType, CliffSide[] cliffSides) {
         this.location = location;
         this.squareType = squareType;

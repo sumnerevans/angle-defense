@@ -1,6 +1,5 @@
 package angledefense.draw;
 
-import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
 import java.nio.DoubleBuffer;
@@ -14,10 +13,8 @@ import com.google.gson.JsonParser;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
-import org.lwjgl.system.Platform;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 
