@@ -12,7 +12,7 @@ this as an Eclipse project. Instead we used the automated build
 system Gradle.
 
 ## Opening/Building
-### IntelliJ Idea
+### IntelliJ IDEA
 1. `File->New->Project from Existing Sources...` or `* Import Project` (if you are in the welcome
    screen)
 2. Select "Import project from existing model" and "Gradle"
@@ -22,3 +22,6 @@ system Gradle.
 * Run `gradlew run` to run the program (sometimes finicky)
 * Run `gradlew check` to run tests (results shown in ./build/reports/tests/index.html)
 * Run `gradlew jar` to create a cross-platfrom runnable jar (in ./build/libs/)
+
+## Contributing
+Read [CONTRIBUTING.md](https://github.com/sumnerevans/angle-defense/blob/master/CONTRIBUTING.md)
