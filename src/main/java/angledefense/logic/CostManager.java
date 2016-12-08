@@ -12,8 +12,9 @@ public class CostManager {
     public static final int AirPriceLevel1 = 60;
     public static final int AirPriceLevel2 = 150;
     public static final int AirPriceLevel3 = 400;
-    public static final int FreezePriceLevel1 = 55;
-    public static final int FreezePriceLevel2 = 75;
-    public static final int FreezePriceLevel3 = 160;
-    public static final int FreezePriceLevel0 = 450;
+    public static final int FreezePriceLevel0 = 45;
+    public static final int FreezePriceLevel1 = 75;
+    public static final int FreezePriceLevel2 = 160;
+    public static final int FreezePriceLevel3 = 450;
+
 }

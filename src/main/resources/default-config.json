@@ -11,7 +11,7 @@
                         "speed": 1.5,
                         "health": 10,
                         "size": 0.6,
-                        "goldReward": 3
+                        "goldReward": 2
                     },
                     "count": 25,
                     "start": 15,
@@ -25,10 +25,27 @@
                 {
                     "minion": "ground",
                     "stats": {
+                        "speed": 1.5,
+                        "health": 12,
+                        "size": 0.7,
+                        "goldReward": 3
+                    },
+                    "count": 25,
+                    "start": 15,
+                    "end": 20
+                }
+            ]
+        },
+        {
+            "levelNum": 3,
+            "waves": [
+                {
+                    "minion": "ground",
+                    "stats": {
                         "speed": 0.7,
                         "health": 25,
                         "size": 0.5,
-                        "goldReward": 5
+                        "goldReward": 4
                     },
                     "count": 25,
                     "start": 15,
@@ -40,7 +57,7 @@
                         "speed": 2,
                         "health": 20,
                         "size": 0.7,
-                        "goldReward": 7
+                        "goldReward": 5
                     },
                     "count": 15,
                     "start": 22,
@@ -49,7 +66,7 @@
             ]
         },
         {
-            "levelNum": 3,
+            "levelNum": 4,
             "waves": [
                 {
                     "minion": "ground",
@@ -78,7 +95,7 @@
             ]
         },
         {
-            "levelNum": 4,
+            "levelNum": 5,
             "waves": [
                 {
                     "minion": "air",
