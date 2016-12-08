@@ -13,7 +13,7 @@ public class GroundTower extends Tower {
     public GroundTower(Player owner, Location location) {
         super(owner, location);
         this.damage = 5;
-        this.price = CostManager.GroundPriceLevel1;
+        this.price = CostManager.GroundPriceLevel0;
         this.range = 5;
         this.fireRate = 3;
     }
@@ -44,7 +44,7 @@ public class GroundTower extends Tower {
         owner.spendGold(cost);
 
         this.level++;
-        this.damage *= this.level;
+        this.damage *= (this.level+1);
         this.range += 0.5;
     }
 }

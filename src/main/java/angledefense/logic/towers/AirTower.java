@@ -14,7 +14,7 @@ public class AirTower extends Tower {
 
     public AirTower(Player owner, Location location) {
         super(owner, location);
-        this.price = CostManager.AirPriceLevel1;
+        this.price = CostManager.AirPriceLevel0;
         this.damage = 5;
         this.range = 5;
         this.fireRate = 3;

@@ -16,7 +16,7 @@ public class FreezeTower extends Tower {
 
     public FreezeTower(Player owner, Location location) {
         super(owner, location);
-        this.price = CostManager.FreezePriceLevel1;
+        this.price = CostManager.FreezePriceLevel0;
         this.damage = 3;
         this.range = 4;
         this.fireRate = 1.5f;
@@ -58,8 +58,8 @@ public class FreezeTower extends Tower {
         owner.spendGold(cost);
 
         this.level++;
-        this.damage *= this.level + 1;
-        this.slowAmmount += 0.1;
+        this.damage *= 2;
+        this.slowAmmount += 0.15;
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.security.InvalidParameterException;
  * Created by Sumner on 11/21/16.
  */
 public class Player {
-    private int gold = 4;
+    private int gold = 100;
     private String name;
     private Color color;
     private Game game;
