@@ -2,7 +2,7 @@
 
 > **ALL ACTIVE DEVELOPMENT ON ANGLE DEFENSE HAS MOVED**
 >
-> We have split the project into two pieces: [angle](https://github.com/MadeFromTheBlue/angle)
+> We have moved to: [angle](https://github.com/MadeFromTheBlue/angle)
 >
 > This repository will be kept for archival purposes, but no active development will be done.
 
