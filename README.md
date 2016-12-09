@@ -2,7 +2,7 @@
 
 > **ALL ACTIVE DEVELOPMENT ON ANGLE DEFENSE HAS MOVED**
 >
-> We have split the project into two pieces: [angle-defense-client](https://github.com/MadeFromTheBlue/angle-defense-client) and [angle-defense-server](https://github.com/MadeFromTheBlue/angle-defense-server)
+> We have split the project into two pieces: [angle](https://github.com/MadeFromTheBlue/angle)
 >
 > This repository will be kept for archival purposes, but no active development will be done.
 
