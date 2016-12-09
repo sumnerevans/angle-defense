@@ -1,4 +1,13 @@
 # Angle Defense
+
+> **ALL ACTIVE DEVELOPMENT ON ANGLE DEFENSE HAS MOVED**
+>
+> We have split the project into two pieces: [angle-defense-client](https://github.com/MadeFromTheBlue/angle-defense-client) and [angle-defense-server](https://github.com/MadeFromTheBlue/angle-defense-server)
+>
+> This repository will be kept for archival purposes, but no active development will be done.
+
+-----
+
 Final project for CSCI 306 Software Engineering by **bungle.jar**.
 
 **Team Members:** [Jonathan Sumner Evans](http://the-evans.family/sumner), [Robbie
