@@ -60,6 +60,9 @@ public class FreezeTower extends Tower {
         this.level++;
         this.damage *= 2;
         this.slowAmmount += 0.15;
+        if (level >= 2) {
+            fireRate += 1;
+        }
     }
 
     @Override

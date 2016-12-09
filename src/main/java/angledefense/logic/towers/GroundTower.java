@@ -46,5 +46,8 @@ public class GroundTower extends Tower {
         this.level++;
         this.damage *= (this.level+1);
         this.range += 0.5;
+        if (level >= 2) {
+            this.fireRate += 1;
+        }
     }
 }

@@ -49,5 +49,8 @@ public class AirTower extends Tower {
         this.level++;
         this.damage *= this.level;
         this.range += 0.5;
+        if (level >= 2) {
+            fireRate += 1;
+        }
     }
 }
